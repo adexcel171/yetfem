@@ -33,7 +33,7 @@ const roomsData = {
   },
   deluxe: {
     title: "Deluxe Room",
-    price: "₦35,000",
+    price: "₦15,000",
     image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
     description:
       "Experience enhanced comfort in our Deluxe Room, featuring upgraded amenities and more space. This room boasts a luxurious king-size bed, premium linens, a spacious work area, and a modern bathroom with upgraded fixtures. Perfect for guests who appreciate the finer details and extra space to relax after a busy day exploring Abuja.",
