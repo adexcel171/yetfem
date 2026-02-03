@@ -265,12 +265,35 @@ const Navigation = {
       }
     });
   },
+
+  setupActiveLinks() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        const href = this.getAttribute("href");
+        if (href === "#") return;
+
+        e.preventDefault();
+        const target = document.querySelector(href);
+
+        if (target) {
+          const offsetTop = target.offsetTop - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  },
 };
 
+// ===== HERO SLIDER =====
 // ===== HERO SLIDER =====
 const HeroSlider = {
   init() {
     if (DOM.heroSlides.length === 0) return;
+    // Ensure first slide is active
+    DOM.heroSlides[0].classList.add("active");
     this.startAutoSlide();
   },
 
@@ -282,13 +305,9 @@ const HeroSlider = {
   },
 
   startAutoSlide() {
-    state.intervals.hero = setInterval(
-      () => this.changeSlide(),
-      CONFIG.heroSlideInterval,
-    );
+    setInterval(() => this.changeSlide(), CONFIG.heroSlideInterval);
   },
 };
-
 // ===== ROOM MODAL =====
 const RoomModal = {
   init() {

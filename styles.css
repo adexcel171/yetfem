@@ -305,10 +305,10 @@ button {
   /* Very subtle gradient - just enough for text readability */
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.15) 0%,
-    rgba(0, 0, 0, 0.05) 40%,
-    rgba(0, 0, 0, 0.05) 60%,
-    rgba(0, 0, 0, 0.25) 100%
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.02) 40%,
+    rgba(0, 0, 0, 0.02) 60%,
+    rgba(0, 0, 0, 0.15) 100%
   );
 }
 
@@ -418,40 +418,42 @@ button {
 }
 
 /* Top Label */
-.hero-top-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 35px;
-  animation: fadeIn 1.5s ease-out 0.3s backwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.hero-top-label span {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: #e0a458;
-  text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.label-line {
-  width: 60px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #e0a458, transparent);
-  box-shadow: 0 0 8px rgba(224, 164, 88, 0.4);
-}
+/* LUXURY HOSPITALITY LABEL - COMMENTED OUT TO SHOW PICTURES CLEARLY */
+/* .hero-top-label {
+/*   display: flex;
+/*   align-items: center;
+/*   justify-content: center;
+/*   gap: 20px;
+/*   margin-bottom: 35px;
+/*   animation: fadeIn 1.5s ease-out 0.3s backwards;
+/* }
+/* 
+/* @keyframes fadeIn {
+/*   from {
+/*     opacity: 0;
+/*   }
+/*   to {
+/*     opacity: 1;
+/*   }
+/* }
+/* 
+/* .hero-top-label span {
+/*   font-size: 0.85rem;
+/*   font-weight: 700;
+/*   letter-spacing: 4px;
+/*   color: #e0a458;
+/*   text-transform: capitalize;
+/*   font-family: "Poppins", sans-serif;
+/*   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+/* }
+/* 
+/* .label-line {
+/*   width: 60px;
+/*   height: 1px;
+/*   background: linear-gradient(to right, transparent, #e0a458, transparent);
+/*   box-shadow: 0 0 8px rgba(224, 164, 88, 0.4);
+*/
+/* }
 
 /* Main Title */
 .hero-main-title {
@@ -466,7 +468,7 @@ button {
   font-weight: 900;
   letter-spacing: 8px;
   color: #ffffff;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin-bottom: 10px;
   animation: slideInLeft 1s ease-out 0.5s backwards;
   text-shadow:
@@ -532,6 +534,7 @@ button {
   display: flex;
   gap: 20px;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   animation: fadeInUp 1.5s ease-out 1.1s backwards;
 }
@@ -550,7 +553,7 @@ button {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .hero-btn::before {
@@ -692,7 +695,7 @@ button {
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 2px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: #ffffff;
   font-family: "Poppins", sans-serif;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -963,7 +966,7 @@ button {
 
 .scroll-indicator span {
   font-size: 0.85rem;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 1px;
 }
 
@@ -1098,7 +1101,7 @@ button {
   display: inline-block;
   font-size: 0.9rem;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 2px;
   color: var(--secondary);
   margin-bottom: 15px;
@@ -1321,7 +1324,7 @@ button {
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 700;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 0.5px;
   display: flex;
   align-items: center;
