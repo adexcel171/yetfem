@@ -484,7 +484,7 @@ button {
   font-weight: 400;
   font-style: italic;
   letter-spacing: 6px;
-  background: linear-gradient(135deg, #e0a458 0%, #f4c57c 100%);
+  background: linear-gradient(135deg, #e0a458 0%, #ec9912 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -592,7 +592,7 @@ button {
 
 /* Primary Button */
 .hero-btn-primary {
-  background: linear-gradient(135deg, #e0a458 0%, #b8860b 100%);
+  background: linear-gradient(135deg, #e0a458 0%, #c18d08 100%);
   color: #ffffff;
   box-shadow: 0 8px 25px rgba(224, 164, 88, 0.5);
 }
@@ -626,11 +626,11 @@ button {
   transform: translateX(-50%);
   display: flex;
   gap: 40px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
+  background: rgba(24, 23, 23, 0.2);
+  backdrop-filter: blur(15px);
   padding: 30px 50px;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(9, 8, 8, 0.4);
   animation: fadeInUp 1.5s ease-out 1.3s backwards;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
@@ -639,13 +639,13 @@ button {
   display: flex;
   align-items: center;
   gap: 15px;
-  color: #ffffff;
+  color: #f9f4f4;
 }
 
 .info-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #e0a458 0%, #b8860b 100%);
+  background: linear-gradient(135deg, #ca9550 0%, #ecb938 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
