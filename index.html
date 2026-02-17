@@ -22,6 +22,10 @@
   </head>
   <body>
     <!-- Preloader -->
+    <div class="preloader" id="preloader">
+      <div class="loader"></div>
+      <div class="preloader-text">YETFEM</div>
+    </div>
 
     <!-- Navigation -->
     <nav id="navbar" class="navbar" style="background: transparent">
@@ -50,6 +54,7 @@
       <div class="hero-video-bg">
         <canvas id="heroCanvas"></canvas>
       </div>
+
       <!-- Soft gradient overlay for text readability -->
       <div class="hero-video-overlay-gradient"></div>
 
@@ -60,53 +65,91 @@
 
       <!-- Main Content -->
       <div class="hero-wrapper">
+        <!-- Left vertical rule decoration -->
+        <div class="hero-rule">
+          <div class="hero-rule-dot"></div>
+        </div>
+
+        <!-- Ghost oversized background text -->
+        <div class="hero-ghost-text" aria-hidden="true">YF</div>
+
+        <!-- Main Content — left-aligned, editorial -->
         <div class="hero-content">
-          <div class="hero-top-label">
-            <div class="label-line"></div>
-            <div class="label-line"></div>
+          <!-- Eyebrow label -->
+          <div class="hero-eyebrow">
+            <span class="eyebrow-line"></span>
+            <span class="eyebrow-copy">Boutique Luxury · Abuja, Nigeria</span>
+            <span class="eyebrow-dot"></span>
           </div>
+
+          <!-- Title block -->
           <h1 class="hero-main-title">
-            <span class="title-line-1">YETFEM</span>
+            <span class="title-line-1">
+              <span class="title-drop">Y</span>ETFEM
+            </span>
             <span class="title-line-2">Hotel &amp; Suites</span>
+            <span class="title-location">
+              <i class="fas fa-location-dot"></i>
+              Bwari Area Council, Abuja
+            </span>
           </h1>
+
+          <!-- Tagline -->
           <p class="hero-tagline">
-            Where Elegance Meets Comfort in the Heart of Abuja
+            Where elegance meets comfort — a sanctuary crafted for those who
+            demand more.
           </p>
+
+          <!-- CTAs -->
           <div class="hero-cta">
             <a href="rooms.html" class="hero-btn hero-btn-primary">
               <span>Explore Rooms</span>
-              <i class="fas fa-arrow-right"></i>
+              <span class="btn-icon-box"
+                ><i class="fas fa-arrow-right"></i
+              ></span>
             </a>
-            <a href="contact.html" class="hero-btn hero-btn-outline">
+            <a href="contact.html" class="hero-btn hero-btn-ghost">
               <span>Book Your Stay</span>
-              <i class="fas fa-calendar-check"></i>
+              <i class="fas fa-chevron-right"></i>
             </a>
           </div>
         </div>
 
-        <!-- Bottom Info Cards -->
-        <div class="hero-info-cards">
-          <div class="info-card">
-            <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="info-content">
+        <!-- Bottom Stats Bar — replaces the old floating info cards -->
+        <div class="hero-stats-bar">
+          <div class="stat-cell">
+            <div class="stat-icon-box">
+              <i class="fas fa-shield-halved"></i>
+            </div>
+            <div class="stat-body">
               <h4>24/7 Security</h4>
-              <p>Safe &amp; Secure</p>
+              <p>Safe &amp; always secure</p>
             </div>
           </div>
-          <div class="info-card">
-            <div class="info-icon"><i class="fas fa-concierge-bell"></i></div>
-            <div class="info-content">
+
+          <div class="stat-cell">
+            <div class="stat-icon-box">
+              <i class="fas fa-bell-concierge"></i>
+            </div>
+            <div class="stat-body">
               <h4>Premium Service</h4>
-              <p>Always Available</p>
+              <p>At your call, any hour</p>
             </div>
           </div>
-          <div class="info-card">
-            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="info-content">
+
+          <div class="stat-cell">
+            <div class="stat-icon-box"><i class="fas fa-location-dot"></i></div>
+            <div class="stat-body">
               <h4>Prime Location</h4>
               <p>Heart of Abuja</p>
             </div>
           </div>
+        </div>
+
+        <!-- Right-side scroll indicator -->
+        <div class="hero-scroll-track">
+          <div class="scroll-line"></div>
+          <span class="scroll-label">Scroll</span>
         </div>
       </div>
 
@@ -787,6 +830,7 @@
     <button id="scrollTop" class="scroll-top" aria-label="Scroll to top">
       <i class="fas fa-arrow-up"></i>
     </button>
+
     <script src="app.js"></script>
   </body>
 </html>
