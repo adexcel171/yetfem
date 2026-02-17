@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Yetfem Hotel Rooms – Standard, Deluxe, Executive Suite and Family rooms in Abuja, Nigeria."
+    />
+    <title>Rooms & Suites | Yetfem Hotel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Preloader -->
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar scrolled">
+      <div class="nav-container">
+        <a href="index.html" class="logo"
+          ><span class="logo-text">YETFEM</span></a
+        >
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="rooms.html" class="nav-link active">Rooms</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="amenities.html" class="nav-link">Amenities</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <div class="page-hero" style="padding-top: 76px">
+      <div
+        class="page-hero-bg"
+        style="
+          background-image: url(&quot;https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400&quot;);
+        "
+      ></div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a><span>/</span
+          ><span>Rooms &amp; Suites</span>
+        </div>
+        <h1>Rooms &amp; <span>Suites</span></h1>
+        <p>
+          Find the perfect room for your stay — from cozy standards to lavish
+          suites
+        </p>
+      </div>
+    </div>
+
+    <!-- Rooms Section -->
+    <section class="rooms section">
+      <div class="container">
+        <!-- Filter Buttons -->
+        <div class="rooms-filter" data-aos="fade-up">
+          <button class="filter-btn active" data-filter="all">All Rooms</button>
+          <button class="filter-btn" data-filter="standard">Standard</button>
+          <button class="filter-btn" data-filter="deluxe">Deluxe</button>
+          <button class="filter-btn" data-filter="suite">Suite</button>
+          <button class="filter-btn" data-filter="family">Family</button>
+        </div>
+
+        <div class="rooms-grid">
+          <!-- Standard Room -->
+          <div
+            class="room-card"
+            data-room="standard"
+            data-filter="standard"
+            data-aos="fade-up"
+          >
+            <div class="room-image-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800"
+                alt="Standard Room"
+                class="room-image"
+              />
+              <div class="room-overlay">
+                <button class="btn btn-ghost">
+                  <i class="fas fa-eye"></i><span>View Details</span>
+                </button>
+              </div>
+              <div class="room-badge popular">
+                <i class="fas fa-star"></i><span>Most Popular</span>
+              </div>
+            </div>
+            <div class="room-content">
+              <div class="room-header">
+                <h3 class="room-title">Standard Room</h3>
+                <div class="room-price">
+                  <span class="price-amount">₦25,000</span
+                  ><span class="price-period">/ night</span>
+                </div>
+              </div>
+              <p class="room-description">
+                Perfect for couples or solo travelers. Cozy comfort with modern
+                amenities and elegant design for a restful night.
+              </p>
+              <div class="room-features-list">
+                <div class="room-feature-item">
+                  <i class="fas fa-bed"></i><span>Queen Bed</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-users"></i><span>2 Guests</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-wifi"></i><span>Free WiFi</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-tv"></i><span>Smart TV</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block room-detail-btn">
+                <span>Book Now</span><i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Deluxe Room -->
+          <div
+            class="room-card"
+            data-room="deluxe"
+            data-filter="deluxe"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="room-image-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800"
+                alt="Deluxe Room"
+                class="room-image"
+              />
+              <div class="room-overlay">
+                <button class="btn btn-ghost">
+                  <i class="fas fa-eye"></i><span>View Details</span>
+                </button>
+              </div>
+            </div>
+            <div class="room-content">
+              <div class="room-header">
+                <h3 class="room-title">Deluxe Room</h3>
+                <div class="room-price">
+                  <span class="price-amount">₦35,000</span
+                  ><span class="price-period">/ night</span>
+                </div>
+              </div>
+              <p class="room-description">
+                Enhanced comfort with premium furnishings and a separate seating
+                area — ideal for guests seeking extra space and luxury.
+              </p>
+              <div class="room-features-list">
+                <div class="room-feature-item">
+                  <i class="fas fa-bed"></i><span>King Bed</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-users"></i><span>2 Guests</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-couch"></i><span>Seating Area</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-mug-hot"></i><span>Mini Bar</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block room-detail-btn">
+                <span>Book Now</span><i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Executive Suite -->
+          <div
+            class="room-card"
+            data-room="executive"
+            data-filter="suite"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <div class="room-image-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+                alt="Executive Suite"
+                class="room-image"
+              />
+              <div class="room-overlay">
+                <button class="btn btn-ghost">
+                  <i class="fas fa-eye"></i><span>View Details</span>
+                </button>
+              </div>
+              <div class="room-badge luxury">
+                <i class="fas fa-crown"></i><span>Luxury Suite</span>
+              </div>
+            </div>
+            <div class="room-content">
+              <div class="room-header">
+                <h3 class="room-title">Executive Suite</h3>
+                <div class="room-price">
+                  <span class="price-amount">₦55,000</span
+                  ><span class="price-period">/ night</span>
+                </div>
+              </div>
+              <p class="room-description">
+                The pinnacle of luxury. Separate living room, panoramic city
+                views, jacuzzi bath, and dedicated butler service.
+              </p>
+              <div class="room-features-list">
+                <div class="room-feature-item">
+                  <i class="fas fa-bed"></i><span>King Bed</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-couch"></i><span>Living Room</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-hot-tub"></i><span>Jacuzzi</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-concierge-bell"></i><span>Butler</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block room-detail-btn">
+                <span>Book Now</span><i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Family Room -->
+          <div
+            class="room-card"
+            data-room="family"
+            data-filter="family"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <div class="room-image-wrapper">
+              <img
+                src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800"
+                alt="Family Room"
+                class="room-image"
+              />
+              <div class="room-overlay">
+                <button class="btn btn-ghost">
+                  <i class="fas fa-eye"></i><span>View Details</span>
+                </button>
+              </div>
+            </div>
+            <div class="room-content">
+              <div class="room-header">
+                <h3 class="room-title">Family Room</h3>
+                <div class="room-price">
+                  <span class="price-amount">₦45,000</span
+                  ><span class="price-period">/ night</span>
+                </div>
+              </div>
+              <p class="room-description">
+                Spacious and welcoming, designed with the whole family in mind.
+                Multiple beds, large bathroom, and child-friendly amenities.
+              </p>
+              <div class="room-features-list">
+                <div class="room-feature-item">
+                  <i class="fas fa-bed"></i><span>2 Queen Beds</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-users"></i><span>4 Guests</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-child"></i><span>Kids Area</span>
+                </div>
+                <div class="room-feature-item">
+                  <i class="fas fa-tv"></i><span>Smart TV</span>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-block room-detail-btn">
+                <span>Book Now</span><i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Info -->
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <span class="section-label">Pricing</span>
+          <h2 class="section-title">
+            Transparent <span class="accent">Pricing</span>
+          </h2>
+          <p class="section-subtitle">
+            No hidden fees. What you see is what you pay.
+          </p>
+        </div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+          "
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div class="feature-card" style="text-align: center">
+            <div class="feature-icon"><i class="fas fa-bed"></i></div>
+            <h4>Standard Room</h4>
+            <p
+              style="
+                font-size: 1.6rem;
+                font-weight: 800;
+                color: var(--secondary);
+                margin: 10px 0;
+              "
+            >
+              ₦25,000<span style="font-size: 0.9rem; font-weight: 400"
+                >/night</span
+              >
+            </p>
+            <p>Up to 2 guests</p>
+          </div>
+          <div class="feature-card" style="text-align: center">
+            <div class="feature-icon"><i class="fas fa-star"></i></div>
+            <h4>Deluxe Room</h4>
+            <p
+              style="
+                font-size: 1.6rem;
+                font-weight: 800;
+                color: var(--secondary);
+                margin: 10px 0;
+              "
+            >
+              ₦35,000<span style="font-size: 0.9rem; font-weight: 400"
+                >/night</span
+              >
+            </p>
+            <p>Up to 2 guests</p>
+          </div>
+          <div class="feature-card" style="text-align: center">
+            <div class="feature-icon"><i class="fas fa-crown"></i></div>
+            <h4>Executive Suite</h4>
+            <p
+              style="
+                font-size: 1.6rem;
+                font-weight: 800;
+                color: var(--secondary);
+                margin: 10px 0;
+              "
+            >
+              ₦55,000<span style="font-size: 0.9rem; font-weight: 400"
+                >/night</span
+              >
+            </p>
+            <p>Up to 3 guests</p>
+          </div>
+          <div class="feature-card" style="text-align: center">
+            <div class="feature-icon"><i class="fas fa-users"></i></div>
+            <h4>Family Room</h4>
+            <p
+              style="
+                font-size: 1.6rem;
+                font-weight: 800;
+                color: var(--secondary);
+                margin: 10px 0;
+              "
+            >
+              ₦45,000<span style="font-size: 0.9rem; font-weight: 400"
+                >/night</span
+              >
+            </p>
+            <p>Up to 4 guests</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking CTA -->
+    <div class="booking-strip">
+      <h2>Ready to Reserve Your Room?</h2>
+      <p>Book now and secure the best rates directly with us.</p>
+      <a href="contact.html" class="btn"
+        >Book Now <i class="fas fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-main">
+          <div class="footer-section footer-brand">
+            <div class="footer-logo">
+              <span class="logo-text">YETFEM</span
+              ><span class="logo-subtitle">HOTEL</span>
+            </div>
+            <p class="footer-description">
+              Your trusted boutique hotel in the heart of Abuja.
+            </p>
+            <div class="social-links">
+              <a href="https://www.tiktok.com/@yetfemhotel" target="_blank"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+              <a href="https://www.instagram.com/yetfemhotel" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="http://linkedin.com/in/yetfemhotel" target="_blank"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="rooms.html">Rooms &amp; Rates</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="amenities.html">Amenities</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Room Categories</h3>
+            <ul class="footer-links">
+              <li><a href="rooms.html">Standard Room</a></li>
+              <li><a href="rooms.html">Deluxe Room</a></li>
+              <li><a href="rooms.html">Executive Suite</a></li>
+              <li><a href="rooms.html">Family Room</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Info</h3>
+            <ul class="footer-links">
+              <li>
+                <i class="fas fa-phone"></i
+                ><a href="tel:+2348131616988">+234 813 161 6988</a>
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span>
+              </li>
+              <li><i class="fas fa-clock"></i><span>24/7 Service</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Yetfem Hotel. All Rights Reserved.</p>
+          <p>
+            Crafted with <i class="fas fa-heart"></i> for exceptional
+            hospitality
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Room Modal -->
+    <div id="roomModal" class="modal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-container">
+        <button class="modal-close" id="modalClose">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-content">
+          <div class="modal-image-section">
+            <img id="modalImage" src="" alt="Room" />
+          </div>
+          <div class="modal-body">
+            <div class="modal-header">
+              <div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-price">
+                  <span class="price-amount" id="modalAmount"></span
+                  ><span class="price-period">per night</span>
+                </div>
+              </div>
+            </div>
+            <p class="modal-description" id="modalDescription"></p>
+            <div class="modal-features" id="modalFeatures"></div>
+            <div class="booking-section">
+              <h4><i class="fas fa-calendar-check"></i> Ready to Book?</h4>
+              <p>
+                Contact us via WhatsApp or make a payment to the account below:
+              </p>
+              <div class="payment-info">
+                <div class="payment-row">
+                  <span class="label">Account Name:</span
+                  ><span class="value">Yetfem Hotel</span>
+                </div>
+                <div class="payment-row">
+                  <span class="label">Bank:</span
+                  ><span class="value">Moniepoint Bank</span>
+                </div>
+                <div class="payment-row">
+                  <span class="label">Account Number:</span
+                  ><span class="value">*******</span>
+                </div>
+              </div>
+              <p class="payment-note">
+                After payment, send proof with booking details via WhatsApp to
+                confirm your reservation.
+              </p>
+              <a
+                href="https://wa.me/2348131616988?text=Hi%20Yetfem,%20I%27d%20like%20to%20book%20a%20room"
+                target="_blank"
+                class="btn btn-primary btn-block btn-whatsapp"
+                ><i class="fab fa-whatsapp"></i
+                ><span>Book via WhatsApp</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button id="scrollTop" class="scroll-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <script src="app.js"></script>
+  </body>
+</html>

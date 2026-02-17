@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery | Yetfem Hotel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav id="navbar" class="navbar scrolled">
+      <div class="nav-container">
+        <a href="index.html" class="logo"
+          ><span class="logo-text">YETFEM</span></a
+        >
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="rooms.html" class="nav-link">Rooms</a></li>
+          <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+          <li><a href="amenities.html" class="nav-link">Amenities</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="page-hero" style="padding-top: 76px">
+      <div
+        class="page-hero-bg"
+        style="
+          background-image: url(&quot;https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1400&quot;);
+        "
+      ></div>
+      <div class="page-hero-overlay"></div>
+      <div class="page-hero-content">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a><span>/</span><span>Gallery</span>
+        </div>
+        <h1>Photo <span>Gallery</span></h1>
+        <p>A visual journey through Yetfem Hotel's spaces and experiences</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <!-- Filter -->
+        <div class="gallery-filters" data-aos="fade-up">
+          <button class="filter-btn active" data-gallery-filter="all">
+            All
+          </button>
+          <button class="filter-btn" data-gallery-filter="rooms">Rooms</button>
+          <button class="filter-btn" data-gallery-filter="lobby">Lobby</button>
+          <button class="filter-btn" data-gallery-filter="dining">
+            Dining
+          </button>
+          <button class="filter-btn" data-gallery-filter="exterior">
+            Exterior
+          </button>
+        </div>
+
+        <!-- Masonry Grid -->
+        <div class="gallery-grid-full" data-aos="fade-up" data-aos-delay="100">
+          <div class="gallery-item" data-gallery-cat="rooms">
+            <img
+              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700"
+              alt="Standard Room"
+            />
+            <div class="gallery-overlay">
+              <h4>Standard Room</h4>
+              <p>Comfortable &amp; Modern</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="lobby">
+            <img
+              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=700"
+              alt="Hotel Lobby"
+            />
+            <div class="gallery-overlay">
+              <h4>Lobby &amp; Reception</h4>
+              <p>Welcoming Ambiance</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="rooms">
+            <img
+              src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=700"
+              alt="Deluxe Room"
+            />
+            <div class="gallery-overlay">
+              <h4>Deluxe Room</h4>
+              <p>Premium Luxury</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="rooms">
+            <img
+              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=700"
+              alt="Executive Suite"
+            />
+            <div class="gallery-overlay">
+              <h4>Executive Suite</h4>
+              <p>Ultimate Elegance</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="dining">
+            <img
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700"
+              alt="Restaurant"
+            />
+            <div class="gallery-overlay">
+              <h4>Restaurant</h4>
+              <p>Fine Dining</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="rooms">
+            <img
+              src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=700"
+              alt="Family Room"
+            />
+            <div class="gallery-overlay">
+              <h4>Family Room</h4>
+              <p>Spacious Living</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="exterior">
+            <img
+              src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700"
+              alt="Hotel Exterior"
+            />
+            <div class="gallery-overlay">
+              <h4>Hotel Exterior</h4>
+              <p>Grand Entrance</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="lobby">
+            <img
+              src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=700"
+              alt="Hotel Bar"
+            />
+            <div class="gallery-overlay">
+              <h4>Hotel Bar &amp; Lounge</h4>
+              <p>Relaxing Atmosphere</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="dining">
+            <img
+              src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700"
+              alt="Breakfast"
+            />
+            <div class="gallery-overlay">
+              <h4>Breakfast Spread</h4>
+              <p>Start Your Day Right</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="rooms">
+            <img
+              src="https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=700"
+              alt="Bathroom"
+            />
+            <div class="gallery-overlay">
+              <h4>En-Suite Bathroom</h4>
+              <p>Spa-Like Comfort</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="exterior">
+            <img
+              src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=700"
+              alt="Swimming Pool"
+            />
+            <div class="gallery-overlay">
+              <h4>Outdoor Area</h4>
+              <p>Refreshing Escape</p>
+            </div>
+          </div>
+          <div class="gallery-item" data-gallery-cat="lobby">
+            <img
+              src="https://images.unsplash.com/photo-1568495248636-6432b97bd949?w=700"
+              alt="Conference Room"
+            />
+            <div class="gallery-overlay">
+              <h4>Conference Room</h4>
+              <p>Business Ready</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking CTA -->
+    <div class="booking-strip">
+      <h2>Love What You See?</h2>
+      <p>
+        Come experience it in person — book your stay at Yetfem Hotel today.
+      </p>
+      <a href="contact.html" class="btn"
+        >Book Now <i class="fas fa-arrow-right"></i
+      ></a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-main">
+          <div class="footer-section footer-brand">
+            <div class="footer-logo">
+              <span class="logo-text">YETFEM</span
+              ><span class="logo-subtitle">HOTEL</span>
+            </div>
+            <p class="footer-description">
+              Your trusted boutique hotel in the heart of Abuja.
+            </p>
+            <div class="social-links">
+              <a href="https://www.tiktok.com/@yetfemhotel" target="_blank"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+              <a href="https://www.instagram.com/yetfemhotel" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="http://linkedin.com/in/yetfemhotel" target="_blank"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="rooms.html">Rooms &amp; Rates</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="amenities.html">Amenities</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Room Categories</h3>
+            <ul class="footer-links">
+              <li><a href="rooms.html">Standard Room</a></li>
+              <li><a href="rooms.html">Deluxe Room</a></li>
+              <li><a href="rooms.html">Executive Suite</a></li>
+              <li><a href="rooms.html">Family Room</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Contact Info</h3>
+            <ul class="footer-links">
+              <li>
+                <i class="fas fa-phone"></i
+                ><a href="tel:+2348131616988">+234 813 161 6988</a>
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span>
+              </li>
+              <li><i class="fas fa-clock"></i><span>24/7 Service</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Yetfem Hotel. All Rights Reserved.</p>
+          <p>
+            Crafted with <i class="fas fa-heart"></i> for exceptional
+            hospitality
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-inner">
+        <button class="lightbox-close"><i class="fas fa-times"></i></button>
+        <img class="lightbox-img" src="" alt="Gallery Image" />
+      </div>
+    </div>
+
+    <button id="scrollTop" class="scroll-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+    <script src="app.js"></script>
+    <script>
+      // Gallery category filter
+      document.querySelectorAll("[data-gallery-filter]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-gallery-filter]")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const cat = btn.dataset.galleryFilter;
+          document
+            .querySelectorAll(".gallery-item[data-gallery-cat]")
+            .forEach((item) => {
+              item.style.display =
+                cat === "all" || item.dataset.galleryCat === cat
+                  ? "block"
+                  : "none";
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

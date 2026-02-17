@@ -1,675 +1,465 @@
-// ============================================
-// YETFEM HOTEL - MODERN JAVASCRIPT
-// ============================================
+/* ============================================
+   YETFEM HOTEL — Shared JavaScript
+   ============================================ */
 
-"use strict";
+// ── Preloader ──────────────────────────────────────────
+window.addEventListener("load", () => {
+  const pre = document.getElementById("preloader");
+  if (pre) {
+    setTimeout(() => pre.classList.add("hidden"), 500);
+  }
+});
 
-// ===== CONFIGURATION =====
-const CONFIG = {
-  heroSlideInterval: 7000,
-  testimonialInterval: 5000,
-  scrollThreshold: 500,
-  animationDelay: 100,
-};
+// ── Navbar scroll ──────────────────────────────────────
+const navbar = document.getElementById("navbar");
+if (navbar) {
+  window.addEventListener("scroll", () => {
+    navbar.classList.toggle("scrolled", window.scrollY > 50);
+  });
+}
 
-// ===== ROOM DATA =====
-const roomsData = {
+// ── Hamburger ──────────────────────────────────────────
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+if (hamburger && navLinks) {
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    navLinks.classList.toggle("active");
+  });
+  navLinks.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      hamburger.classList.remove("active");
+      navLinks.classList.remove("active");
+    });
+  });
+}
+
+// ── Active nav link (multipage) ────────────────────────
+(function setActiveNav() {
+  const page = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    const href = link.getAttribute("href");
+    if (href && href.includes(page) && !href.startsWith("#")) {
+      link.classList.add("active");
+    }
+  });
+})();
+
+// ── Scroll to top ──────────────────────────────────────
+const scrollTopBtn = document.getElementById("scrollTop");
+if (scrollTopBtn) {
+  window.addEventListener("scroll", () => {
+    scrollTopBtn.classList.toggle("visible", window.scrollY > 400);
+  });
+  scrollTopBtn.addEventListener("click", () =>
+    window.scrollTo({ top: 0, behavior: "smooth" }),
+  );
+}
+
+// ── Simple AOS (Animate on scroll) ────────────────────
+(function initAOS() {
+  const elements = document.querySelectorAll("[data-aos]");
+  if (!elements.length) return;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const delay = e.target.dataset.aosDelay
+            ? parseInt(e.target.dataset.aosDelay)
+            : 0;
+          setTimeout(() => e.target.classList.add("aos-animate"), delay);
+        }
+      });
+    },
+    { threshold: 0.12 },
+  );
+  elements.forEach((el) => observer.observe(el));
+})();
+
+// ── Contact Form ───────────────────────────────────────
+const contactForm = document.getElementById("contactForm");
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const btn = contactForm.querySelector('button[type="submit"]');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-check"></i><span>Message Sent!</span>';
+    btn.style.background = "linear-gradient(135deg,#10b981,#059669)";
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.style.background = "";
+      contactForm.reset();
+    }, 3000);
+  });
+}
+
+// ── Room Modal (index page) ────────────────────────────
+const roomData = {
   standard: {
     title: "Standard Room",
     price: "₦25,000",
-    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800",
+    image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900",
     description:
-      "Our cozy Standard Room is perfect for solo travelers or couples seeking comfort and value. Featuring a comfortable queen-size bed, modern furnishings, and all essential amenities, this room provides everything you need for a pleasant stay. The room is tastefully decorated with warm tones and includes a work desk, making it suitable for both leisure and business travelers.",
+      "Perfect for couples or solo travelers, our Standard Room offers cozy comfort with modern amenities. Thoughtfully designed with elegant furnishings and all the essentials for a restful stay.",
     features: [
-      { icon: "bed", text: "Queen Size Bed" },
-      { icon: "users", text: "Sleeps 2 Guests" },
-      { icon: "wifi", text: "Free High-Speed WiFi" },
-      { icon: "tv", text: "Flat Screen TV" },
-      { icon: "wind", text: "Air Conditioning" },
-      { icon: "shower", text: "Private Bathroom" },
-      { icon: "mug-hot", text: "Tea/Coffee Maker" },
-      { icon: "concierge-bell", text: "Room Service Available" },
+      "Queen Bed",
+      "Free WiFi",
+      "Smart TV",
+      "Air Conditioning",
+      "Private Bathroom",
+      "Room Service",
+      "2 Guests Max",
+      "City View",
     ],
   },
   deluxe: {
     title: "Deluxe Room",
-    price: "₦15,000",
-    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800",
+    price: "₦35,000",
+    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=900",
     description:
-      "Experience enhanced comfort in our Deluxe Room, featuring upgraded amenities and more space. This room boasts a luxurious king-size bed, premium linens, a spacious work area, and a modern bathroom with upgraded fixtures. Perfect for guests who appreciate the finer details and extra space to relax after a busy day exploring Abuja.",
+      "Enhanced comfort with premium furnishings. Our Deluxe Room is ideal for guests seeking extra space and a touch of luxury, featuring a separate seating area and upgraded amenities.",
     features: [
-      { icon: "bed", text: "King Size Bed" },
-      { icon: "users", text: "Sleeps 2 Guests" },
-      { icon: "wifi", text: "Free High-Speed WiFi" },
-      { icon: "tv", text: "Smart TV with Netflix" },
-      { icon: "wind", text: "Climate Control AC" },
-      { icon: "bath", text: "Premium Bathroom Amenities" },
-      { icon: "couch", text: "Seating Area" },
-      { icon: "briefcase", text: "Work Desk & Chair" },
-      { icon: "mug-hot", text: "Mini Bar" },
-      { icon: "lock", text: "In-Room Safe" },
+      "King Bed",
+      "Seating Area",
+      "Mini Bar",
+      "Free WiFi",
+      "Smart TV",
+      "Air Conditioning",
+      "Private Bathroom",
+      "2 Guests Max",
     ],
   },
   executive: {
     title: "Executive Suite",
-    price: "₦50,000",
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800",
+    price: "₦55,000",
+    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900",
     description:
-      "Indulge in luxury with our Executive Suite, the crown jewel of Yetfem Hotel. This spacious suite features a separate living area, king-size bed, premium furnishings, and stunning city views. The elegant bathroom includes a bathtub for ultimate relaxation. Perfect for special occasions, extended stays, or guests who demand the very best in comfort and style.",
+      "Our Executive Suite represents the pinnacle of luxury. Featuring a separate living area, premium minibar, and panoramic views—perfect for distinguished guests and special occasions.",
     features: [
-      { icon: "bed", text: "Luxury King Bed" },
-      { icon: "users", text: "Sleeps 2-3 Guests" },
-      { icon: "couch", text: "Separate Living Room" },
-      { icon: "tv", text: "2 Smart TVs" },
-      { icon: "wifi", text: "Premium WiFi" },
-      { icon: "wind", text: "Climate Control" },
-      { icon: "bath", text: "Bathtub & Rain Shower" },
-      { icon: "mug-hot", text: "Full Mini Bar" },
-      { icon: "eye", text: "City Views" },
-      { icon: "briefcase", text: "Executive Work Station" },
-      { icon: "concierge-bell", text: "Priority Room Service" },
-      { icon: "spa", text: "Complimentary Toiletries" },
+      "King Bed",
+      "Living Room",
+      "Jacuzzi Bath",
+      "Premium Minibar",
+      "Butler Service",
+      "City Panorama",
+      "Free WiFi",
+      "2–3 Guests",
     ],
   },
   family: {
     title: "Family Room",
     price: "₦45,000",
-    image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800",
+    image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=900",
     description:
-      "Our spacious Family Room is designed with families in mind, offering comfort and convenience for everyone. With two queen-size beds, extra seating space, and child-friendly amenities, this room ensures a comfortable stay for the whole family. The room is thoughtfully laid out to provide privacy and relaxation for both parents and children.",
+      "Spacious and welcoming, our Family Room is designed to accommodate the whole family. With multiple beds, extra space, and child-friendly amenities, it is the perfect home away from home.",
     features: [
-      { icon: "bed", text: "2 Queen Size Beds" },
-      { icon: "users", text: "Sleeps 4 Guests" },
-      { icon: "child", text: "Child-Friendly Setup" },
-      { icon: "wifi", text: "Free WiFi" },
-      { icon: "tv", text: "Large Smart TV" },
-      { icon: "wind", text: "Air Conditioning" },
-      { icon: "couch", text: "Extra Seating Area" },
-      { icon: "shower", text: "Spacious Bathroom" },
-      { icon: "mug-hot", text: "Tea/Coffee Facilities" },
-      { icon: "gamepad", text: "Kids Entertainment" },
+      "2 Queen Beds",
+      "Bunk Bed Option",
+      "Large Bathroom",
+      "Kids Amenities",
+      "Free WiFi",
+      "Smart TV",
+      "Air Conditioning",
+      "4 Guests Max",
     ],
   },
 };
 
-// ===== TESTIMONIALS DATA =====
-const testimonialsData = [
-  {
-    text: "Amazing experience! The staff were incredibly friendly and the rooms were spotless. Yetfem Hotel exceeded all my expectations. Will definitely return!",
-    author: "Adebayo Johnson",
-    role: "Business Traveler",
-    avatar: "AJ",
-  },
-  {
-    text: "Perfect location and excellent service! The rooms are beautiful and very clean. The restaurant food was delicious. Highly recommend for anyone visiting Abuja.",
-    author: "Chioma Okafor",
-    role: "Tourist",
-    avatar: "CO",
-  },
-  {
-    text: "Best hotel experience in Abuja! The family room was spacious and comfortable. Staff went above and beyond to make our stay memorable. Five stars!",
-    author: "Michael Adekunle",
-    role: "Family Vacation",
-    avatar: "MA",
-  },
-];
-
-// ===== DOM ELEMENTS =====
-const DOM = {
-  preloader: document.getElementById("preloader"),
-  navbar: document.getElementById("navbar"),
-  hamburger: document.getElementById("hamburger"),
-  navLinks: document.getElementById("navLinks"),
-  navLinksItems: document.querySelectorAll(".nav-link"),
-  heroSlides: document.querySelectorAll(".hero-slide"),
-  roomCards: document.querySelectorAll(".room-card"),
-  modal: document.getElementById("roomModal"),
-  modalClose: document.getElementById("modalClose"),
-  modalBackdrop: document.querySelector(".modal-backdrop"),
-  contactForm: document.getElementById("contactForm"),
-  scrollTop: document.getElementById("scrollTop"),
-  testimonialPrev: document.querySelector(".testimonial-nav.prev"),
-  testimonialNext: document.querySelector(".testimonial-nav.next"),
-  testimonialDots: document.querySelectorAll(".testimonial-dots .dot"),
-};
-
-// ===== STATE =====
-const state = {
-  currentTestimonial: 0,
-  currentHeroSlide: 0,
-  intervals: {
-    hero: null,
-    testimonial: null,
-  },
-};
-
-// ===== UTILITY FUNCTIONS =====
-const Utils = {
-  debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  },
-
-  throttle(func, limit) {
-    let inThrottle;
-    return function (...args) {
-      if (!inThrottle) {
-        func.apply(this, args);
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-      }
-    };
-  },
-};
-
-// ===== PRELOADER =====
-const Preloader = {
-  init() {
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        if (DOM.preloader) {
-          DOM.preloader.classList.add("hidden");
-          document.body.style.overflow = "";
-          AOS.init();
-        }
-      }, 1000);
-    });
-  },
-};
-
-// ===== ANIMATE ON SCROLL =====
-const AOS = {
-  init() {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("aos-animate");
-        }
-      });
-    }, observerOptions);
-
-    document
-      .querySelectorAll("[data-aos]")
-      .forEach((el) => observer.observe(el));
-  },
-};
-
-// ===== NAVIGATION =====
-const Navigation = {
-  init() {
-    this.setupHamburger();
-    this.setupScrollEffect();
-    this.setupActiveLinks();
-  },
-
-  setupHamburger() {
-    if (!DOM.hamburger || !DOM.navLinks) return;
-
-    DOM.hamburger.addEventListener("click", () => {
-      DOM.hamburger.classList.toggle("active");
-      DOM.navLinks.classList.toggle("active");
-      document.body.style.overflow = DOM.navLinks.classList.contains("active")
-        ? "hidden"
-        : "";
-    });
-
-    DOM.navLinksItems.forEach((link) => {
-      link.addEventListener("click", () => {
-        DOM.hamburger.classList.remove("active");
-        DOM.navLinks.classList.remove("active");
-        document.body.style.overflow = "";
-      });
-    });
-  },
-
-  setupScrollEffect() {
-    if (!DOM.navbar) return;
-
-    const handleScroll = Utils.throttle(() => {
-      if (window.pageYOffset > 100) {
-        DOM.navbar.classList.add("scrolled");
-      } else {
-        DOM.navbar.classList.remove("scrolled");
-      }
-      this.updateActiveNavLink();
-    }, 100);
-
-    window.addEventListener("scroll", handleScroll);
-  },
-
-  updateActiveNavLink() {
-    const sections = document.querySelectorAll("section[id]");
-    const scrollY = window.pageYOffset;
-
-    sections.forEach((section) => {
-      const sectionHeight = section.offsetHeight;
-      const sectionTop = section.offsetTop - 100;
-      const sectionId = section.getAttribute("id");
-      const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        DOM.navLinksItems.forEach((link) => link.classList.remove("active"));
-        if (navLink) navLink.classList.add("active");
-      }
-    });
-  },
-
-  setupActiveLinks() {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        const href = this.getAttribute("href");
-        if (href === "#") return;
-
-        e.preventDefault();
-        const target = document.querySelector(href);
-
-        if (target) {
-          const offsetTop = target.offsetTop - 80;
-          window.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          });
-        }
-      });
-    });
-  },
-};
-
-// ===== HERO SLIDER =====
-// ===== HERO SLIDER =====
-const HeroSlider = {
-  init() {
-    if (DOM.heroSlides.length === 0) return;
-    // Ensure first slide is active
-    DOM.heroSlides[0].classList.add("active");
-    this.startAutoSlide();
-  },
-
-  changeSlide() {
-    DOM.heroSlides[state.currentHeroSlide].classList.remove("active");
-    state.currentHeroSlide =
-      (state.currentHeroSlide + 1) % DOM.heroSlides.length;
-    DOM.heroSlides[state.currentHeroSlide].classList.add("active");
-  },
-
-  startAutoSlide() {
-    setInterval(() => this.changeSlide(), CONFIG.heroSlideInterval);
-  },
-};
-// ===== ROOM MODAL =====
-const RoomModal = {
-  init() {
-    this.setupOpenHandlers();
-    this.setupCloseHandlers();
-    this.setupKeyboardNav();
-  },
-
-  setupOpenHandlers() {
-    DOM.roomCards.forEach((card) => {
-      const buttons = card.querySelectorAll(".room-detail-btn, .btn-ghost");
-      buttons.forEach((button) => {
-        button.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const roomType = card.getAttribute("data-room");
-          this.open(roomType);
-        });
-      });
-    });
-  },
-
-  setupCloseHandlers() {
-    if (DOM.modalClose) {
-      DOM.modalClose.addEventListener("click", () => this.close());
-    }
-
-    if (DOM.modalBackdrop) {
-      DOM.modalBackdrop.addEventListener("click", () => this.close());
-    }
-  },
-
-  setupKeyboardNav() {
-    document.addEventListener("keydown", (e) => {
-      if (
-        e.key === "Escape" &&
-        DOM.modal &&
-        DOM.modal.classList.contains("active")
-      ) {
-        this.close();
-      }
-    });
-  },
-
-  open(roomType) {
-    const room = roomsData[roomType];
-    if (!room) return;
-
-    document.getElementById("modalImage").src = room.image;
-    document.getElementById("modalTitle").textContent = room.title;
-    document.getElementById("modalAmount").textContent = room.price;
-    document.getElementById("modalDescription").textContent = room.description;
-
-    const featuresHTML = room.features
+document.querySelectorAll(".room-detail-btn, [data-room]").forEach((el) => {
+  el.addEventListener("click", () => {
+    const card = el.closest("[data-room]");
+    if (!card) return;
+    const key = card.dataset.room;
+    const data = roomData[key];
+    if (!data) return;
+    document.getElementById("modalTitle").textContent = data.title;
+    document.getElementById("modalAmount").textContent = data.price;
+    document.getElementById("modalImage").src = data.image;
+    document.getElementById("modalImage").alt = data.title;
+    document.getElementById("modalDescription").textContent = data.description;
+    const featsEl = document.getElementById("modalFeatures");
+    featsEl.innerHTML = data.features
       .map(
-        (feature) => `
-      <div class="modal-feature">
-        <i class="fas fa-${feature.icon}"></i>
-        <span>${feature.text}</span>
-      </div>
-    `,
+        (f) =>
+          `<div class="modal-feature"><i class="fas fa-check-circle"></i><span>${f}</span></div>`,
       )
       .join("");
-
-    document.getElementById("modalFeatures").innerHTML = featuresHTML;
-
-    DOM.modal.classList.add("active");
+    document.getElementById("roomModal").classList.add("active");
     document.body.style.overflow = "hidden";
-  },
-
-  close() {
-    DOM.modal.classList.remove("active");
-    document.body.style.overflow = "";
-  },
-};
-
-// ===== TESTIMONIALS =====
-const Testimonials = {
-  init() {
-    this.setupNavigation();
-    this.startAutoRotate();
-  },
-
-  update(index) {
-    const testimonial = testimonialsData[index];
-
-    const textEl = document.querySelector(".testimonial-text");
-    const avatarEl = document.querySelector(".author-avatar");
-    const nameEl = document.querySelector(".author-info h5");
-    const roleEl = document.querySelector(".author-info p");
-
-    if (textEl) textEl.textContent = `"${testimonial.text}"`;
-    if (avatarEl) avatarEl.textContent = testimonial.avatar;
-    if (nameEl) nameEl.textContent = testimonial.author;
-    if (roleEl) roleEl.textContent = testimonial.role;
-
-    DOM.testimonialDots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === index);
+  });
+});
+["modalClose", "roomModal"].forEach((id) => {
+  const el = document.getElementById(id);
+  if (el)
+    el.addEventListener("click", (e) => {
+      if (id === "roomModal" && e.target !== el) return;
+      document.getElementById("roomModal").classList.remove("active");
+      document.body.style.overflow = "";
     });
-  },
-
-  setupNavigation() {
-    if (DOM.testimonialPrev) {
-      DOM.testimonialPrev.addEventListener("click", () => {
-        state.currentTestimonial =
-          (state.currentTestimonial - 1 + testimonialsData.length) %
-          testimonialsData.length;
-        this.update(state.currentTestimonial);
-      });
-    }
-
-    if (DOM.testimonialNext) {
-      DOM.testimonialNext.addEventListener("click", () => {
-        state.currentTestimonial =
-          (state.currentTestimonial + 1) % testimonialsData.length;
-        this.update(state.currentTestimonial);
-      });
-    }
-
-    DOM.testimonialDots.forEach((dot, index) => {
-      dot.addEventListener("click", () => {
-        state.currentTestimonial = index;
-        this.update(state.currentTestimonial);
-      });
-    });
-  },
-
-  startAutoRotate() {
-    state.intervals.testimonial = setInterval(() => {
-      state.currentTestimonial =
-        (state.currentTestimonial + 1) % testimonialsData.length;
-      this.update(state.currentTestimonial);
-    }, CONFIG.testimonialInterval);
-  },
-};
-
-// ===== CONTACT FORM =====
-const ContactForm = {
-  init() {
-    if (!DOM.contactForm) return;
-
-    DOM.contactForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      this.handleSubmit(e.target);
-    });
-  },
-
-  handleSubmit(form) {
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-
-    Notification.show(
-      "Thank you for your message! We will get back to you soon.",
-      "success",
-    );
-    form.reset();
-  },
-};
-
-// ===== SMOOTH SCROLL =====
-const SmoothScroll = {
-  init() {
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        const href = this.getAttribute("href");
-        if (href === "#") return;
-
-        e.preventDefault();
-        const target = document.querySelector(href);
-
-        if (target) {
-          const offsetTop = target.offsetTop - 80;
-          window.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          });
-        }
-      });
-    });
-  },
-};
-
-// ===== SCROLL TO TOP =====
-const ScrollToTop = {
-  init() {
-    if (!DOM.scrollTop) return;
-
-    const handleScroll = Utils.throttle(() => {
-      if (window.pageYOffset > CONFIG.scrollThreshold) {
-        DOM.scrollTop.classList.add("visible");
-      } else {
-        DOM.scrollTop.classList.remove("visible");
-      }
-    }, 100);
-
-    window.addEventListener("scroll", handleScroll);
-
-    DOM.scrollTop.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    });
-  },
-};
-
-// ===== NOTIFICATION SYSTEM =====
-const Notification = {
-  show(message, type = "info") {
-    const notification = document.createElement("div");
-    notification.className = `notification notification-${type}`;
-
-    const icon = type === "success" ? "check-circle" : "info-circle";
-    const bgColor = type === "success" ? "#10B981" : "#3B82F6";
-
-    notification.innerHTML = `
-      <i class="fas fa-${icon}"></i>
-      <span>${message}</span>
-    `;
-
-    Object.assign(notification.style, {
-      position: "fixed",
-      top: "100px",
-      right: "30px",
-      background: bgColor,
-      color: "white",
-      padding: "18px 25px",
-      borderRadius: "12px",
-      display: "flex",
-      alignItems: "center",
-      gap: "12px",
-      boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-      zIndex: "10000",
-      animation: "slideInRight 0.4s ease",
-      fontSize: "0.95rem",
-      fontWeight: "500",
-    });
-
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      notification.style.animation = "slideOutRight 0.4s ease";
-      setTimeout(() => notification.remove(), 400);
-    }, 4000);
-  },
-};
-
-// ===== PARALLAX EFFECT =====
-const Parallax = {
-  init() {
-    const parallaxElements = document.querySelectorAll(".hero-slide");
-    if (parallaxElements.length === 0) return;
-
-    const handleScroll = Utils.throttle(() => {
-      const scrolled = window.pageYOffset;
-      parallaxElements.forEach((el) => {
-        const speed = 0.5;
-        el.style.transform = `translateY(${scrolled * speed}px)`;
-      });
-    }, 50);
-
-    window.addEventListener("scroll", handleScroll);
-  },
-};
-
-// ===== ANIMATIONS =====
-const Animations = {
-  addStyles() {
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes slideInRight {
-        from { opacity: 0; transform: translateX(100px); }
-        to { opacity: 1; transform: translateX(0); }
-      }
-      @keyframes slideOutRight {
-        from { opacity: 1; transform: translateX(0); }
-        to { opacity: 0; transform: translateX(100px); }
-      }
-    `;
-    document.head.appendChild(style);
-  },
-};
-
-// ===== PERFORMANCE OPTIMIZATION =====
-const Performance = {
-  init() {
-    this.lazyLoadImages();
-    this.preloadCriticalImages();
-  },
-
-  lazyLoadImages() {
-    const images = document.querySelectorAll("img[data-src]");
-    if (images.length === 0) return;
-
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.removeAttribute("data-src");
-          observer.unobserve(img);
-        }
-      });
-    });
-
-    images.forEach((img) => imageObserver.observe(img));
-  },
-
-  preloadCriticalImages() {
-    const criticalImages = [
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600",
-    ];
-
-    criticalImages.forEach((src) => {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = src;
-      document.head.appendChild(link);
-    });
-  },
-};
-
-// ===== MAIN INITIALIZATION =====
-const App = {
-  init() {
-    console.log(
-      "%c🏨 Yetfem Hotel - Luxury Boutique Experience",
-      "color: #C9A55C; font-size: 20px; font-weight: bold;",
-    );
-    console.log(
-      "%c✨ Website Loaded Successfully",
-      "color: #10B981; font-size: 14px;",
-    );
-
-    Preloader.init();
-    Navigation.init();
-    HeroSlider.init();
-    RoomModal.init();
-    Testimonials.init();
-    ContactForm.init();
-    SmoothScroll.init();
-    ScrollToTop.init();
-    Parallax.init();
-    Animations.addStyles();
-    Performance.init();
-  },
-};
-
-// ===== EXECUTE ON DOM READY =====
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => App.init());
-} else {
-  App.init();
-}
-
-// ===== CLEANUP ON PAGE UNLOAD =====
-window.addEventListener("beforeunload", () => {
-  if (state.intervals.hero) clearInterval(state.intervals.hero);
-  if (state.intervals.testimonial) clearInterval(state.intervals.testimonial);
 });
 
-// ===== EXPORT FOR MODULE USAGE =====
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = { roomsData, testimonialsData, App };
-}
+// ── Testimonial slider ─────────────────────────────────
+(function initTestimonials() {
+  const testimonials = [
+    {
+      text: "Amazing experience! The staff were incredibly friendly and the rooms were spotless. Yetfem Hotel exceeded all my expectations. Will definitely return!",
+      name: "Adebayo Johnson",
+      role: "Business Traveler",
+      initials: "AJ",
+    },
+    {
+      text: "A hidden gem in Abuja! The location is perfect, the rooms are beautiful and the service is outstanding. I felt completely at home throughout my stay.",
+      name: "Ngozi Okonkwo",
+      role: "Leisure Traveler",
+      initials: "NO",
+    },
+    {
+      text: "Absolutely love this place. The ambiance is top notch and the staff goes above and beyond. Perfect for both business and leisure stays in Abuja.",
+      name: "Emeka Chukwu",
+      role: "Corporate Guest",
+      initials: "EC",
+    },
+  ];
+  let current = 0;
+  const card = document.querySelector(".testimonial-card");
+  const dots = document.querySelectorAll(".dot");
+  if (!card) return;
+
+  function render(i) {
+    const t = testimonials[i];
+    card.style.opacity = "0";
+    setTimeout(() => {
+      card.querySelector(".testimonial-text").textContent = t.text;
+      card.querySelector(".author-avatar").textContent = t.initials;
+      card.querySelector("h5").textContent = t.name;
+      card.querySelector(".author-info > p").textContent = t.role;
+      dots.forEach((d, di) => d.classList.toggle("active", di === i));
+      card.style.opacity = "1";
+    }, 300);
+  }
+  card.style.transition = "opacity 0.3s ease";
+  document
+    .querySelector(".testimonial-nav.next")
+    ?.addEventListener("click", () => {
+      current = (current + 1) % testimonials.length;
+      render(current);
+    });
+  document
+    .querySelector(".testimonial-nav.prev")
+    ?.addEventListener("click", () => {
+      current = (current - 1 + testimonials.length) % testimonials.length;
+      render(current);
+    });
+  dots.forEach((d, i) =>
+    d.addEventListener("click", () => {
+      current = i;
+      render(i);
+    }),
+  );
+  setInterval(() => {
+    current = (current + 1) % testimonials.length;
+    render(current);
+  }, 6000);
+})();
+
+// ── Hero slide show (index page) ────────────────────────
+(function initHeroSlider() {
+  const slides = document.querySelectorAll(".hero-slide");
+  if (!slides.length) return;
+  let idx = 0;
+  setInterval(() => {
+    slides[idx].classList.remove("active");
+    idx = (idx + 1) % slides.length;
+    slides[idx].classList.add("active");
+  }, 5000);
+})();
+
+// ── Abstract Canvas Video (Hero) ───────────────────────
+(function initAbstractHero() {
+  const canvas = document.getElementById("heroCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  // Particle system
+  const particles = [];
+  const PARTICLE_COUNT = 90;
+  const gold = [
+    "rgba(212,175,55,",
+    "rgba(224,164,88,",
+    "rgba(176,141,31,",
+    "rgba(255,215,80,",
+    "rgba(255,255,255,",
+  ];
+
+  class Particle {
+    constructor() {
+      this.reset(true);
+    }
+    reset(init) {
+      this.x = Math.random() * canvas.width;
+      this.y = init ? Math.random() * canvas.height : canvas.height + 10;
+      this.r = Math.random() * 2.5 + 0.4;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = -(Math.random() * 0.6 + 0.15);
+      this.alpha = Math.random() * 0.7 + 0.1;
+      this.fade = Math.random() * 0.003 + 0.001;
+      this.color = gold[Math.floor(Math.random() * gold.length)];
+      this.life = 1;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.life -= this.fade;
+      if (this.life <= 0 || this.y < -10) this.reset(false);
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.color + this.alpha * this.life + ")";
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+  // Flowing wave lines
+  let t = 0;
+  function drawWaves() {
+    const W = canvas.width,
+      H = canvas.height;
+    for (let w = 0; w < 5; w++) {
+      ctx.beginPath();
+      const amp = 40 + w * 18;
+      const freq = 0.003 + w * 0.0008;
+      const yBase = H * (0.3 + w * 0.12);
+      const speed = 0.6 + w * 0.3;
+      const alpha = 0.04 + w * 0.012;
+
+      ctx.moveTo(0, yBase);
+      for (let x = 0; x <= W; x += 4) {
+        const y =
+          yBase +
+          Math.sin(x * freq + t * speed) * amp +
+          Math.sin(x * freq * 2.1 + t * (speed * 0.7)) * (amp * 0.4);
+        ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = `rgba(212,175,55,${alpha})`;
+      ctx.lineWidth = 1.5 - w * 0.15;
+      ctx.stroke();
+    }
+  }
+
+  // Bokeh / glow orbs
+  const orbs = Array.from({ length: 8 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    r: Math.random() * 180 + 80,
+    a: Math.random() * 0.06 + 0.015,
+    vx: (Math.random() - 0.5) * 0.00015,
+    vy: (Math.random() - 0.5) * 0.0001,
+  }));
+  function drawOrbs() {
+    const W = canvas.width,
+      H = canvas.height;
+    orbs.forEach((o) => {
+      o.x += o.vx;
+      o.y += o.vy;
+      if (o.x < 0 || o.x > 1) o.vx *= -1;
+      if (o.y < 0 || o.y > 1) o.vy *= -1;
+      const grd = ctx.createRadialGradient(
+        o.x * W,
+        o.y * H,
+        0,
+        o.x * W,
+        o.y * H,
+        o.r,
+      );
+      grd.addColorStop(0, `rgba(212,175,55,${o.a})`);
+      grd.addColorStop(1, "rgba(212,175,55,0)");
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(o.x * W, o.y * H, o.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Deep background gradient
+    const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    bg.addColorStop(0, "#07081a");
+    bg.addColorStop(0.5, "#0b132b");
+    bg.addColorStop(1, "#0d1b38");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    drawOrbs();
+    drawWaves();
+    particles.forEach((p) => {
+      p.update();
+      p.draw();
+    });
+
+    t += 0.012;
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ── Gallery Lightbox ───────────────────────────────────
+(function initLightbox() {
+  const lb = document.getElementById("lightbox");
+  if (!lb) return;
+  const lbImg = lb.querySelector(".lightbox-img");
+  const lbClose = lb.querySelector(".lightbox-close");
+
+  document
+    .querySelectorAll(".gallery-item img, .gallery-item")
+    .forEach((el) => {
+      el.addEventListener("click", () => {
+        const img = el.tagName === "IMG" ? el : el.querySelector("img");
+        if (!img) return;
+        lbImg.src = img.src;
+        lb.classList.add("open");
+        document.body.style.overflow = "hidden";
+      });
+    });
+  lbClose?.addEventListener("click", () => {
+    lb.classList.remove("open");
+    document.body.style.overflow = "";
+  });
+  lb.addEventListener("click", (e) => {
+    if (e.target === lb) {
+      lb.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+  });
+})();
+
+// ── Rooms filter (rooms.html) ──────────────────────────
+(function initRoomsFilter() {
+  const btns = document.querySelectorAll(".filter-btn");
+  if (!btns.length) return;
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const filter = btn.dataset.filter;
+      document.querySelectorAll(".room-card").forEach((card) => {
+        if (filter === "all" || card.dataset.filter === filter) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+    });
+  });
+})();
