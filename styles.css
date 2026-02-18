@@ -268,7 +268,7 @@ button {
   align-items: stretch;
   overflow: hidden;
   margin-top: 5px;
-  background: url("/img/vid2.mp4");
+  background: #04060f;
 }
 
 /* Abstract canvas background */
