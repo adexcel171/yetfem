@@ -21,12 +21,6 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-      <div class="loader"></div>
-      <div class="preloader-text">YETFEM</div>
-    </div>
-
     <!-- Navigation -->
     <nav id="navbar" class="navbar" style="background: transparent">
       <div class="nav-container">
@@ -78,7 +72,9 @@
           <!-- Eyebrow label -->
           <div class="hero-eyebrow">
             <span class="eyebrow-line"></span>
-            <span class="eyebrow-copy">Boutique Luxury · Abuja, Nigeria</span>
+            <span class="eyebrow-copy"
+              >Comfort and serene · Abuja, Nigeria</span
+            >
             <span class="eyebrow-dot"></span>
           </div>
 
@@ -207,19 +203,13 @@
           </div>
           <div class="about-images" data-aos="fade-left">
             <div class="about-image about-image-main">
-              <img
-                src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800"
-                alt="Yetfem Hotel Lobby"
-              />
+              <img src="/img/ro.jpg" alt="Yetfem Hotel Lobby" />
               <div class="image-badge">
                 <i class="fas fa-award"></i><span>Premium Quality</span>
               </div>
             </div>
             <div class="about-image about-image-secondary">
-              <img
-                src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600"
-                alt="Luxury Room Interior"
-              />
+              <img src="/img/hpm.jpg" alt="Luxury Room Interior" />
             </div>
           </div>
         </div>
@@ -282,7 +272,7 @@
           <div class="room-card" data-room="standard" data-aos="fade-up">
             <div class="room-image-wrapper">
               <img
-                src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800"
+                src="/img/room1.jpeg"
                 alt="Standard Room"
                 class="room-image"
               />
@@ -299,8 +289,8 @@
               <div class="room-header">
                 <h3 class="room-title">Standard Room</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦25,000</span
-                  ><span class="price-period">/ night</span>
+                  <!-- <span class="price-amount">₦25,000</span -->
+                  <!-- ><span class="price-period">/ night</span> -->
                 </div>
               </div>
               <p class="room-description">
@@ -315,7 +305,7 @@
                   <i class="fas fa-users"></i><span>2 Guests</span>
                 </div>
                 <div class="room-feature-item">
-                  <i class="fas fa-wifi"></i><span>Free WiFi</span>
+                  <!-- <i class="fas fa-wifi"></i><span>Free WiFi</span> -->
                 </div>
                 <div class="room-feature-item">
                   <i class="fas fa-tv"></i><span>Smart TV</span>
@@ -334,11 +324,7 @@
             data-aos-delay="100"
           >
             <div class="room-image-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800"
-                alt="Deluxe Room"
-                class="room-image"
-              />
+              <img src="/img/room2.jpeg" alt="Deluxe Room" class="room-image" />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
                   <i class="fas fa-eye"></i><span>View Details</span>
@@ -349,8 +335,8 @@
               <div class="room-header">
                 <h3 class="room-title">Deluxe Room</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦35,000</span
-                  ><span class="price-period">/ night</span>
+                  <!-- <span class="price-amount">₦35,000</span -->
+                  <!-- ><span class="price-period">/ night</span> -->
                 </div>
               </div>
               <p class="room-description">
@@ -385,7 +371,7 @@
           >
             <div class="room-image-wrapper">
               <img
-                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800"
+                src="/img/room.jpg"
                 alt="Executive Suite"
                 class="room-image"
               />
@@ -402,8 +388,8 @@
               <div class="room-header">
                 <h3 class="room-title">Executive Suite</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦55,000</span
-                  ><span class="price-period">/ night</span>
+                  <!-- <span class="price-amount">₦55,000</span -->
+                  <!-- ><span class="price-period">/ night</span> -->
                 </div>
               </div>
               <p class="room-description">
@@ -415,13 +401,13 @@
                   <i class="fas fa-bed"></i><span>King Bed</span>
                 </div>
                 <div class="room-feature-item">
-                  <i class="fas fa-couch"></i><span>Living Room</span>
+                  <!-- <i class="fas fa-couch"></i><span>Living Room</span> -->
                 </div>
                 <div class="room-feature-item">
-                  <i class="fas fa-hot-tub"></i><span>Jacuzzi</span>
+                  <!-- <i class="fas fa-hot-tub"></i><span>Jacuzzi</span> -->
                 </div>
                 <div class="room-feature-item">
-                  <i class="fas fa-concierge-bell"></i><span>Butler</span>
+                  <!-- <i class="fas fa-concierge-bell"></i><span>Butler</span> -->
                 </div>
               </div>
               <button class="btn btn-primary btn-block room-detail-btn">
@@ -437,14 +423,13 @@
             data-aos-delay="300"
           >
             <div class="room-image-wrapper">
-              <img
-                src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800"
-                alt="Family Room"
-                class="room-image"
-              />
+              <video class="room-image" autoplay muted loop playsinline>
+                <source src="/img/vid2.mp4" type="video/mp4" />
+              </video>
+
               <div class="room-overlay">
                 <button class="btn btn-ghost">
-                  <i class="fas fa-eye"></i><span>View Details</span>
+                  <!-- <i class="fas fa-eye"></i><span>View Details</span> -->
                 </button>
               </div>
             </div>
@@ -452,8 +437,8 @@
               <div class="room-header">
                 <h3 class="room-title">Family Room</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦45,000</span
-                  ><span class="price-period">/ night</span>
+                  <!-- <span class="price-amount">₦45,000</span -->
+                  <!-- ><span class="price-period">/ night</span> -->
                 </div>
               </div>
               <p class="room-description">
@@ -468,7 +453,7 @@
                   <i class="fas fa-users"></i><span>4 Guests</span>
                 </div>
                 <div class="room-feature-item">
-                  <i class="fas fa-child"></i><span>Kids Area</span>
+                  <!-- <i class="fas fa-child"></i><span>Kids Area</span> -->
                 </div>
                 <div class="room-feature-item">
                   <i class="fas fa-tv"></i><span>Smart TV</span>
@@ -502,53 +487,48 @@
         </div>
         <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
           <div class="gallery-item gallery-large">
-            <img
-              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800"
-              alt="Standard Room"
-            />
+            <img src="/img/room.jpg" alt="Standard Room" />
             <div class="gallery-overlay">
               <h4>Standard Room</h4>
               <p>Comfortable &amp; Modern</p>
             </div>
           </div>
           <div class="gallery-item">
-            <img
-              src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600"
-              alt="Deluxe Room"
-            />
+            <img src="/img/room1.jpeg" alt="Deluxe Room" />
             <div class="gallery-overlay">
               <h4>Deluxe Room</h4>
               <p>Premium Luxury</p>
             </div>
           </div>
           <div class="gallery-item">
-            <img
-              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600"
-              alt="Executive Suite"
-            />
+            <img src="/img/ro.jpg" alt="Executive Suite" />
             <div class="gallery-overlay">
               <h4>Executive Suite</h4>
               <p>Ultimate Elegance</p>
             </div>
           </div>
           <div class="gallery-item gallery-wide">
-            <img
-              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800"
-              alt="Hotel Lobby"
-            />
+            <video autoplay muted loop playsinline>
+              <source
+                src="/img//WhatsApp Video 2026-02-17 at 6.02.48 PM.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+
             <div class="gallery-overlay">
-              <h4>Lobby &amp; Reception</h4>
+              <h4>Outside view</h4>
               <p>Welcoming Ambiance</p>
             </div>
           </div>
           <div class="gallery-item">
-            <img
-              src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600"
-              alt="Family Room"
-            />
+            <video autoplay muted loop playsinline>
+              <source src="/img/vid1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
             <div class="gallery-overlay">
               <h4>Family Room</h4>
-              <p>Spacious Living</p>
+              <p>Reception</p>
             </div>
           </div>
         </div>
