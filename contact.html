@@ -176,7 +176,6 @@
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="rooms.html" class="nav-link">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-          <li><a href="amenities.html" class="nav-link">Amenities</a></li>
           <li><a href="contact.html" class="nav-link active">Contact</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
@@ -211,13 +210,13 @@
           <div class="contact-info-card">
             <div class="c-icon"><i class="fas fa-phone"></i></div>
             <h4>Call Us</h4>
-            <p><a href="tel:+2348131616988">+234 805 687 4554</a></p>
+            <p><a href="tel:+">+234 805 687 4554</a></p>
           </div>
           <div class="contact-info-card">
             <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
             <h4>WhatsApp</h4>
             <p>
-              <a href="https://wa.me/2348131616988" target="_blank"
+              <a href="https://wa.me/" target="_blank"
                 >Chat with us now</a
               >
             </p>
@@ -324,13 +323,13 @@
               >
                 <option value="" disabled selected>Select Room Type</option>
                 <option value="Standard Room">
-                  Standard Room — ₦25,000/night
+                  Standard Room — ₦15,000/night
                 </option>
-                <option value="Deluxe Room">Deluxe Room — ₦35,000/night</option>
+                <option value="Deluxe Room">Deluxe Room — ₦15,000/night</option>
                 <option value="Executive Suite">
-                  Executive Suite — ₦55,000/night
+                  Executive Suite — ₦15,000/night
                 </option>
-                <option value="Family Room">Family Room — ₦45,000/night</option>
+                <option value="Family Room">Family Room — ₦15,000/night</option>
               </select>
             </div>
             <div class="form-group">
@@ -385,7 +384,7 @@
 
             <!-- WhatsApp banner -->
             <a
-              href="https://wa.me/2348131616988?text=Hi%20Yetfem,%20I%27d%20like%20to%20make%20a%20booking"
+              href="https://wa.me/?text=Hi%20Yetfem,%20I%27d%20like%20to%20make%20a%20booking"
               target="_blank"
               class="whatsapp-banner"
             >
@@ -442,7 +441,7 @@
                 style="
                   width: 46px;
                   height: 46px;
-                  background: var(--primary);
+                  background: black;
                   color: #fff;
                   border-radius: 50%;
                   display: flex;
@@ -458,7 +457,7 @@
             </div>
 
             <!-- Payment box -->
-            <div class="payment-box">
+            <!-- <div class="payment-box">
               <h4><i class="fas fa-university"></i> Bank Transfer Details</h4>
               <div class="payment-row">
                 <span>Account Name:</span><span>Yetfem Hotel</span>
@@ -482,52 +481,9 @@
                 your reservation.
               </p>
             </div>
-          </div>
+          </div> -->
 
           <!-- Right: Contact Form -->
-          <div data-aos="fade-left">
-            <div class="contact-form-wrapper">
-              <form id="contactForm" class="contact-form">
-                <h3>Send Us a Message</h3>
-                <div class="form-row">
-                  <div class="form-group">
-                    <input type="text" name="name" required placeholder=" " />
-                    <label>Full Name</label>
-                    <i class="fas fa-user"></i>
-                  </div>
-                  <div class="form-group">
-                    <input type="email" name="email" required placeholder=" " />
-                    <label>Email Address</label>
-                    <i class="fas fa-envelope"></i>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="tel" name="phone" required placeholder=" " />
-                  <label>Phone Number</label>
-                  <i class="fas fa-phone"></i>
-                </div>
-                <div class="form-group">
-                  <input type="text" name="subject" placeholder=" " />
-                  <label>Subject</label>
-                  <i class="fas fa-tag"></i>
-                </div>
-                <div class="form-group">
-                  <textarea
-                    name="message"
-                    required
-                    placeholder=" "
-                    rows="5"
-                  ></textarea>
-                  <label>Your Message</label>
-                  <i class="fas fa-comment"></i>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">
-                  <span>Send Message</span>
-                  <i class="fas fa-paper-plane"></i>
-                </button>
-              </form>
-            </div>
-          </div>
         </div>
 
         <!-- Map -->
@@ -670,7 +626,7 @@
             <ul class="footer-links">
               <li>
                 <i class="fas fa-phone"></i
-                ><a href="tel:+2348131616988">+234 805 687 4554</a>
+                ><a href="tel:+">+234 805 687 4554</a>
               </li>
               <li>
                 <i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span>
@@ -680,7 +636,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2026 Yetfem Hotel. All Rights Reserved.</p>
+          <p>&copy; 2025 Yetfem Hotel. All Rights Reserved.</p>
           <p>
             Crafted with <i class="fas fa-heart"></i> for exceptional
             hospitality
@@ -722,7 +678,7 @@
         }
         const msg = `Hi Yetfem Hotel! I'd like to book a room.\n\nName: ${name}\nPhone: ${phone}\nRoom: ${room}\nCheck-in: ${checkin}\nCheck-out: ${checkout || "TBD"}\nGuests: ${guests || 1}\n\nPlease confirm availability. Thank you!`;
         window.open(
-          `https://wa.me/2348131616988?text=${encodeURIComponent(msg)}`,
+          `https://wa.me/?text=${encodeURIComponent(msg)}`,
           "_blank",
         );
       });

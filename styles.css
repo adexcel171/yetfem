@@ -1615,13 +1615,13 @@ button {
 .contact-details h4 {
   font-size: 1.3rem;
   margin-bottom: 8px;
-  color: var(--white);
+  color: black;
 }
 
 .contact-details p,
 .contact-details a {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(32, 31, 31, 0.8);
 }
 
 .contact-details a:hover {
@@ -1629,17 +1629,17 @@ button {
 }
 
 .contact-form-wrapper {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  background: rgba(75, 64, 64, 0.05);
+  /* backdrop-filter: blur(10px); */
   padding: 50px;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(13, 13, 13, 0.1);
 }
 
 .contact-form h3 {
   font-size: 2rem;
   margin-bottom: 35px;
-  color: var(--white);
+  color: black;
 }
 
 .form-row {
@@ -1658,10 +1658,10 @@ button {
 .form-group select {
   width: 100%;
   padding: 18px 50px 18px 18px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(26, 24, 24, 0.08);
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-sm);
-  color: var(--white);
+  color: black;
   font-family: var(--font-secondary);
   font-size: 1rem;
   transition: all var(--transition-base);
@@ -1671,7 +1671,7 @@ button {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--secondary);
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(19, 16, 16, 0.12);
 }
 
 .form-group label {
@@ -1692,7 +1692,7 @@ button {
   top: -10px;
   left: 12px;
   font-size: 0.85rem;
-  color: var(--secondary);
+  color: black;
   background: var(--primary-light);
 }
 
@@ -1700,7 +1700,7 @@ button {
   position: absolute;
   right: 18px;
   top: 18px;
-  color: rgba(255, 255, 255, 0.4);
+  color: black;
   font-size: 1.1rem;
 }
 
@@ -2706,7 +2706,7 @@ button {
   .testimonial-text {
     font-size: 1.1rem;
   }
-  .contact-form-wrapper {
+  .2026 {
     padding: 35px 25px;
   }
   .form-row {
