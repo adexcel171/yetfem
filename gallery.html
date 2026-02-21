@@ -7,17 +7,636 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── VARIABLES ── */
+      :root {
+        --primary: #1a3a2a;
+        --primary-light: #2d5c42;
+        --secondary: #c9a84c;
+        --gray-100: #f5f5f0;
+        --gray-200: #e8e8e0;
+        --gray-600: #555;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        --nav-h: 72px;
+        --max-w: 1280px;
+        --pad: clamp(16px, 5vw, 48px);
+        --font-head: "Playfair Display", serif;
+        --font-body: "Poppins", sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-body);
+        background: #fff;
+        color: #222;
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ── NAVBAR ── */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: var(--primary);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+        height: var(--nav-h);
+      }
+      .nav-container {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .logo-text {
+        font-family: var(--font-head);
+        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 0.15em;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(8px, 2vw, 28px);
+        list-style: none;
+      }
+      .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.2s;
+        white-space: nowrap;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--secondary);
+      }
+      .btn-nav {
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 9px 20px;
+        border-radius: 50px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        white-space: nowrap;
+        transition: opacity 0.2s;
+      }
+      .btn-nav:hover {
+        opacity: 0.85;
+      }
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        flex-shrink: 0;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+          position: fixed;
+          top: var(--nav-h);
+          left: 0;
+          right: 0;
+          background: var(--primary);
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0;
+          padding: 16px 0 24px;
+          transform: translateY(-110%);
+          transition: transform 0.35s ease;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        .nav-links.open {
+          transform: translateY(0);
+        }
+        .nav-links li {
+          padding: 0 var(--pad);
+        }
+        .nav-link {
+          display: block;
+          padding: 12px 0;
+          font-size: 1rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-nav {
+          display: inline-block;
+          margin-top: 8px;
+          padding: 12px 20px;
+          text-align: center;
+        }
+      }
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* ── PAGE HERO ── */
+      .page-hero {
+        position: relative;
+        min-height: clamp(280px, 40vw, 460px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-top: var(--nav-h);
+      }
+      .page-hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url("https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1400");
+        background-size: cover;
+        background-position: center;
+      }
+      .page-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(26, 58, 42, 0.7),
+          rgba(26, 58, 42, 0.88)
+        );
+      }
+      .page-hero-content {
+        position: relative;
+        z-index: 2;
+        padding: clamp(32px, 6vw, 80px) var(--pad);
+      }
+      .page-hero-content h1 {
+        font-family: var(--font-head);
+        font-size: clamp(2.2rem, 6vw, 4.5rem);
+        color: #fff;
+        margin-bottom: 12px;
+        line-height: 1.1;
+      }
+      .page-hero-content h1 span {
+        color: var(--secondary);
+      }
+      .page-hero-content p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      }
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .breadcrumb a {
+        color: var(--secondary);
+      }
+
+      /* ── SECTION ── */
+      .section {
+        padding: clamp(48px, 8vw, 96px) 0;
+      }
+      .container {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
+
+      /* ── FILTER BUTTONS ── */
+      .gallery-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: clamp(32px, 5vw, 56px);
+      }
+      .filter-btn {
+        padding: 9px 22px;
+        border-radius: 50px;
+        border: 2px solid var(--gray-200);
+        background: #fff;
+        color: var(--gray-600);
+        font-family: var(--font-body);
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s;
+        white-space: nowrap;
+      }
+      .filter-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+      .filter-btn.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+
+      /* ── GALLERY GRID ──
+         KEY APPROACH:
+         - CSS Grid with fixed columns and a defined row height
+         - Images fill their cell via object-fit: cover
+         - TikTok items span 2 rows so they have enough height to render
+         - Everything stays aligned — no scatter
+      */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 280px;
+        gap: clamp(10px, 2vw, 18px);
+      }
+
+      @media (max-width: 900px) {
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+          grid-auto-rows: 260px;
+        }
+      }
+      @media (max-width: 520px) {
+        .gallery-grid {
+          grid-template-columns: 1fr;
+          grid-auto-rows: 280px;
+        }
+      }
+
+      /* Individual item */
+      .gallery-item {
+        position: relative;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        background: var(--gray-100);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .gallery-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Image items */
+      .gallery-item.is-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s;
+      }
+      .gallery-item.is-image:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Image overlay on hover */
+      .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(26, 58, 42, 0.7) 0%,
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: flex-end;
+        padding: 20px;
+      }
+      .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+      }
+      .gallery-overlay-text h4 {
+        font-family: var(--font-head);
+        color: #fff;
+        font-size: 1rem;
+        margin-bottom: 2px;
+      }
+      .gallery-overlay-text p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.82rem;
+      }
+
+      /* TikTok items — span 2 rows so embed has room */
+      .gallery-item.is-tiktok {
+        grid-row: span 2;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      /* TikTok iframe wrapper — fills cell */
+      .tiktok-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Override TikTok blockquote default styles */
+      .tiktok-wrapper blockquote.tiktok-embed {
+        margin: 0 !important;
+        padding: 0 !important;
+        min-width: unset !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        border: none !important;
+        background: transparent !important;
+      }
+
+      /* TikTok injects an iframe — make it fill the cell */
+      .tiktok-wrapper iframe {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: unset !important;
+        border: none !important;
+      }
+
+      /* Hidden items (filtered out) */
+      .gallery-item.hidden {
+        display: none;
+      }
+
+      /* ── BOOKING STRIP ── */
+      .booking-strip {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        padding: clamp(48px, 7vw, 80px) var(--pad);
+        text-align: center;
+        color: #fff;
+      }
+      .booking-strip h2 {
+        font-family: var(--font-head);
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        margin-bottom: 12px;
+      }
+      .booking-strip p {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 28px;
+        font-size: clamp(0.95rem, 2vw, 1.1rem);
+      }
+      .booking-strip .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 14px 32px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-family: var(--font-body);
+        font-size: 1rem;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+      }
+      .booking-strip .btn:hover {
+        opacity: 0.88;
+        transform: translateY(-2px);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        background: #0d1f16;
+        color: rgba(255, 255, 255, 0.75);
+        padding: clamp(48px, 7vw, 80px) 0 0;
+      }
+      .footer-content {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 0 var(--pad);
+      }
+      .footer-main {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+        gap: clamp(24px, 4vw, 48px);
+        padding-bottom: clamp(32px, 5vw, 56px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      @media (max-width: 900px) {
+        .footer-main {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .footer-main {
+          grid-template-columns: 1fr;
+        }
+      }
+      .footer-logo {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .footer-logo .logo-text {
+        font-family: var(--font-head);
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 0.15em;
+      }
+      .logo-subtitle {
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        color: var(--secondary);
+        font-weight: 600;
+      }
+      .footer-description {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+      .social-links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .social-links a {
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      .social-links a:hover {
+        background: var(--secondary);
+        color: var(--primary);
+      }
+      .footer-section h3 {
+        font-family: var(--font-head);
+        color: #fff;
+        font-size: 1rem;
+        margin-bottom: 16px;
+      }
+      .footer-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .footer-links li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.88rem;
+      }
+      .footer-links i {
+        color: var(--secondary);
+        font-size: 0.8rem;
+        flex-shrink: 0;
+      }
+      .footer-links a:hover {
+        color: var(--secondary);
+      }
+      .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 24px 0;
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .footer-bottom i {
+        color: #e74c3c;
+      }
+
+      /* ── LIGHTBOX ── */
+      .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(0, 0, 0, 0.92);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox-inner {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+      }
+      .lightbox-img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: var(--radius-md);
+        object-fit: contain;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: -16px;
+        right: -16px;
+        width: 40px;
+        height: 40px;
+        background: var(--secondary);
+        color: var(--primary);
+        border: none;
+        border-radius: 50%;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ── SCROLL TOP ── */
+      .scroll-top {
+        position: fixed;
+        bottom: 28px;
+        right: clamp(16px, 4vw, 32px);
+        width: 44px;
+        height: 44px;
+        background: var(--secondary);
+        color: var(--primary);
+        border: none;
+        border-radius: 50%;
+        font-size: 1rem;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: all 0.3s;
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .scroll-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
   <body>
-    <nav id="navbar" class="navbar scrolled">
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
       <div class="nav-container">
         <a href="index.html" class="logo"
           ><span class="logo-text">YETFEM</span></a
@@ -30,19 +649,15 @@
           <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
-        <button class="hamburger" id="hamburger">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
-    <div class="page-hero" style="padding-top: 76px">
-      <div
-        class="page-hero-bg"
-        style="
-          background-image: url(&quot;https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1400&quot;);
-        "
-      ></div>
+    <!-- HERO -->
+    <div class="page-hero">
+      <div class="page-hero-bg"></div>
       <div class="page-hero-overlay"></div>
       <div class="page-hero-content">
         <div class="breadcrumb">
@@ -53,114 +668,186 @@
       </div>
     </div>
 
+    <!-- GALLERY -->
     <section class="section">
       <div class="container">
-        <!-- Filter -->
-        <div class="gallery-filters" data-aos="fade-up">
-          <button class="filter-btn active" data-gallery-filter="all">
-            All
-          </button>
-          <button class="filter-btn" data-gallery-filter="rooms">Rooms</button>
-          <button class="filter-btn" data-gallery-filter="lobby">Lobby</button>
-          <button class="filter-btn" data-gallery-filter="dining">
-            Dining
-          </button>
-          <button class="filter-btn" data-gallery-filter="exterior">
-            Exterior
-          </button>
+        <!-- Filters -->
+        <div class="gallery-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="rooms">Rooms</button>
+          <button class="filter-btn" data-filter="lobby">Lobby</button>
+          <button class="filter-btn" data-filter="dining">Dining</button>
+          <button class="filter-btn" data-filter="exterior">Exterior</button>
         </div>
 
-        <!-- Masonry Grid -->
-        <div class="gallery-grid-full" data-aos="fade-up" data-aos-delay="100">
-          <div class="gallery-item" data-gallery-cat="rooms">
+        <!-- Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- IMAGE ITEMS — add class is-image + data-cat -->
+          <div class="gallery-item is-image" data-cat="rooms">
             <img src="/img/2024-06-11.jpg" alt="Standard Room" />
             <div class="gallery-overlay">
-              <!-- <h4>Standard Room</h4> -->
-              <!-- <p>Comfortable &amp; Modern</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Standard Room</h4>
+                <p>Comfortable &amp; Modern</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="lobby">
+
+          <div class="gallery-item is-image" data-cat="lobby">
             <img src="/img/ro.jpg" alt="Hotel Lobby" />
             <div class="gallery-overlay">
-              <!-- <h4>Lobby &amp; Reception</h4> -->
-              <!-- <p>Welcoming Ambiance</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Lobby &amp; Reception</h4>
+                <p>Welcoming Ambiance</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="rooms">
+
+          <!-- TIKTOK ITEM — class is-tiktok, spans 2 rows automatically -->
+          <div class="gallery-item is-tiktok" data-cat="dining">
+            <div class="tiktok-wrapper">
+              <blockquote
+                class="tiktok-embed"
+                cite="https://www.tiktok.com/@yetfem.catering.v/video/7392945883438091525"
+                data-video-id="7392945883438091525"
+              >
+                <section>
+                  <a
+                    target="_blank"
+                    title="@yetfem.catering.v"
+                    href="https://www.tiktok.com/@yetfem.catering.v?refer=embed"
+                    >@yetfem.catering.v</a
+                  >
+                </section>
+              </blockquote>
+            </div>
+          </div>
+
+          <div class="gallery-item is-image" data-cat="rooms">
             <img src="/img/room1.jpeg" alt="Deluxe Room" />
             <div class="gallery-overlay">
-              <!-- <h4>Deluxe Room</h4> -->
-              <!-- <p>Premium Luxury</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Deluxe Room</h4>
+                <p>Premium Luxury</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="rooms">
+
+          <div class="gallery-item is-image" data-cat="rooms">
             <img src="/img/room2.jpeg" alt="Executive Suite" />
             <div class="gallery-overlay">
-              <!-- <h4>Executive Suite</h4> -->
-              <!-- <p>Ultimate Elegance</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Executive Suite</h4>
+                <p>Ultimate Elegance</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="dining">
-            <img src="/img/unnamed (2).jpg" alt="Restaurant" />
-            <div class="gallery-overlay">
-              <!-- <h4>Restaurant</h4> -->
-              <!-- <p>Fine Dining</p> -->
+
+          <!-- TIKTOK ITEM -->
+          <div class="gallery-item is-tiktok" data-cat="exterior">
+            <div class="tiktok-wrapper">
+              <blockquote
+                class="tiktok-embed"
+                cite="https://www.tiktok.com/@yetfem.catering.v/video/7391360623524711685"
+                data-video-id="7391360623524711685"
+              >
+                <section>
+                  <a
+                    target="_blank"
+                    title="@yetfem.catering.v"
+                    href="https://www.tiktok.com/@yetfem.catering.v?refer=embed"
+                    >@yetfem.catering.v</a
+                  >
+                </section>
+              </blockquote>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="rooms">
-            <img src="/img/room2.jpeg" alt="Family Room" />
-            <div class="gallery-overlay">
-              <!-- <h4>Family Room</h4> -->
-              <!-- <p>Spacious Living</p> -->
-            </div>
-          </div>
-          <div class="gallery-item" data-gallery-cat="exterior">
-            <img src="/img/unnamed.jpg" alt="Hotel Exterior" />
-            <div class="gallery-overlay">
-              <!-- <h4>Hotel Exterior</h4> -->
-              <!-- <p>Grand Entrance</p> -->
-            </div>
-          </div>
-          <div class="gallery-item" data-gallery-cat="lobby">
+
+          <div class="gallery-item is-image" data-cat="lobby">
             <img src="/img/unnamed.jpg" alt="Hotel Bar" />
             <div class="gallery-overlay">
-              <!-- <h4>Hotel Bar &amp; Lounge</h4> -->
-              <!-- <p>Relaxing Atmosphere</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Hotel Bar &amp; Lounge</h4>
+                <p>Relaxing Atmosphere</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="dining">
+
+          <div class="gallery-item is-image" data-cat="rooms">
+            <img src="/img/room2.jpeg" alt="Family Room" />
+            <div class="gallery-overlay">
+              <div class="gallery-overlay-text">
+                <h4>Family Room</h4>
+                <p>Spacious Living</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIKTOK ITEM -->
+          <div class="gallery-item is-tiktok" data-cat="lobby">
+            <div class="tiktok-wrapper">
+              <blockquote
+                class="tiktok-embed"
+                cite="https://www.tiktok.com/@yetfem.catering.v/video/7420841666547862789"
+                data-video-id="7420841666547862789"
+              >
+                <section>
+                  <a
+                    target="_blank"
+                    title="@yetfem.catering.v"
+                    href="https://www.tiktok.com/@yetfem.catering.v?refer=embed"
+                    >@yetfem.catering.v</a
+                  >
+                </section>
+              </blockquote>
+            </div>
+          </div>
+
+          <div class="gallery-item is-image" data-cat="dining">
             <img src="/img/room1.jpeg" alt="Breakfast" />
             <div class="gallery-overlay">
-              <!-- <h4>Breakfast Spread</h4> -->
-              <!-- <p>Start Your Day Right</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Breakfast Spread</h4>
+                <p>Start Your Day Right</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="rooms">
+
+          <div class="gallery-item is-image" data-cat="rooms">
             <img src="/img/2024-06-11.jpg" alt="Bathroom" />
             <div class="gallery-overlay">
-              <!-- <h4>En-Suite Bathroom</h4> -->
-              <!-- <p>Spa-Like Comfort</p> -->
+              <div class="gallery-overlay-text">
+                <h4>En-Suite Bathroom</h4>
+                <p>Spa-Like Comfort</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="exterior">
-            <img src="/img/ro.jpg" alt="Swimming Pool" />
+
+          <div class="gallery-item is-image" data-cat="exterior">
+            <img src="/img/ro.jpg" alt="Outdoor Area" />
             <div class="gallery-overlay">
-              <!-- <h4>Outdoor Area</h4> -->
-              <!-- <p>Refreshing Escape</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Outdoor Area</h4>
+                <p>Refreshing Escape</p>
+              </div>
             </div>
           </div>
-          <div class="gallery-item" data-gallery-cat="lobby">
+
+          <div class="gallery-item is-image" data-cat="lobby">
             <img src="/img/ro.jpg" alt="Conference Room" />
             <div class="gallery-overlay">
-              <!-- <h4>Conference Room</h4> -->
-              <!-- <p>Business Ready</p> -->
+              <div class="gallery-overlay-text">
+                <h4>Conference Room</h4>
+                <p>Business Ready</p>
+              </div>
             </div>
           </div>
         </div>
+        <!-- /gallery-grid -->
       </div>
     </section>
 
-    <!-- Booking CTA -->
+    <!-- BOOKING STRIP -->
     <div class="booking-strip">
       <h2>Love What You See?</h2>
       <p>
@@ -171,14 +858,14 @@
       ></a>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-main">
           <div class="footer-section footer-brand">
             <div class="footer-logo">
-              <span class="logo-text">YETFEM</span
-              ><span class="logo-subtitle">HOTEL</span>
+              <span class="logo-text">YETFEM</span>
+              <span class="logo-subtitle">HOTEL</span>
             </div>
             <p class="footer-description">
               Your trusted boutique hotel in the heart of Abuja.
@@ -219,7 +906,7 @@
             <ul class="footer-links">
               <li>
                 <i class="fas fa-phone"></i
-                ><a href="tel:+">+234 805 687 4554</a>
+                ><a href="tel:+2348056874554">+234 805 687 4554</a>
               </li>
               <li>
                 <i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span>
@@ -238,37 +925,80 @@
       </div>
     </footer>
 
-    <!-- Lightbox -->
+    <!-- LIGHTBOX -->
     <div id="lightbox" class="lightbox">
       <div class="lightbox-inner">
-        <button class="lightbox-close"><i class="fas fa-times"></i></button>
-        <img class="lightbox-img" src="" alt="Gallery Image" />
+        <button class="lightbox-close" id="lightboxClose">
+          <i class="fas fa-times"></i>
+        </button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery Image" />
       </div>
     </div>
 
-    <button id="scrollTop" class="scroll-top">
+    <button id="scrollTop" class="scroll-top" aria-label="Scroll to top">
       <i class="fas fa-arrow-up"></i>
     </button>
-    <script src="app.js"></script>
+
+    <!-- TikTok embed script — load ONCE, at the end -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+
     <script>
-      // Gallery category filter
-      document.querySelectorAll("[data-gallery-filter]").forEach((btn) => {
+      // ── Hamburger ──
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navLinks.classList.toggle("open");
+      });
+      navLinks.querySelectorAll("a").forEach((l) =>
+        l.addEventListener("click", () => {
+          hamburger.classList.remove("active");
+          navLinks.classList.remove("open");
+        }),
+      );
+
+      // ── Gallery filter ──
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           document
-            .querySelectorAll("[data-gallery-filter]")
+            .querySelectorAll(".filter-btn")
             .forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
-          const cat = btn.dataset.galleryFilter;
-          document
-            .querySelectorAll(".gallery-item[data-gallery-cat]")
-            .forEach((item) => {
-              item.style.display =
-                cat === "all" || item.dataset.galleryCat === cat
-                  ? "block"
-                  : "none";
-            });
+          const cat = btn.dataset.filter;
+          document.querySelectorAll(".gallery-item").forEach((item) => {
+            const match = cat === "all" || item.dataset.cat === cat;
+            item.classList.toggle("hidden", !match);
+          });
         });
       });
+
+      // ── Lightbox (images only) ──
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightboxImg");
+      document.querySelectorAll(".gallery-item.is-image").forEach((item) => {
+        item.addEventListener("click", () => {
+          const src = item.querySelector("img").src;
+          const alt = item.querySelector("img").alt;
+          lightboxImg.src = src;
+          lightboxImg.alt = alt;
+          lightbox.classList.add("open");
+        });
+      });
+      document
+        .getElementById("lightboxClose")
+        .addEventListener("click", () => lightbox.classList.remove("open"));
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) lightbox.classList.remove("open");
+      });
+
+      // ── Scroll top ──
+      const scrollTopBtn = document.getElementById("scrollTop");
+      window.addEventListener("scroll", () =>
+        scrollTopBtn.classList.toggle("visible", scrollY > 400),
+      );
+      scrollTopBtn.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
     </script>
   </body>
 </html>
