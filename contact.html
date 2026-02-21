@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact & Book | Yetfem Hotel</title>
+    <title>Contact &amp; Book | Yetfem Hotel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,830 +14,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <style>
-      /* ============================
-         CSS VARIABLES & RESET
-      ============================ */
-      :root {
-        --primary: #1a3a2a;
-        --primary-light: #2d5c42;
-        --secondary: #c9a84c;
-        --gray-100: #f5f5f0;
-        --gray-200: #e8e8e0;
-        --gray-500: #888;
-        --gray-600: #555;
-        --radius-sm: 6px;
-        --radius-md: 12px;
-        --radius-lg: 20px;
-        --font-primary: "Playfair Display", serif;
-        --font-body: "Poppins", sans-serif;
-        --nav-height: 72px;
-        --container-max: 1200px;
-        --section-pad: clamp(48px, 8vw, 96px);
-        --gap-md: clamp(16px, 3vw, 32px);
-      }
-
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: var(--font-body);
-        color: #222;
-        background: #fff;
-        line-height: 1.6;
-        overflow-x: hidden;
-      }
-
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
-      img {
-        max-width: 100%;
-        display: block;
-      }
-
-      /* ============================
-         UTILITIES
-      ============================ */
-      .container {
-        width: 100%;
-        max-width: var(--container-max);
-        margin: 0 auto;
-        padding: 0 clamp(16px, 5vw, 40px);
-      }
-
-      .section {
-        padding: var(--section-pad) 0;
-      }
-
-      .section-dark {
-        background: var(--primary);
-      }
-
-      .accent {
-        color: var(--secondary);
-      }
-
-      .section-label {
-        display: inline-block;
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--secondary);
-        margin-bottom: 10px;
-      }
-
-      .section-title {
-        font-family: var(--font-primary);
-        font-size: clamp(1.8rem, 4vw, 2.8rem);
-        color: #fff;
-        line-height: 1.2;
-      }
-
-      .section-header {
-        text-align: center;
-        margin-bottom: clamp(32px, 5vw, 56px);
-      }
-
-      /* ============================
-         NAVBAR
-      ============================ */
-      .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        background: var(--primary);
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
-        height: var(--nav-height);
-      }
-
-      .nav-container {
-        max-width: var(--container-max);
-        margin: 0 auto;
-        padding: 0 clamp(16px, 5vw, 40px);
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-
-      .logo {
-        flex-shrink: 0;
-      }
-      .logo-text {
-        font-family: var(--font-primary);
-        font-size: clamp(1.2rem, 3vw, 1.6rem);
-        font-weight: 900;
-        color: #fff;
-        letter-spacing: 0.15em;
-      }
-
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: clamp(8px, 2vw, 28px);
-        list-style: none;
-      }
-
-      .nav-link {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: color 0.2s;
-        white-space: nowrap;
-      }
-      .nav-link:hover,
-      .nav-link.active {
-        color: var(--secondary);
-      }
-
-      .btn-nav {
-        background: var(--secondary);
-        color: var(--primary);
-        padding: 9px 20px;
-        border-radius: 50px;
-        font-size: 0.88rem;
-        font-weight: 700;
-        white-space: nowrap;
-        transition: opacity 0.2s;
-      }
-      .btn-nav:hover {
-        opacity: 0.85;
-      }
-
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 4px;
-        flex-shrink: 0;
-      }
-      .hamburger span {
-        display: block;
-        width: 24px;
-        height: 2px;
-        background: #fff;
-        border-radius: 2px;
-        transition: all 0.3s;
-      }
-
-      /* Mobile nav */
-      @media (max-width: 768px) {
-        .hamburger {
-          display: flex;
-        }
-
-        .nav-links {
-          position: fixed;
-          top: var(--nav-height);
-          left: 0;
-          right: 0;
-          background: var(--primary);
-          flex-direction: column;
-          align-items: stretch;
-          gap: 0;
-          padding: 16px 0 24px;
-          transform: translateY(-110%);
-          transition: transform 0.35s ease;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-        .nav-links.open {
-          transform: translateY(0);
-        }
-
-        .nav-links li {
-          padding: 0 clamp(16px, 5vw, 40px);
-        }
-
-        .nav-link {
-          display: block;
-          padding: 12px 0;
-          font-size: 1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .btn-nav {
-          display: inline-block;
-          margin-top: 8px;
-          padding: 12px 20px;
-          text-align: center;
-        }
-      }
-
-      /* Hamburger active state */
-      .hamburger.active span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-      }
-      .hamburger.active span:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburger.active span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-      }
-
-      /* ============================
-         PAGE HERO
-      ============================ */
-      .page-hero {
-        position: relative;
-        min-height: clamp(300px, 45vw, 500px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding-top: var(--nav-height);
-      }
-
-      .page-hero-bg {
-        position: absolute;
-        inset: 0;
-        background-image: url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1400");
-        background-size: cover;
-        background-position: center;
-      }
-
-      .page-hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to bottom,
-          rgba(26, 58, 42, 0.7),
-          rgba(26, 58, 42, 0.85)
-        );
-      }
-
-      .page-hero-content {
-        position: relative;
-        z-index: 2;
-        padding: clamp(32px, 6vw, 80px) clamp(16px, 5vw, 40px);
-      }
-
-      .page-hero-content h1 {
-        font-family: var(--font-primary);
-        font-size: clamp(2.2rem, 6vw, 4.5rem);
-        color: #fff;
-        margin-bottom: 12px;
-        line-height: 1.1;
-      }
-
-      .page-hero-content p {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: clamp(0.95rem, 2.5vw, 1.15rem);
-      }
-
-      .breadcrumb {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        margin-bottom: 16px;
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.65);
-      }
-      .breadcrumb a {
-        color: var(--secondary);
-      }
-      .breadcrumb span:first-of-type {
-        opacity: 0.5;
-      }
-
-      /* ============================
-         CONTACT INFO CARDS
-      ============================ */
-      .contact-info-full {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: clamp(12px, 2vw, 24px);
-        margin-bottom: clamp(32px, 5vw, 60px);
-      }
-
-      @media (max-width: 900px) {
-        .contact-info-full {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 480px) {
-        .contact-info-full {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .contact-info-card {
-        background: var(--gray-100);
-        border-radius: var(--radius-md);
-        padding: clamp(20px, 3vw, 32px) clamp(16px, 2vw, 24px);
-        text-align: center;
-        transition:
-          transform 0.3s,
-          box-shadow 0.3s;
-      }
-      .contact-info-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-      }
-
-      .c-icon {
-        width: 52px;
-        height: 52px;
-        background: var(--primary);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 14px;
-        font-size: 1.2rem;
-        color: var(--secondary);
-      }
-
-      .contact-info-card h4 {
-        font-family: var(--font-primary);
-        font-size: 1rem;
-        color: var(--primary);
-        margin-bottom: 6px;
-      }
-      .contact-info-card p {
-        font-size: 0.9rem;
-        color: var(--gray-600);
-      }
-      .contact-info-card a {
-        color: var(--primary-light);
-      }
-      .contact-info-card a:hover {
-        color: var(--secondary);
-      }
-
-      /* ============================
-         QUICK BOOKING
-      ============================ */
-      .quick-book {
-        background: linear-gradient(
-          135deg,
-          var(--primary),
-          var(--primary-light)
-        );
-        border-radius: var(--radius-lg);
-        padding: clamp(24px, 4vw, 48px);
-        margin-bottom: clamp(40px, 6vw, 72px);
-      }
-
-      .quick-book h3 {
-        color: #fff;
-        font-family: var(--font-primary);
-        font-size: clamp(1.3rem, 3vw, 1.7rem);
-        margin-bottom: 8px;
-      }
-
-      .quick-book > p {
-        color: rgba(255, 255, 255, 0.75);
-        margin-bottom: clamp(20px, 3vw, 32px);
-        font-size: 0.95rem;
-      }
-
-      .quick-book-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(12px, 2vw, 20px);
-      }
-
-      @media (max-width: 560px) {
-        .quick-book-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .form-group {
-        position: relative;
-        margin-bottom: 0;
-      }
-
-      .form-group input,
-      .form-group select {
-        width: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        color: #fff;
-        padding: 16px 14px 8px;
-        border-radius: var(--radius-sm);
-        font-family: var(--font-body);
-        font-size: 0.95rem;
-        outline: none;
-        transition: border-color 0.2s;
-        -webkit-appearance: none;
-        appearance: none;
-      }
-
-      .form-group input:focus,
-      .form-group select:focus {
-        border-color: var(--secondary);
-      }
-
-      .form-group label {
-        position: absolute;
-        left: 14px;
-        top: 14px;
-        color: rgba(255, 255, 255, 0.65);
-        font-size: 0.88rem;
-        pointer-events: none;
-        transition: all 0.2s;
-      }
-
-      .form-group input:not(:placeholder-shown) ~ label,
-      .form-group input:focus ~ label {
-        top: 4px;
-        font-size: 0.72rem;
-        color: var(--secondary);
-      }
-
-      .form-group select {
-        padding: 14px;
-        cursor: pointer;
-      }
-
-      .form-group select option {
-        background: var(--primary);
-        color: #fff;
-      }
-
-      /* Date input label adjustment */
-      .form-group input[type="date"] {
-        padding-top: 20px;
-      }
-
-      /* Button */
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 14px 28px;
-        border-radius: 50px;
-        font-family: var(--font-body);
-        font-size: 0.95rem;
-        font-weight: 600;
-        cursor: pointer;
-        border: none;
-        transition: all 0.3s;
-        white-space: nowrap;
-      }
-
-      .btn-primary {
-        background: var(--secondary);
-        color: var(--primary);
-        margin-top: 8px;
-        width: 100%;
-        max-width: 340px;
-      }
-      .btn-primary:hover {
-        opacity: 0.88;
-        transform: translateY(-2px);
-      }
-
-      @media (max-width: 480px) {
-        .btn-primary {
-          max-width: 100%;
-        }
-      }
-
-      /* ============================
-         CONTACT GRID
-      ============================ */
-      .contact-page-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.4fr;
-        gap: clamp(32px, 5vw, 64px);
-        align-items: start;
-        margin-bottom: clamp(32px, 5vw, 56px);
-      }
-
-      @media (max-width: 860px) {
-        .contact-page-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* ============================
-         WHATSAPP BANNER
-      ============================ */
-      .whatsapp-banner {
-        background: #25d366;
-        border-radius: var(--radius-md);
-        padding: clamp(20px, 3vw, 32px);
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 24px;
-        text-decoration: none;
-        transition:
-          transform 0.3s,
-          box-shadow 0.3s;
-      }
-      .whatsapp-banner:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
-      }
-      .whatsapp-banner > i {
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-        color: #fff;
-        flex-shrink: 0;
-      }
-      .whatsapp-banner-text h4 {
-        color: #fff;
-        font-size: clamp(0.95rem, 2vw, 1.1rem);
-        margin-bottom: 4px;
-      }
-      .whatsapp-banner-text p {
-        color: rgba(255, 255, 255, 0.88);
-        font-size: 0.88rem;
-        margin: 0;
-      }
-
-      /* Social icons */
-      .social-row {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 28px;
-        flex-wrap: wrap;
-      }
-
-      .social-icon {
-        width: 44px;
-        height: 44px;
-        background: var(--primary);
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        transition:
-          background 0.3s,
-          transform 0.2s;
-        flex-shrink: 0;
-      }
-      .social-icon:hover {
-        background: var(--secondary);
-        transform: translateY(-2px);
-      }
-
-      /* ============================
-         MAP
-      ============================ */
-      .contact-map-wrapper {
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
-        line-height: 0;
-      }
-
-      .contact-map-wrapper iframe {
-        width: 100%;
-        height: clamp(280px, 45vw, 480px);
-        border: 0;
-        display: block;
-      }
-
-      /* ============================
-         GET IN TOUCH SECTION
-      ============================ */
-      .get-in-touch-title {
-        font-family: var(--font-primary);
-        font-size: clamp(1.5rem, 3vw, 2rem);
-        color: var(--primary);
-        margin-bottom: 16px;
-      }
-
-      .get-in-touch-text {
-        color: var(--gray-600);
-        margin-bottom: 28px;
-        line-height: 1.8;
-        font-size: 0.95rem;
-      }
-
-      /* ============================
-         FAQ
-      ============================ */
-      .faq-item {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-      }
-
-      .faq-question {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 0;
-        cursor: pointer;
-        font-weight: 600;
-        color: #fff;
-        font-size: clamp(0.9rem, 2.2vw, 1rem);
-        font-family: var(--font-primary);
-        gap: 12px;
-      }
-      .faq-question span {
-        flex: 1;
-      }
-      .faq-question i {
-        transition: transform 0.3s;
-        color: var(--secondary);
-        flex-shrink: 0;
-      }
-
-      .faq-answer {
-        display: none;
-        padding: 0 0 20px;
-        color: rgba(255, 255, 255, 0.72);
-        line-height: 1.8;
-        font-size: 0.93rem;
-      }
-
-      .faq-item.open .faq-question i {
-        transform: rotate(45deg);
-      }
-      .faq-item.open .faq-answer {
-        display: block;
-      }
-
-      /* ============================
-         FOOTER
-      ============================ */
-      .footer {
-        background: #0d1f16;
-        color: rgba(255, 255, 255, 0.75);
-        padding: clamp(48px, 7vw, 80px) 0 0;
-      }
-
-      .footer-content {
-        max-width: var(--container-max);
-        margin: 0 auto;
-        padding: 0 clamp(16px, 5vw, 40px);
-      }
-
-      .footer-main {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1.5fr;
-        gap: clamp(24px, 4vw, 48px);
-        padding-bottom: clamp(32px, 5vw, 56px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      @media (max-width: 900px) {
-        .footer-main {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-      @media (max-width: 480px) {
-        .footer-main {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .footer-logo {
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-        margin-bottom: 14px;
-      }
-      .footer-logo .logo-text {
-        font-family: var(--font-primary);
-        font-size: 1.4rem;
-        font-weight: 900;
-        color: #fff;
-        letter-spacing: 0.15em;
-      }
-      .logo-subtitle {
-        font-size: 0.65rem;
-        letter-spacing: 0.25em;
-        color: var(--secondary);
-        font-weight: 600;
-      }
-
-      .footer-description {
-        font-size: 0.9rem;
-        line-height: 1.7;
-        margin-bottom: 20px;
-      }
-
-      .social-links {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .social-links a {
-        width: 38px;
-        height: 38px;
-        background: rgba(255, 255, 255, 0.08);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.9rem;
-        transition:
-          background 0.3s,
-          color 0.3s;
-      }
-      .social-links a:hover {
-        background: var(--secondary);
-        color: var(--primary);
-      }
-
-      .footer-section h3 {
-        font-family: var(--font-primary);
-        color: #fff;
-        font-size: 1rem;
-        margin-bottom: 16px;
-      }
-
-      .footer-links {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .footer-links li {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.88rem;
-      }
-      .footer-links i {
-        color: var(--secondary);
-        font-size: 0.8rem;
-        flex-shrink: 0;
-      }
-      .footer-links a {
-        transition: color 0.2s;
-      }
-      .footer-links a:hover {
-        color: var(--secondary);
-      }
-
-      .footer-bottom {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 24px 0;
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.45);
-      }
-      .footer-bottom i {
-        color: #e74c3c;
-      }
-
-      /* ============================
-         SCROLL TOP
-      ============================ */
-      .scroll-top {
-        position: fixed;
-        bottom: 28px;
-        right: clamp(16px, 4vw, 32px);
-        width: 44px;
-        height: 44px;
-        background: var(--secondary);
-        color: var(--primary);
-        border: none;
-        border-radius: 50%;
-        font-size: 1rem;
-        cursor: pointer;
-        opacity: 0;
-        transform: translateY(12px);
-        transition: all 0.3s;
-        z-index: 500;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .scroll-top.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- NAVBAR -->
-    <nav class="navbar" id="navbar">
+    <nav id="navbar" class="navbar scrolled">
       <div class="nav-container">
-        <a href="index.html" class="logo">
-          <span class="logo-text">YETFEM</span>
-        </a>
+        <a href="index.html" class="logo"
+          ><span class="logo-text">YETFEM</span></a
+        >
         <ul class="nav-links" id="navLinks">
           <li><a href="index.html" class="nav-link">Home</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
@@ -847,30 +31,29 @@
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-          <span></span><san></san><span></span>
+          <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
-
-    <!-- PAGE HERO -->
     <div class="page-hero">
-      <div class="page-hero-bg"></div>
+      <div
+        class="page-hero-bg"
+        style="
+          background-image: url(&quot;https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1400&quot;);
+        "
+      ></div>
       <div class="page-hero-overlay"></div>
       <div class="page-hero-content">
         <div class="breadcrumb">
-          <a href="index.html">Home</a>
-          <span>/</span>
-          <span>Contact &amp; Book</span>
+          <a href="index.html">Home</a><span>/</span
+          ><span>Contact &amp; Book</span>
         </div>
-        <h1>Contact &amp; <span class="accent">Book</span></h1>
-        <p>We're here to help — reach out and we'll respond promptly</p>
+        <h1>Contact &amp; <span>Book</span></h1>
+        <p>We are here to help - reach out and we will respond promptly</p>
       </div>
     </div>
-
-    <!-- MAIN CONTENT -->
     <section class="section">
       <div class="container">
-        <!-- Contact Info Cards -->
         <div class="contact-info-full">
           <div class="contact-info-card">
             <div class="c-icon"><i class="fas fa-phone"></i></div>
@@ -897,19 +80,17 @@
             <p>Open 24 Hours, 7 Days a Week</p>
           </div>
         </div>
-
-        <!-- Quick Booking -->
-        <div class="quick-book">
+        <div class="quick-book" data-aos="fade-up">
           <h3>
             <i
               class="fas fa-calendar-check"
               style="color: var(--secondary); margin-right: 10px"
-            ></i>
-            Quick Booking Request
+            ></i
+            >Quick Booking Request
           </h3>
           <p>
-            Fill in your details and we'll confirm your booking via WhatsApp or
-            phone.
+            Fill in your details and we will confirm your booking via WhatsApp
+            or phone.
           </p>
           <div class="quick-book-grid">
             <div class="form-group">
@@ -940,13 +121,13 @@
               <select id="qb-room">
                 <option value="" disabled selected>Select Room Type</option>
                 <option value="Standard Room">
-                  Standard Room — ₦15,000/night
+                  Standard Room - 12,000/night
                 </option>
-                <option value="Deluxe Room">Deluxe Room — ₦15,000/night</option>
+                <option value="Deluxe Room">Deluxe Room - 15,000/night</option>
                 <option value="Executive Suite">
-                  Executive Suite — ₦15,000/night
+                  Executive Suite - 55,000/night
                 </option>
-                <option value="Family Room">Family Room — ₦15,000/night</option>
+                <option value="Family Room">Family Room - 20,000/night</option>
               </select>
             </div>
             <div class="form-group">
@@ -962,84 +143,88 @@
           </div>
           <br />
           <button id="quickBookBtn" class="btn btn-primary">
-            <i class="fab fa-whatsapp"></i>
-            <span>Send Booking via WhatsApp</span>
+            <i class="fab fa-whatsapp"></i
+            ><span>Send Booking via WhatsApp</span>
           </button>
         </div>
-
-        <!-- Get In Touch + Map -->
         <div class="contact-page-grid">
-          <div>
-            <h3 class="get-in-touch-title">Get In Touch</h3>
-            <p class="get-in-touch-text">
-              Have questions about our rooms, facilities, or pricing? We'd love
-              to hear from you. Reach us via any of the channels below and we'll
-              respond promptly.
+          <div data-aos="fade-right">
+            <h3
+              style="
+                font-size: clamp(1.5rem, 3vw, 2rem);
+                margin-bottom: 16px;
+                color: var(--primary);
+                font-family: var(--font-primary);
+              "
+            >
+              Get In Touch
+            </h3>
+            <p
+              style="
+                color: var(--gray-600);
+                margin-bottom: 28px;
+                line-height: 1.8;
+                font-size: 0.95rem;
+              "
+            >
+              Have questions about our rooms, facilities, or pricing? We would
+              love to hear from you. Reach us via any of the channels below and
+              we will respond promptly.
             </p>
-
             <a
-              href="https://wa.me/2348056874554?text=Hi%20Yetfem,%20I%27d%20like%20to%20make%20a%20booking"
+              href="https://wa.me/2348056874554?text=Hi%20Yetfem,%20I'd%20like%20to%20make%20a%20booking"
               target="_blank"
               class="whatsapp-banner"
             >
               <i class="fab fa-whatsapp"></i>
               <div class="whatsapp-banner-text">
                 <h4>Chat on WhatsApp</h4>
-                <p>Quickest way to book — we respond within minutes</p>
+                <p>Quickest way to book - we respond within minutes</p>
               </div>
             </a>
-
             <div class="social-row">
               <a
                 href="https://www.tiktok.com/@yetfemhotel"
                 target="_blank"
                 class="social-icon"
-                aria-label="TikTok"
-              >
-                <i class="fab fa-tiktok"></i>
-              </a>
+                ><i class="fab fa-tiktok"></i
+              ></a>
               <a
                 href="https://www.instagram.com/yetfemhotel"
                 target="_blank"
                 class="social-icon"
-                aria-label="Instagram"
-              >
-                <i class="fab fa-instagram"></i>
-              </a>
+                ><i class="fab fa-instagram"></i
+              ></a>
               <a
                 href="http://linkedin.com/in/yetfemhotel"
                 target="_blank"
                 class="social-icon"
-                aria-label="LinkedIn"
-              >
-                <i class="fab fa-linkedin-in"></i>
-              </a>
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
             </div>
           </div>
-
-          <div class="contact-map-wrapper">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d126081.9165788409!2d7.470594399999999!3d9.0583017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x104ddd0ced44d6f7%3A0x43fbe817f8e8971c!2sYETFEM%20HOTEL%20AND%20SUITES%2C%20No%204%2C%20Zone%20C%20second%20avenue%20Kuduru%20extension%2C%20bwari%20abuja%20Bwari%2C%20abuja%20901101%2C%20Federal%20Capital%20Territory!3m2!1d9.2903448!2d7.3629853!5e0!3m2!1sen!2sng!4v1771411568060!5m2!1sen!2sng"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            >
-            </iframe>
+          <div data-aos="fade-left">
+            <div class="contact-map-wrapper">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d126081.9165788409!2d7.470594399999999!3d9.0583017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x104ddd0ced44d6f7%3A0x43fbe817f8e8971c!2sYETFEM%20HOTEL%20AND%20SUITES!3m2!1d9.2903448!2d7.3629853!5e0!3m2!1sen!2sng!4v1771411568060!5m2!1sen!2sng"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- FAQ -->
-    <section class="section section-dark">
+    <section class="section section-dark" style="padding-bottom: 80px">
       <div class="container" style="max-width: 800px">
-        <div class="section-header">
+        <div class="section-header" data-aos="fade-up">
           <span class="section-label">FAQ</span>
           <h2 class="section-title">
             Frequently Asked <span class="accent">Questions</span>
           </h2>
         </div>
-        <div>
+        <div data-aos="fade-up" data-aos-delay="100">
           <div class="faq-item">
             <div class="faq-question">
               <span>What time is check-in and check-out?</span
@@ -1048,7 +233,7 @@
             <div class="faq-answer">
               Check-in is from 2:00 PM and check-out is by 12:00 PM (noon).
               Early check-in and late check-out can be arranged subject to
-              availability — please contact us in advance.
+              availability.
             </div>
           </div>
           <div class="faq-item">
@@ -1057,10 +242,9 @@
               ><i class="fas fa-plus"></i>
             </div>
             <div class="faq-answer">
-              To confirm your booking, make a payment to our Moniepoint account
-              and send proof of payment via WhatsApp along with your check-in
-              date, room type, and number of nights. We'll confirm within 30
-              minutes.
+              Make a payment to our Moniepoint account and send proof of payment
+              via WhatsApp with your check-in date, room type, and number of
+              nights. We confirm within 30 minutes.
             </div>
           </div>
           <div class="faq-item">
@@ -1070,8 +254,7 @@
             </div>
             <div class="faq-answer">
               Breakfast is available at our restaurant and can be added to your
-              stay for an additional fee. Please let us know when booking if
-              you'd like to include it.
+              stay for an additional fee. Please let us know when booking.
             </div>
           </div>
           <div class="faq-item">
@@ -1081,8 +264,7 @@
             </div>
             <div class="faq-answer">
               Yes! We offer complimentary, secure on-site parking monitored by
-              our 24/7 security team. Parking is available for all registered
-              hotel guests.
+              our 24/7 security team for all registered hotel guests.
             </div>
           </div>
           <div class="faq-item">
@@ -1091,8 +273,7 @@
             </div>
             <div class="faq-answer">
               We currently have a no-pets policy to ensure the comfort of all
-              our guests. Please contact us directly if you have specific needs
-              and we will do our best to accommodate you.
+              our guests. Contact us if you have specific needs.
             </div>
           </div>
           <div class="faq-item">
@@ -1101,45 +282,32 @@
               ><i class="fas fa-plus"></i>
             </div>
             <div class="faq-answer">
-              Cancellations made at least 48 hours before check-in are eligible
-              for a full refund. Cancellations within 48 hours may be subject to
-              a cancellation fee. Please contact us to discuss your specific
-              situation.
+              Cancellations at least 48 hours before check-in are eligible for a
+              full refund. Within 48 hours may incur a cancellation fee.
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-main">
           <div class="footer-section footer-brand">
             <div class="footer-logo">
-              <span class="logo-text">YETFEM</span>
-              <span class="logo-subtitle">HOTEL</span>
+              <span class="logo-text">YETFEM</span
+              ><span class="logo-subtitle">HOTEL</span>
             </div>
             <p class="footer-description">
               Your trusted boutique hotel in the heart of Abuja.
             </p>
             <div class="social-links">
-              <a
-                href="https://www.tiktok.com/@yetfemhotel"
-                target="_blank"
-                aria-label="TikTok"
+              <a href="https://www.tiktok.com/@yetfemhotel" target="_blank"
                 ><i class="fab fa-tiktok"></i
               ></a>
-              <a
-                href="https://www.instagram.com/yetfemhotel"
-                target="_blank"
-                aria-label="Instagram"
+              <a href="https://www.instagram.com/yetfemhotel" target="_blank"
                 ><i class="fab fa-instagram"></i
               ></a>
-              <a
-                href="http://linkedin.com/in/yetfemhotel"
-                target="_blank"
-                aria-label="LinkedIn"
+              <a href="http://linkedin.com/in/yetfemhotel" target="_blank"
                 ><i class="fab fa-linkedin-in"></i
               ></a>
             </div>
@@ -1186,39 +354,30 @@
         </div>
       </div>
     </footer>
-
-    <button id="scrollTop" class="scroll-top" aria-label="Scroll to top">
+    <button id="scrollTop" class="scroll-top">
       <i class="fas fa-arrow-up"></i>
     </button>
-
+    <script src="app.js"></script>
     <script>
-      // Hamburger menu
-      const hamburger = document.getElementById("hamburger");
-      const navLinks = document.getElementById("navLinks");
-
-      hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navLinks.classList.toggle("open");
+      const ham = document.getElementById("hamburger");
+      const nav = document.getElementById("navLinks");
+      ham.addEventListener("click", () => {
+        ham.classList.toggle("active");
+        nav.classList.toggle("active");
       });
-
-      // Close nav on link click (mobile)
-      navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          hamburger.classList.remove("active");
-          navLinks.classList.remove("open");
-        });
-      });
-
-      // Scroll top button
-      const scrollTopBtn = document.getElementById("scrollTop");
-      window.addEventListener("scroll", () => {
-        scrollTopBtn.classList.toggle("visible", window.scrollY > 400);
-      });
-      scrollTopBtn.addEventListener("click", () =>
+      nav.querySelectorAll("a").forEach((l) =>
+        l.addEventListener("click", () => {
+          ham.classList.remove("active");
+          nav.classList.remove("active");
+        }),
+      );
+      const st = document.getElementById("scrollTop");
+      window.addEventListener("scroll", () =>
+        st.classList.toggle("visible", scrollY > 400),
+      );
+      st.addEventListener("click", () =>
         window.scrollTo({ top: 0, behavior: "smooth" }),
       );
-
-      // FAQ accordion
       document.querySelectorAll(".faq-question").forEach((q) => {
         q.addEventListener("click", () => {
           const item = q.parentElement;
@@ -1229,8 +388,6 @@
           if (!wasOpen) item.classList.add("open");
         });
       });
-
-      // Quick book WhatsApp
       document.getElementById("quickBookBtn").addEventListener("click", () => {
         const name = document.getElementById("qb-name").value.trim();
         const phone = document.getElementById("qb-phone").value.trim();
@@ -1238,14 +395,12 @@
         const checkout = document.getElementById("qb-checkout").value;
         const room = document.getElementById("qb-room").value;
         const guests = document.getElementById("qb-guests").value;
-
         if (!name || !phone || !checkin || !room) {
           alert(
             "Please fill in your name, phone, check-in date and room type.",
           );
           return;
         }
-
         const msg = `Hi Yetfem Hotel! I'd like to book a room.\n\nName: ${name}\nPhone: ${phone}\nRoom: ${room}\nCheck-in: ${checkin}\nCheck-out: ${checkout || "TBD"}\nGuests: ${guests || 1}\n\nPlease confirm availability. Thank you!`;
         window.open(
           `https://wa.me/2348056874554?text=${encodeURIComponent(msg)}`,
