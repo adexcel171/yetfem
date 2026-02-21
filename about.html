@@ -27,17 +27,16 @@
           <li><a href="about.html" class="nav-link active">About</a></li>
           <li><a href="rooms.html" class="nav-link">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-
           <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
-        <button class="hamburger" id="hamburger">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
-    <div class="page-hero" style="padding-top: 76px">
+    <div class="page-hero">
       <div
         class="page-hero-bg"
         style="
@@ -98,20 +97,20 @@
           </div>
           <div class="about-images" data-aos="fade-left">
             <div class="about-image about-image-main">
-              <img src="/img/hpm.jpg" alt="Yetfem Hotel Lobby" />
+              <img src="/img/hpm.jpg" alt="Yetfem Hotel" />
               <div class="image-badge">
                 <i class="fas fa-award"></i><span>Premium Quality</span>
               </div>
             </div>
             <div class="about-image about-image-secondary">
-              <img src="/img/room1.jpeg" alt="Hotel Exterior" />
+              <img src="/img/room1.jpeg" alt="Hotel Interior" />
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Mission & Vision -->
+    <!-- Mission & Values -->
     <section class="section section-dark">
       <div class="container">
         <div class="section-header" data-aos="fade-up">
@@ -194,7 +193,6 @@
                 tailored and personal, because for us, every guest is special.
               </p>
             </div>
-
             <div class="feature-card">
               <div class="feature-icon"><i class="fas fa-naira-sign"></i></div>
               <h4>Exceptional Value</h4>
@@ -246,7 +244,6 @@
       </div>
     </section>
 
-    <!-- Booking CTA -->
     <div class="booking-strip">
       <h2>Come Stay With Us</h2>
       <p>
@@ -258,7 +255,6 @@
       ></a>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-main">
@@ -306,7 +302,7 @@
             <ul class="footer-links">
               <li>
                 <i class="fas fa-phone"></i
-                ><a href="tel:+">+234 805 687 4554</a>
+                ><a href="tel:+2348056874554">+234 805 687 4554</a>
               </li>
               <li>
                 <i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span>
@@ -329,5 +325,28 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <script src="app.js"></script>
+    <script>
+      // Hamburger
+      const ham = document.getElementById("hamburger");
+      const nav = document.getElementById("navLinks");
+      ham.addEventListener("click", () => {
+        ham.classList.toggle("active");
+        nav.classList.toggle("active");
+      });
+      nav.querySelectorAll("a").forEach((l) =>
+        l.addEventListener("click", () => {
+          ham.classList.remove("active");
+          nav.classList.remove("active");
+        }),
+      );
+      // Scroll top
+      const st = document.getElementById("scrollTop");
+      window.addEventListener("scroll", () =>
+        st.classList.toggle("visible", scrollY > 400),
+      );
+      st.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
+    </script>
   </body>
 </html>

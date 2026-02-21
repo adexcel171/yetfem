@@ -52,12 +52,6 @@
         text-decoration: none;
         color: inherit;
       }
-      img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
 
       /* ── NAVBAR ── */
       .navbar {
@@ -117,6 +111,8 @@
       .btn-nav:hover {
         opacity: 0.85;
       }
+
+      /* Hamburger */
       .hamburger {
         display: none;
         flex-direction: column;
@@ -135,6 +131,16 @@
         border-radius: 2px;
         transition: all 0.3s;
       }
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
       @media (max-width: 768px) {
         .hamburger {
           display: flex;
@@ -172,15 +178,6 @@
           text-align: center;
         }
       }
-      .hamburger.active span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-      }
-      .hamburger.active span:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburger.active span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-      }
 
       /* ── PAGE HERO ── */
       .page-hero {
@@ -190,7 +187,7 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding-top: var(--nav-h);
+        padding-top: var(--nav-h); /* pushes content below fixed nav */
       }
       .page-hero-bg {
         position: absolute;
@@ -240,7 +237,7 @@
         color: var(--secondary);
       }
 
-      /* ── SECTION ── */
+      /* ── SECTION / CONTAINER ── */
       .section {
         padding: clamp(48px, 8vw, 96px) 0;
       }
@@ -282,11 +279,10 @@
       }
 
       /* ── GALLERY GRID ──
-         KEY APPROACH:
-         - CSS Grid with fixed columns and a defined row height
-         - Images fill their cell via object-fit: cover
-         - TikTok items span 2 rows so they have enough height to render
-         - Everything stays aligned — no scatter
+         Uniform CSS grid — no masonry/columns.
+         Every image cell = 280px tall (object-fit: cover).
+         TikTok cells span 2 rows = 560px+ so embed renders properly.
+         Result: nothing scatters.
       */
       .gallery-grid {
         display: grid;
@@ -294,7 +290,6 @@
         grid-auto-rows: 280px;
         gap: clamp(10px, 2vw, 18px);
       }
-
       @media (max-width: 900px) {
         .gallery-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -308,7 +303,7 @@
         }
       }
 
-      /* Individual item */
+      /* Base item */
       .gallery-item {
         position: relative;
         border-radius: var(--radius-md);
@@ -335,14 +330,14 @@
         transform: scale(1.05);
       }
 
-      /* Image overlay on hover */
+      /* Hover overlay */
       .gallery-overlay {
         position: absolute;
         inset: 0;
         background: linear-gradient(
           to top,
-          rgba(26, 58, 42, 0.7) 0%,
-          transparent 60%
+          rgba(26, 58, 42, 0.75) 0%,
+          transparent 55%
         );
         opacity: 0;
         transition: opacity 0.3s;
@@ -364,27 +359,22 @@
         font-size: 0.82rem;
       }
 
-      /* TikTok items — span 2 rows so embed has room */
+      /* TikTok items — 2 rows tall */
       .gallery-item.is-tiktok {
         grid-row: span 2;
         background: #000;
         display: flex;
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
         overflow: hidden;
       }
-
-      /* TikTok iframe wrapper — fills cell */
       .tiktok-wrapper {
         width: 100%;
         height: 100%;
-        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
       }
-
-      /* Override TikTok blockquote default styles */
       .tiktok-wrapper blockquote.tiktok-embed {
         margin: 0 !important;
         padding: 0 !important;
@@ -395,8 +385,6 @@
         border: none !important;
         background: transparent !important;
       }
-
-      /* TikTok injects an iframe — make it fill the cell */
       .tiktok-wrapper iframe {
         width: 100% !important;
         height: 100% !important;
@@ -404,7 +392,7 @@
         border: none !important;
       }
 
-      /* Hidden items (filtered out) */
+      /* Filter hide */
       .gallery-item.hidden {
         display: none;
       }
@@ -589,6 +577,7 @@
         max-height: 85vh;
         border-radius: var(--radius-md);
         object-fit: contain;
+        display: block;
       }
       .lightbox-close {
         position: absolute;
@@ -605,6 +594,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: transform 0.3s;
+      }
+      .lightbox-close:hover {
+        transform: rotate(90deg) scale(1.1);
       }
 
       /* ── SCROLL TOP ── */
@@ -668,10 +661,10 @@
       </div>
     </div>
 
-    <!-- GALLERY -->
+    <!-- GALLERY SECTION -->
     <section class="section">
       <div class="container">
-        <!-- Filters -->
+        <!-- Filter buttons -->
         <div class="gallery-filters">
           <button class="filter-btn active" data-filter="all">All</button>
           <button class="filter-btn" data-filter="rooms">Rooms</button>
@@ -680,9 +673,8 @@
           <button class="filter-btn" data-filter="exterior">Exterior</button>
         </div>
 
-        <!-- Grid -->
+        <!-- Uniform grid: images fill one row, TikToks span two rows -->
         <div class="gallery-grid" id="galleryGrid">
-          <!-- IMAGE ITEMS — add class is-image + data-cat -->
           <div class="gallery-item is-image" data-cat="rooms">
             <img src="/img/2024-06-11.jpg" alt="Standard Room" />
             <div class="gallery-overlay">
@@ -703,7 +695,7 @@
             </div>
           </div>
 
-          <!-- TIKTOK ITEM — class is-tiktok, spans 2 rows automatically -->
+          <!-- TikTok 1 — spans 2 rows -->
           <div class="gallery-item is-tiktok" data-cat="dining">
             <div class="tiktok-wrapper">
               <blockquote
@@ -743,7 +735,7 @@
             </div>
           </div>
 
-          <!-- TIKTOK ITEM -->
+          <!-- TikTok 2 — spans 2 rows -->
           <div class="gallery-item is-tiktok" data-cat="exterior">
             <div class="tiktok-wrapper">
               <blockquote
@@ -783,7 +775,7 @@
             </div>
           </div>
 
-          <!-- TIKTOK ITEM -->
+          <!-- TikTok 3 — spans 2 rows -->
           <div class="gallery-item is-tiktok" data-cat="lobby">
             <div class="tiktok-wrapper">
               <blockquote
@@ -925,7 +917,7 @@
       </div>
     </footer>
 
-    <!-- LIGHTBOX -->
+    <!-- LIGHTBOX (images only) -->
     <div id="lightbox" class="lightbox">
       <div class="lightbox-inner">
         <button class="lightbox-close" id="lightboxClose">
@@ -939,11 +931,11 @@
       <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- TikTok embed script — load ONCE, at the end -->
+    <!-- TikTok embed script — ONE instance, at the very end -->
     <script async src="https://www.tiktok.com/embed.js"></script>
 
     <script>
-      // ── Hamburger ──
+      // Hamburger
       const hamburger = document.getElementById("hamburger");
       const navLinks = document.getElementById("navLinks");
       hamburger.addEventListener("click", () => {
@@ -957,7 +949,7 @@
         }),
       );
 
-      // ── Gallery filter ──
+      // Gallery filter
       document.querySelectorAll(".filter-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           document
@@ -966,21 +958,22 @@
           btn.classList.add("active");
           const cat = btn.dataset.filter;
           document.querySelectorAll(".gallery-item").forEach((item) => {
-            const match = cat === "all" || item.dataset.cat === cat;
-            item.classList.toggle("hidden", !match);
+            item.classList.toggle(
+              "hidden",
+              cat !== "all" && item.dataset.cat !== cat,
+            );
           });
         });
       });
 
-      // ── Lightbox (images only) ──
+      // Lightbox — images only
       const lightbox = document.getElementById("lightbox");
       const lightboxImg = document.getElementById("lightboxImg");
       document.querySelectorAll(".gallery-item.is-image").forEach((item) => {
         item.addEventListener("click", () => {
-          const src = item.querySelector("img").src;
-          const alt = item.querySelector("img").alt;
-          lightboxImg.src = src;
-          lightboxImg.alt = alt;
+          const img = item.querySelector("img");
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
           lightbox.classList.add("open");
         });
       });
@@ -991,7 +984,7 @@
         if (e.target === lightbox) lightbox.classList.remove("open");
       });
 
-      // ── Scroll top ──
+      // Scroll to top
       const scrollTopBtn = document.getElementById("scrollTop");
       window.addEventListener("scroll", () =>
         scrollTopBtn.classList.toggle("visible", scrollY > 400),

@@ -2789,3 +2789,353 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================
+   RESPONSIVE ENHANCEMENTS — All Pages
+   ============================================ */
+.nav-container {
+  padding: 0 clamp(16px, 4vw, 40px) !important;
+}
+@media (max-width: 992px) {
+  .nav-links {
+    top: 70px;
+    left: 0;
+    right: 0;
+    padding: 24px clamp(16px, 5vw, 40px);
+    gap: 0;
+    transform: translateY(-110%);
+    align-items: flex-start;
+  }
+  .nav-links.active {
+    transform: translateY(0);
+  }
+  .nav-links li {
+    width: 100%;
+  }
+  .nav-link {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+    font-size: 1rem;
+  }
+  .btn-nav {
+    margin-top: 10px;
+    display: inline-block;
+    text-align: center;
+  }
+}
+.page-hero {
+  height: clamp(280px, 40vw, 460px) !important;
+  padding-top: 70px !important;
+}
+.section {
+  padding: clamp(60px, 8vw, 120px) clamp(16px, 4vw, 40px);
+}
+.container {
+  padding: 0 clamp(16px, 4vw, 40px);
+}
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-images {
+    height: 380px !important;
+  }
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+@media (max-width: 600px) {
+  .rooms-grid {
+    grid-template-columns: 1fr;
+  }
+  .room-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .room-price {
+    text-align: left;
+  }
+  .room-content {
+    padding: 24px 20px;
+  }
+  .room-image-wrapper {
+    height: 240px;
+  }
+  .about-images {
+    height: 300px !important;
+  }
+}
+@media (max-width: 768px) {
+  .modal-content {
+    grid-template-columns: 1fr;
+  }
+  .modal-image-section {
+    min-height: 260px;
+  }
+  .modal-body {
+    padding: 28px 20px;
+  }
+  #modalTitle {
+    font-size: 1.8rem;
+  }
+  #modalAmount {
+    font-size: 2.2rem;
+  }
+  #modalFeatures {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+}
+.gallery-grid-full {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-auto-rows: 280px !important;
+  gap: clamp(10px, 2vw, 18px) !important;
+  columns: unset !important;
+}
+.gallery-grid-full .gallery-item {
+  break-inside: unset !important;
+  margin-bottom: 0 !important;
+  height: auto !important;
+}
+.gallery-grid-full .gallery-item.is-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+.gallery-grid-full .gallery-item.is-tiktok {
+  grid-row: span 2;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-grid-full .tiktok-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-grid-full .tiktok-wrapper blockquote.tiktok-embed {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: unset !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  border: none !important;
+}
+.gallery-grid-full .tiktok-wrapper iframe {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: unset !important;
+  border: none !important;
+}
+.gallery-item.hidden {
+  display: none !important;
+}
+@media (max-width: 900px) {
+  .gallery-grid-full {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-rows: 260px !important;
+  }
+}
+@media (max-width: 520px) {
+  .gallery-grid-full {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: 280px !important;
+  }
+}
+.contact-page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
+  margin-bottom: 40px;
+}
+@media (max-width: 860px) {
+  .contact-page-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.quick-book-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(12px, 2vw, 20px);
+}
+@media (max-width: 560px) {
+  .quick-book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.contact-map-wrapper {
+  height: clamp(260px, 40vw, 420px) !important;
+  margin-top: 40px !important;
+}
+@media (max-width: 768px) {
+  .contact-info-full {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 480px) {
+  .contact-info-full {
+    grid-template-columns: 1fr !important;
+  }
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+.quick-book {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 4vw, 48px);
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+.quick-book h3 {
+  color: #fff;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  margin-bottom: 8px;
+}
+.quick-book > p {
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: clamp(20px, 3vw, 32px);
+  font-size: 0.95rem;
+}
+.quick-book .form-group input,
+.quick-book .form-group select {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+.quick-book .form-group label {
+  color: rgba(255, 255, 255, 0.65) !important;
+  background: transparent !important;
+}
+.quick-book .form-group input:focus,
+.quick-book .form-group select:focus {
+  border-color: var(--secondary) !important;
+  outline: none;
+}
+.quick-book .form-group select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.quick-book .form-group select option {
+  background: var(--primary);
+  color: #fff;
+}
+.quick-book .btn-primary {
+  margin-top: 12px;
+  width: 100%;
+  max-width: 360px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.whatsapp-banner {
+  background: #25d366;
+  border-radius: var(--radius-md);
+  padding: clamp(18px, 3vw, 28px) clamp(20px, 3vw, 32px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  text-decoration: none;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.whatsapp-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4);
+}
+.whatsapp-banner > i {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: #fff;
+  flex-shrink: 0;
+}
+.whatsapp-banner-text h4 {
+  color: #fff;
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+.whatsapp-banner-text p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.87rem;
+  margin: 0;
+}
+.social-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.social-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition:
+    background 0.3s,
+    transform 0.2s;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+.social-icon:hover {
+  background: var(--secondary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #fff;
+  font-size: 1rem;
+  font-family: var(--font-primary);
+  gap: 12px;
+}
+.faq-question span {
+  flex: 1;
+}
+.faq-question i {
+  transition: transform 0.3s ease;
+  color: var(--secondary);
+  flex-shrink: 0;
+}
+.faq-answer {
+  display: none;
+  padding: 0 0 20px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.8;
+  font-size: 0.93rem;
+}
+.faq-item.open .faq-question i {
+  transform: rotate(45deg);
+}
+.faq-item.open .faq-answer {
+  display: block;
+}
+.booking-strip {
+  padding: clamp(48px, 7vw, 80px) clamp(16px, 5vw, 40px);
+}
+.scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+}

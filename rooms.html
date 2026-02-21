@@ -7,7 +7,7 @@
       name="description"
       content="Yetfem Hotel Rooms – Standard, Deluxe, Executive Suite and Family rooms in Abuja, Nigeria."
     />
-    <title>Rooms & Suites | Yetfem Hotel</title>
+    <title>Rooms &amp; Suites | Yetfem Hotel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,9 +21,6 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- Preloader -->
-
-    <!-- Navigation -->
     <nav id="navbar" class="navbar scrolled">
       <div class="nav-container">
         <a href="index.html" class="logo"
@@ -37,14 +34,13 @@
           <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
-        <button class="hamburger" id="hamburger">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
-    <!-- Page Hero -->
-    <div class="page-hero" style="padding-top: 76px">
+    <div class="page-hero">
       <div
         class="page-hero-bg"
         style="
@@ -65,10 +61,8 @@
       </div>
     </div>
 
-    <!-- Rooms Section -->
     <section class="rooms section">
       <div class="container">
-        <!-- Filter Buttons -->
         <div class="rooms-filter" data-aos="fade-up">
           <button class="filter-btn active" data-filter="all">All Rooms</button>
           <button class="filter-btn" data-filter="standard">Standard</button>
@@ -100,8 +94,8 @@
               <div class="room-header">
                 <h3 class="room-title">Standard Room</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦12,000</span
-                  ><span class="price-period">/ night</span>
+                  <span class="price-amount">₦12,000</span>
+                  <span class="price-period">/ night</span>
                 </div>
               </div>
               <p class="room-description">
@@ -148,8 +142,8 @@
               <div class="room-header">
                 <h3 class="room-title">Deluxe Room</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦15,000</span
-                  ><span class="price-period">/ night</span>
+                  <span class="price-amount">₦15,000</span>
+                  <span class="price-period">/ night</span>
                 </div>
               </div>
               <p class="room-description">
@@ -203,8 +197,8 @@
               <div class="room-header">
                 <h3 class="room-title">Executive Suite</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦15,000</span
-                  ><span class="price-period">/ night</span>
+                  <span class="price-amount">₦15,000</span>
+                  <span class="price-period">/ night</span>
                 </div>
               </div>
               <p class="room-description">
@@ -222,7 +216,7 @@
                   <i class="fas fa-hot-tub"></i><span>Jacuzzi</span>
                 </div>
                 <div class="room-feature-item">
-                  <!-- <i class="fas fa-concierge-bell"></i><span>Butler</span> -->
+                  <i class="fas fa-wifi"></i><span>Free WiFi</span>
                 </div>
               </div>
               <button class="btn btn-primary btn-block room-detail-btn">
@@ -240,7 +234,7 @@
             data-aos-delay="300"
           >
             <div class="room-image-wrapper">
-              <img src="" alt="Family Room" class="room-image" />
+              <img src="/img/room1.jpeg" alt="Family Room" class="room-image" />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
                   <i class="fas fa-eye"></i><span>View Details</span>
@@ -251,8 +245,8 @@
               <div class="room-header">
                 <h3 class="room-title">Family Room</h3>
                 <div class="room-price">
-                  <span class="price-amount">₦20,000</span
-                  ><span class="price-period">/ night</span>
+                  <span class="price-amount">₦20,000</span>
+                  <span class="price-period">/ night</span>
                 </div>
               </div>
               <p class="room-description">
@@ -267,7 +261,7 @@
                   <i class="fas fa-users"></i><span>4 Guests</span>
                 </div>
                 <div class="room-feature-item">
-                  <!-- <i class="fas fa-child"></i><span>Kids Area</span> -->
+                  <i class="fas fa-wifi"></i><span>Free WiFi</span>
                 </div>
                 <div class="room-feature-item">
                   <i class="fas fa-tv"></i><span>Smart TV</span>
@@ -282,7 +276,7 @@
       </div>
     </section>
 
-    <!-- Pricing Info -->
+    <!-- Pricing -->
     <section class="section section-dark">
       <div class="container">
         <div class="section-header" data-aos="fade-up">
@@ -297,7 +291,10 @@
         <div
           style="
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(
+              auto-fit,
+              minmax(min(220px, 100%), 1fr)
+            );
             gap: 24px;
           "
           data-aos="fade-up"
@@ -314,7 +311,7 @@
                 margin: 10px 0;
               "
             >
-              ₦25,000<span style="font-size: 0.9rem; font-weight: 400"
+              ₦12,000<span style="font-size: 0.9rem; font-weight: 400"
                 >/night</span
               >
             </p>
@@ -365,7 +362,7 @@
                 margin: 10px 0;
               "
             >
-              ₦45,000<span style="font-size: 0.9rem; font-weight: 400"
+              ₦20,000<span style="font-size: 0.9rem; font-weight: 400"
                 >/night</span
               >
             </p>
@@ -375,7 +372,6 @@
       </div>
     </section>
 
-    <!-- Booking CTA -->
     <div class="booking-strip">
       <h2>Ready to Reserve Your Room?</h2>
       <p>Book now and secure the best rates directly with us.</p>
@@ -384,7 +380,6 @@
       ></a>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-main">
@@ -432,7 +427,7 @@
             <ul class="footer-links">
               <li>
                 <i class="fas fa-phone"></i
-                ><a href="tel:+">+234 805 687 4554</a>
+                ><a href="tel:+2348056874554">+234 805 687 4554</a>
               </li>
               <li>
                 <i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span>
@@ -467,8 +462,8 @@
               <div>
                 <h2 class="modal-title" id="modalTitle"></h2>
                 <div class="modal-price">
-                  <span class="price-amount" id="modalAmount"></span
-                  ><span class="price-period">per night</span>
+                  <span class="price-amount" id="modalAmount"></span>
+                  <span class="price-period">per night</span>
                 </div>
               </div>
             </div>
@@ -498,12 +493,12 @@
                 confirm your reservation.
               </p>
               <a
-                href="https://wa.me/?text=Hi%20Yetfem,%20I%27d%20like%20to%20book%20a%20room"
+                href="https://wa.me/2348056874554?text=Hi%20Yetfem,%20I%27d%20like%20to%20book%20a%20room"
                 target="_blank"
                 class="btn btn-primary btn-block btn-whatsapp"
-                ><i class="fab fa-whatsapp"></i
-                ><span>Book via WhatsApp</span></a
               >
+                <i class="fab fa-whatsapp"></i><span>Book via WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>
@@ -514,5 +509,43 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <script src="app.js"></script>
+    <script>
+      const ham = document.getElementById("hamburger");
+      const nav = document.getElementById("navLinks");
+      ham.addEventListener("click", () => {
+        ham.classList.toggle("active");
+        nav.classList.toggle("active");
+      });
+      nav.querySelectorAll("a").forEach((l) =>
+        l.addEventListener("click", () => {
+          ham.classList.remove("active");
+          nav.classList.remove("active");
+        }),
+      );
+      const st = document.getElementById("scrollTop");
+      window.addEventListener("scroll", () =>
+        st.classList.toggle("visible", scrollY > 400),
+      );
+      st.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
+
+      // Room filter
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const f = btn.dataset.filter;
+          document.querySelectorAll(".room-card").forEach((card) => {
+            card.classList.toggle(
+              "hidden",
+              f !== "all" && card.dataset.filter !== f,
+            );
+          });
+        });
+      });
+    </script>
   </body>
 </html>
