@@ -325,28 +325,5 @@
       <i class="fas fa-arrow-up"></i>
     </button>
     <script src="app.js"></script>
-    <script>
-      // Hamburger
-      const ham = document.getElementById("hamburger");
-      const nav = document.getElementById("navLinks");
-      ham.addEventListener("click", () => {
-        ham.classList.toggle("active");
-        nav.classList.toggle("active");
-      });
-      nav.querySelectorAll("a").forEach((l) =>
-        l.addEventListener("click", () => {
-          ham.classList.remove("active");
-          nav.classList.remove("active");
-        }),
-      );
-      // Scroll top
-      const st = document.getElementById("scrollTop");
-      window.addEventListener("scroll", () =>
-        st.classList.toggle("visible", scrollY > 400),
-      );
-      st.addEventListener("click", () =>
-        window.scrollTo({ top: 0, behavior: "smooth" }),
-      );
-    </script>
   </body>
 </html>
