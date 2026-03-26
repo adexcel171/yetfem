@@ -179,8 +179,9 @@ button {
   font-family: var(--font-secondary);
   font-size: 1.8rem;
   font-weight: 900;
-  color: var(--accent);
+  color: white;
   letter-spacing: 2px;
+  background-color: black;
 }
 
 .logo-subtitle {
