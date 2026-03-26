@@ -176,11 +176,11 @@ button {
 }
 
 .logo-text {
-  font-family: var(--font-primary);
+  font-family: var(--font-secondary);
   font-size: 1.8rem;
   font-weight: 900;
-  color: var(--secondary);
-  letter-spacing: 4px;
+  color: white;
+  letter-spacing: 2px;
 }
 
 .logo-subtitle {
