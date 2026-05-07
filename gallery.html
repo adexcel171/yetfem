@@ -91,6 +91,15 @@
     </style>
   </head>
   <body>
+    <!-- ===== PRELOADER ===== -->
+    <div id="preloader" class="preloader" aria-hidden="true">
+      <div class="loader-ring"></div>
+      <div class="preloader-logo">
+        <div class="preloader-wordmark"><span>Y</span>ETFEM</div>
+        <div class="preloader-tagline">Hotel &amp; Suites · Abuja</div>
+      </div>
+      <div class="preloader-bar"></div>
+    </div>
     <!-- NAVBAR — matches styles.css #navbar / .nav-container / .nav-links -->
     <nav id="navbar" class="navbar scrolled">
       <div class="nav-container">
@@ -103,9 +112,14 @@
           <li><a href="rooms.html" class="nav-link">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
           <li><a href="contact.html" class="nav-link">Contact</a></li>
-          <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
+          <li><a href="contact.html" class="nav-link">Book Now</a></li>
         </ul>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-labebtn
+          btn-navl="Toggle menu"
+        >
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -409,20 +423,6 @@
 
     <script src="app.js"></script>
     <script>
-      // Hamburger — uses .active class as in styles.css
-      const hamburger = document.getElementById("hamburger");
-      const navLinks = document.getElementById("navLinks");
-      hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navLinks.classList.toggle("active");
-      });
-      navLinks.querySelectorAll("a").forEach((l) =>
-        l.addEventListener("click", () => {
-          hamburger.classList.remove("active");
-          navLinks.classList.remove("active");
-        }),
-      );
-
       // Gallery filter
       document.querySelectorAll(".filter-btn").forEach((btn) => {
         btn.addEventListener("click", () => {

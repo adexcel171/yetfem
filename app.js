@@ -3,12 +3,33 @@
    ============================================ */
 
 // ── Preloader ──────────────────────────────────────────
-window.addEventListener("load", () => {
+(function initPreloader() {
   const pre = document.getElementById("preloader");
-  if (pre) {
-    setTimeout(() => pre.classList.add("hidden"), 500);
+  if (!pre) return;
+
+  const MIN_DISPLAY = 1000; // at least 1s so logo animates nicely
+  const start = Date.now();
+
+  function hide() {
+    const elapsed = Date.now() - start;
+    const delay = Math.max(0, MIN_DISPLAY - elapsed);
+    setTimeout(() => {
+      pre.classList.add("hidden");
+      // Trigger hero entrance animations
+      document.querySelector(".hero-content")?.classList.add("animate");
+      document.querySelector(".hero-stats-bar")?.classList.add("animate");
+      document.querySelector(".hero-rule")?.classList.add("animate");
+    }, delay);
   }
-});
+
+  if (document.readyState === "complete") {
+    hide();
+  } else {
+    window.addEventListener("load", hide);
+    // Failsafe: hide after 4s regardless
+    setTimeout(hide, 4000);
+  }
+})();
 
 // ── Navbar scroll ──────────────────────────────────────
 const navbar = document.getElementById("navbar");
@@ -21,16 +42,42 @@ if (navbar) {
 // ── Hamburger ──────────────────────────────────────────
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
+
 if (hamburger && navLinks) {
+  function openMenu() {
+    hamburger.classList.add("active");
+    navLinks.classList.add("active");
+    document.body.style.overflow = "hidden";
+    hamburger.setAttribute("aria-expanded", "true");
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove("active");
+    navLinks.classList.remove("active");
+    document.body.style.overflow = "";
+    hamburger.setAttribute("aria-expanded", "false");
+  }
+
+  hamburger.setAttribute("aria-expanded", "false");
+
   hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    navLinks.classList.toggle("active");
+    navLinks.classList.contains("active") ? closeMenu() : openMenu();
   });
-  navLinks.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => {
-      hamburger.classList.remove("active");
-      navLinks.classList.remove("active");
-    });
+
+  // Close on any nav link click
+  navLinks
+    .querySelectorAll("a")
+    .forEach((a) => a.addEventListener("click", closeMenu));
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navLinks.classList.contains("active"))
+      closeMenu();
+  });
+
+  // Auto-close if viewport grows past breakpoint
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 992) closeMenu();
   });
 }
 
@@ -56,23 +103,26 @@ if (scrollTopBtn) {
   );
 }
 
-// ── Simple AOS (Animate on scroll) ────────────────────
+// ── Simple AOS (Animate on scroll) — enhanced ─────────
 (function initAOS() {
   const elements = document.querySelectorAll("[data-aos]");
   if (!elements.length) return;
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((e) => {
-        if (e.isIntersecting) {
-          const delay = e.target.dataset.aosDelay
-            ? parseInt(e.target.dataset.aosDelay)
-            : 0;
-          setTimeout(() => e.target.classList.add("aos-animate"), delay);
+        if (e.isIntersecting && !e.target.classList.contains("aos-animate")) {
+          const delay = parseInt(e.target.dataset.aosDelay || "0", 10);
+          setTimeout(() => {
+            e.target.classList.add("aos-animate");
+          }, delay);
+          observer.unobserve(e.target); // animate once
         }
       });
     },
-    { threshold: 0.12 },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
   );
+
   elements.forEach((el) => observer.observe(el));
 })();
 

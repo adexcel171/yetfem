@@ -17,11 +17,24 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- ===== PRELOADER ===== -->
+    <div id="preloader" class="preloader" aria-hidden="true">
+      <div class="loader-ring"></div>
+      <div class="preloader-logo">
+        <div class="preloader-wordmark"><span>Y</span>ETFEM</div>
+        <div class="preloader-tagline">Hotel &amp; Suites · Abuja</div>
+      </div>
+      <div class="preloader-bar"></div>
+    </div>
     <nav id="navbar" class="navbar scrolled">
       <div class="nav-container">
-        <a href="index.html" class="logo"
-          ><span class="logo-text">YETFEM</span></a
-        >
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-diamond"></i></div>
+          <div class="logo-words">
+            <span class="logo-name">YETFEM</span>
+            <span class="logo-tagline">Hotel &amp; Suites</span>
+          </div>
+        </a>
         <ul class="nav-links" id="navLinks">
           <li><a href="index.html" class="nav-link">Home</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
@@ -359,25 +372,6 @@
     </button>
     <script src="app.js"></script>
     <script>
-      const ham = document.getElementById("hamburger");
-      const nav = document.getElementById("navLinks");
-      ham.addEventListener("click", () => {
-        ham.classList.toggle("active");
-        nav.classList.toggle("active");
-      });
-      nav.querySelectorAll("a").forEach((l) =>
-        l.addEventListener("click", () => {
-          ham.classList.remove("active");
-          nav.classList.remove("active");
-        }),
-      );
-      const st = document.getElementById("scrollTop");
-      window.addEventListener("scroll", () =>
-        st.classList.toggle("visible", scrollY > 400),
-      );
-      st.addEventListener("click", () =>
-        window.scrollTo({ top: 0, behavior: "smooth" }),
-      );
       document.querySelectorAll(".faq-question").forEach((q) => {
         q.addEventListener("click", () => {
           const item = q.parentElement;
