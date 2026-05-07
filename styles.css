@@ -3291,22 +3291,22 @@ button {
   .hamburger {
     display: flex;
     position: relative;
-    z-index: 1100;
+    z-index: 9999;
   }
 
   .nav-links {
     display: flex;
     position: fixed;
     inset: 0;
-    background: rgba(7, 11, 26, 0.98);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
+    background: #070b1a;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 0;
     padding: 40px clamp(24px, 8vw, 80px);
-    z-index: 1050;
+    z-index: 9998;
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
