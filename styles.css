@@ -3290,132 +3290,104 @@ button {
 }
 
 /* ============================================
-   RESPONSIVE ENHANCEMENTS — All Pages
+   MOBILE NAVIGATION — Clean & Bulletproof
    ============================================ */
-/* ── Mobile Navigation — unified, pro-ready ────── */
 @media (max-width: 992px) {
+  /* Always show hamburger */
   .hamburger {
-    display: flex;
+    display: flex !important;
     position: relative;
-    z-index: 9999;
+    z-index: 10001;
   }
 
+  /* Fullscreen drawer — slides in from top, below the navbar */
   .nav-links {
-    display: flex;
-    position: fixed;
-    top: 76px; /* starts exactly below the navbar bar */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #070b1a;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0;
-    padding: 48px clamp(24px, 8vw, 80px) 40px;
-    overflow-y: auto;
-    z-index: 9998;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-12px);
+    display: flex !important;
+    position: fixed !important;
+    top: 76px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: calc(100vh - 76px) !important;
+    background: #070b1a !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    padding: 32px 40px !important;
+    z-index: 10000 !important;
+    list-style: none !important;
+    margin: 0 !important;
+    /* Hidden by default */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-10px) !important;
     transition:
-      opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-      transform 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-      visibility 0.38s;
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      visibility 0.3s ease !important;
   }
 
+  /* Active / open state */
   .nav-links.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0);
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
   }
 
-  /* Gold accent line above nav items */
+  /* Remove the ::before gold bar that breaks nth-child counting */
   .nav-links::before {
-    content: "";
-    display: block;
-    width: 48px;
-    height: 2px;
-    background: var(--secondary);
-    margin-bottom: 32px;
-    opacity: 0.5;
-    flex-shrink: 0;
+    display: none !important;
+    content: none !important;
   }
 
+  /* Every list item visible, full width */
   .nav-links li {
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(18px);
-    transition:
-      opacity 0.32s ease,
-      transform 0.32s ease;
+    width: 100% !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    transform: none !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
   }
 
-  /* Staggered entrance per item */
-  .nav-links.active li:nth-child(1) {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.06s;
-  }
-  .nav-links.active li:nth-child(2) {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.12s;
-  }
-  .nav-links.active li:nth-child(3) {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.18s;
-  }
-  .nav-links.active li:nth-child(4) {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.24s;
-  }
-  .nav-links.active li:nth-child(5) {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.3s;
-  }
-  .nav-links.active li:nth-child(6) {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.36s;
+  .nav-links li:last-child {
+    border-bottom: none !important;
   }
 
-  .nav-link {
-    display: block;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-    font-size: 1.1rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 600;
+  /* Nav link text — large, white, always visible */
+  .nav-links li a.nav-link {
+    display: block !important;
+    padding: 20px 0 !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
   }
 
-  /* Drop underline on mobile — use colour only */
-  .nav-link::after {
-    display: none;
-  }
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--secondary);
+  .nav-links li a.nav-link:hover,
+  .nav-links li a.nav-link.active {
+    color: #d4af37 !important;
   }
 
-  .btn-nav {
-    margin-top: 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-    padding: 14px 44px !important;
-    font-size: 0.9rem !important;
-    width: auto;
+  /* Underline pseudo hidden on mobile */
+  .nav-links li a.nav-link::after {
+    display: none !important;
+  }
+
+  /* Book Now button */
+  .nav-links li a.btn-nav {
+    display: inline-block !important;
+    margin-top: 8px !important;
+    padding: 14px 48px !important;
+    font-size: 0.95rem !important;
+    color: #070b1a !important;
+    border-radius: 50px !important;
   }
 }
 .page-hero {
