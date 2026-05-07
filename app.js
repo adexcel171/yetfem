@@ -44,9 +44,12 @@ const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
 if (hamburger && navLinks) {
+  const navbar = document.getElementById("navbar");
+
   function openMenu() {
     hamburger.classList.add("active");
     navLinks.classList.add("active");
+    navbar?.classList.add("menu-open");
     document.body.style.overflow = "hidden";
     hamburger.setAttribute("aria-expanded", "true");
   }
@@ -54,6 +57,7 @@ if (hamburger && navLinks) {
   function closeMenu() {
     hamburger.classList.remove("active");
     navLinks.classList.remove("active");
+    navbar?.classList.remove("menu-open");
     document.body.style.overflow = "";
     hamburger.setAttribute("aria-expanded", "false");
   }
