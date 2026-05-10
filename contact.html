@@ -15,9 +15,381 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ── Booking system extras ── */
+      .booking-system {
+        background: #fff;
+        border-radius: 20px;
+        padding: 44px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+        margin-top: 48px;
+      }
+      .booking-system h3 {
+        font-family: var(--font-primary, "Playfair Display", serif);
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        color: var(--primary, #070b1a);
+        margin-bottom: 8px;
+      }
+      .booking-system > p {
+        color: #64748b;
+        margin-bottom: 32px;
+        font-size: 0.92rem;
+      }
+
+      /* Stepper */
+      .stepper {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 36px;
+      }
+      .step {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+      }
+      .step:not(:last-child)::after {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: #e2e8f0;
+        margin: 0 8px;
+      }
+      .step-num {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 2px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #94a3b8;
+        flex-shrink: 0;
+        background: #f8fafc;
+        transition: all 0.3s;
+      }
+      .step-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #94a3b8;
+        transition: color 0.3s;
+        white-space: nowrap;
+      }
+      .step.active .step-num {
+        background: var(--secondary, #d4af37);
+        border-color: var(--secondary, #d4af37);
+        color: #070b1a;
+      }
+      .step.active .step-label {
+        color: #1e293b;
+      }
+      .step.done .step-num {
+        background: #10b981;
+        border-color: #10b981;
+        color: #fff;
+      }
+      .step.done .step-num::after {
+        content: "✓";
+      }
+
+      /* Step panels */
+      .step-panel {
+        display: none;
+      }
+      .step-panel.active {
+        display: block;
+      }
+
+      /* Availability grid */
+      .avail-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+      .avail-card {
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.25s;
+        position: relative;
+        background: #fafafa;
+      }
+      .avail-card:hover {
+        border-color: var(--secondary, #d4af37);
+        background: #fffdf0;
+      }
+      .avail-card.selected {
+        border-color: var(--secondary, #d4af37);
+        background: rgba(212, 175, 55, 0.06);
+      }
+      .avail-card.unavailable {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .avail-cat {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: 6px;
+      }
+      .avail-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 4px;
+      }
+      .avail-price {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--secondary, #d4af37);
+        margin-bottom: 8px;
+      }
+      .avail-price span {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: #94a3b8;
+      }
+      .avail-count {
+        display: inline-block;
+        font-size: 0.72rem;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-weight: 600;
+      }
+      .avail-count.has-rooms {
+        background: rgba(16, 185, 129, 0.1);
+        color: #059669;
+      }
+      .avail-count.no-rooms {
+        background: rgba(239, 68, 68, 0.1);
+        color: #dc2626;
+      }
+      .avail-card .check-mark {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 22px;
+        height: 22px;
+        background: var(--secondary, #d4af37);
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        color: #070b1a;
+        font-size: 0.7rem;
+      }
+      .avail-card.selected .check-mark {
+        display: flex;
+      }
+
+      /* Date inputs special styling */
+      .date-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .nights-display {
+        text-align: center;
+        padding: 10px;
+        background: rgba(212, 175, 55, 0.08);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #92710a;
+        display: none;
+      }
+
+      /* Summary box */
+      .booking-summary {
+        background: linear-gradient(135deg, #070b1a, #0f1630);
+        border-radius: 14px;
+        padding: 24px;
+        color: #fff;
+        margin-bottom: 24px;
+      }
+      .booking-summary h4 {
+        color: var(--secondary, #d4af37);
+        margin-bottom: 16px;
+        font-family: "Playfair Display", serif;
+      }
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 0.85rem;
+      }
+      .summary-row:last-child {
+        border-bottom: none;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .summary-row .lbl {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .summary-row .val {
+        color: #fff;
+        font-weight: 600;
+      }
+      .summary-row:last-child .val {
+        color: var(--secondary, #d4af37);
+        font-size: 1.1rem;
+      }
+
+      /* Confirmation card */
+      .confirm-card {
+        text-align: center;
+        padding: 40px 24px;
+        background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        border: 2px solid #bbf7d0;
+        border-radius: 16px;
+      }
+      .confirm-icon {
+        font-size: 3rem;
+        color: #10b981;
+        margin-bottom: 16px;
+      }
+      .confirm-ref {
+        display: inline-block;
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #070b1a;
+        letter-spacing: 3px;
+        background: #d4af37;
+        padding: 8px 24px;
+        border-radius: 8px;
+        margin: 12px 0;
+      }
+      .confirm-card p {
+        color: #166534;
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+
+      /* Nav buttons */
+      .step-nav {
+        display: flex;
+        gap: 12px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .btn-back {
+        padding: 13px 28px;
+        border: 2px solid #e2e8f0;
+        background: transparent;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: #475569;
+        transition: all 0.2s;
+      }
+      .btn-back:hover {
+        border-color: #94a3b8;
+        color: #1e293b;
+      }
+      .btn-next {
+        padding: 13px 32px;
+        background: var(--secondary, #d4af37);
+        border: none;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        color: #070b1a;
+        transition: opacity 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-next:hover {
+        opacity: 0.88;
+      }
+      .btn-next:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .btn-whatsapp-follow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #25d366;
+        color: #fff;
+        padding: 13px 28px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        margin-top: 12px;
+        transition: opacity 0.2s;
+      }
+      .btn-whatsapp-follow:hover {
+        opacity: 0.9;
+      }
+
+      /* Lookup section */
+      .lookup-box {
+        background: #f8fafc;
+        border-radius: 14px;
+        padding: 28px;
+        margin-top: 32px;
+        border: 1.5px solid #e2e8f0;
+      }
+      .lookup-box h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #0f172a;
+      }
+      .lookup-row {
+        display: flex;
+        gap: 10px;
+      }
+      .lookup-row input {
+        flex: 1;
+        padding: 11px 16px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+      }
+      .lookup-row input:focus {
+        border-color: var(--secondary, #d4af37);
+      }
+      .lookup-result {
+        margin-top: 14px;
+        display: none;
+      }
+
+      /* spinner */
+      .spinner {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(0, 0, 0, 0.2);
+        border-top-color: #070b1a;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
-    <!-- ===== PRELOADER ===== -->
+    <!-- PRELOADER -->
     <div id="preloader" class="preloader" aria-hidden="true">
       <div class="loader-ring"></div>
       <div class="preloader-logo">
@@ -26,6 +398,7 @@
       </div>
       <div class="preloader-bar"></div>
     </div>
+
     <nav id="navbar" class="navbar scrolled">
       <div class="nav-container">
         <a href="index.html" class="logo">
@@ -48,6 +421,7 @@
         </button>
       </div>
     </nav>
+
     <div class="page-hero">
       <div
         class="page-hero-bg"
@@ -62,22 +436,26 @@
           ><span>Contact &amp; Book</span>
         </div>
         <h1>Contact &amp; <span>Book</span></h1>
-        <p>We are here to help - reach out and we will respond promptly</p>
+        <p>
+          Reserve your room online — instant confirmation reference, no waiting
+        </p>
       </div>
     </div>
+
     <section class="section">
       <div class="container">
+        <!-- Contact info cards -->
         <div class="contact-info-full">
           <div class="contact-info-card">
             <div class="c-icon"><i class="fas fa-phone"></i></div>
             <h4>Call Us</h4>
-            <p><a href="tel:+2348056874554">+234 805 687 4554</a></p>
+            <p><a href="tel:+2347064117411">+234 706 411 7411</a></p>
           </div>
           <div class="contact-info-card">
             <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
             <h4>WhatsApp</h4>
             <p>
-              <a href="https://wa.me/2348056874554" target="_blank"
+              <a href="https://wa.me/2347064117411" target="_blank"
                 >Chat with us now</a
               >
             </p>
@@ -93,73 +471,244 @@
             <p>Open 24 Hours, 7 Days a Week</p>
           </div>
         </div>
-        <div class="quick-book" data-aos="fade-up">
+
+        <!-- ══ BOOKING SYSTEM ══ -->
+        <div class="booking-system" data-aos="fade-up">
           <h3>
             <i
               class="fas fa-calendar-check"
-              style="color: var(--secondary); margin-right: 10px"
+              style="color: var(--secondary, #d4af37); margin-right: 10px"
             ></i
-            >Quick Booking Request
+            >Book a Room
           </h3>
           <p>
-            Fill in your details and we will confirm your booking via WhatsApp
-            or phone.
+            Check real-time availability and secure your reservation in minutes.
           </p>
-          <div class="quick-book-grid">
-            <div class="form-group">
-              <input
-                type="text"
-                id="qb-name"
-                placeholder=" "
-                autocomplete="name"
-              />
-              <label>Full Name</label>
+
+          <!-- Stepper -->
+          <div class="stepper">
+            <div class="step active" id="step-ind-1">
+              <div class="step-num">1</div>
+              <div class="step-label">Dates &amp; Availability</div>
             </div>
-            <div class="form-group">
-              <input
-                type="tel"
-                id="qb-phone"
-                placeholder=" "
-                autocomplete="tel"
-              />
-              <label>Phone Number</label>
+            <div class="step" id="step-ind-2">
+              <div class="step-num">2</div>
+              <div class="step-label">Guest Details</div>
             </div>
-            <div class="form-group">
-              <input type="date" id="qb-checkin" />
-            </div>
-            <div class="form-group">
-              <input type="date" id="qb-checkout" />
-            </div>
-            <div class="form-group">
-              <select id="qb-room">
-                <option value="" disabled selected>Select Room Type</option>
-                <option value="Standard Room">
-                  Standard Room - 12,000/night
-                </option>
-                <option value="Deluxe Room">Deluxe Room - 15,000/night</option>
-                <option value="Executive Suite">
-                  Executive Suite - 55,000/night
-                </option>
-                <option value="Family Room">Family Room - 20,000/night</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <input
-                type="number"
-                id="qb-guests"
-                placeholder=" "
-                min="1"
-                max="6"
-              />
-              <label>Number of Guests</label>
+            <div class="step" id="step-ind-3">
+              <div class="step-num">3</div>
+              <div class="step-label">Confirm</div>
             </div>
           </div>
-          <br />
-          <button id="quickBookBtn" class="btn btn-primary">
-            <i class="fab fa-whatsapp"></i
-            ><span>Send Booking via WhatsApp</span>
-          </button>
+
+          <!-- Step 1: dates + availability -->
+          <div class="step-panel active" id="panel-1">
+            <div class="date-row">
+              <div class="form-group">
+                <input type="date" id="bk-checkin" />
+                <label>Check-In Date</label>
+              </div>
+              <div class="form-group">
+                <input type="date" id="bk-checkout" />
+                <label>Check-Out Date</label>
+              </div>
+            </div>
+            <div class="nights-display" id="nightsDisplay"></div>
+            <br />
+            <button class="btn-next" id="checkAvailBtn">
+              <span id="availBtnLabel">Check Availability</span>
+              <i class="fas fa-search"></i>
+            </button>
+
+            <div class="avail-grid" id="availGrid" style="display: none"></div>
+
+            <div class="step-nav" id="step1Nav" style="display: none">
+              <button class="btn-next" id="toStep2Btn" disabled>
+                Continue <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: guest details -->
+          <div class="step-panel" id="panel-2">
+            <!-- Summary -->
+            <div class="booking-summary" id="bookingSummary"></div>
+
+            <div class="quick-book-grid">
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="bk-name"
+                  placeholder=" "
+                  autocomplete="name"
+                />
+                <label>Full Name *</label>
+              </div>
+              <div class="form-group">
+                <input
+                  type="tel"
+                  id="bk-phone"
+                  placeholder=" "
+                  autocomplete="tel"
+                />
+                <label>Phone Number *</label>
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  id="bk-email"
+                  placeholder=" "
+                  autocomplete="email"
+                />
+                <label>Email Address (optional)</label>
+              </div>
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="bk-guests"
+                  placeholder=" "
+                  min="1"
+                  max="6"
+                />
+                <label>Number of Guests *</label>
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1">
+                <input type="text" id="bk-payref" placeholder=" " />
+                <label>Payment Reference (if you've paid)</label>
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1">
+                <textarea
+                  id="bk-notes"
+                  placeholder="Any special requests or notes…"
+                  rows="3"
+                  style="
+                    width: 100%;
+                    padding: 14px 16px;
+                    border: 1.5px solid #e2e8f0;
+                    border-radius: 10px;
+                    font-family: inherit;
+                    font-size: 0.92rem;
+                    resize: vertical;
+                    outline: none;
+                  "
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="step-nav">
+              <button class="btn-back" id="backTo1Btn">← Back</button>
+              <button class="btn-next" id="toStep3Btn">
+                Review Booking <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: confirm & submit -->
+          <div class="step-panel" id="panel-3">
+            <div class="booking-summary" id="finalSummary"></div>
+
+            <div
+              style="
+                background: #fef9e7;
+                border: 1.5px solid #d4af37;
+                border-radius: 10px;
+                padding: 16px;
+                font-size: 0.85rem;
+                color: #92710a;
+                margin-bottom: 20px;
+              "
+            >
+              <i class="fas fa-info-circle"></i>
+              &nbsp;After submitting, your booking reference will be generated
+              instantly. Send payment proof to our WhatsApp with your reference
+              number to confirm your stay.
+            </div>
+
+            <div class="step-nav">
+              <button class="btn-back" id="backTo2Btn">← Back</button>
+              <button class="btn-next" id="submitBookingBtn">
+                <span id="submitLabel">Submit Booking</span>
+                <i class="fas fa-check"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 4: success -->
+          <div class="step-panel" id="panel-4">
+            <div class="confirm-card">
+              <div class="confirm-icon">
+                <i class="fas fa-circle-check"></i>
+              </div>
+              <h3
+                style="
+                  font-family: &quot;Playfair Display&quot;, serif;
+                  color: #065f46;
+                  margin-bottom: 8px;
+                "
+              >
+                Booking Submitted!
+              </h3>
+              <p>Your booking reference number is:</p>
+              <div class="confirm-ref" id="confirmRef">—</div>
+              <p style="margin-top: 12px">
+                Please screenshot this reference, then send your payment proof
+                to our WhatsApp with the reference number to confirm your
+                reservation. We will respond within 30 minutes.
+              </p>
+              <a
+                id="confirmWhatsApp"
+                href="#"
+                target="_blank"
+                class="btn-whatsapp-follow"
+              >
+                <i class="fab fa-whatsapp"></i> Send Payment Proof via WhatsApp
+              </a>
+              <br /><br />
+              <button
+                onclick="resetBookingForm()"
+                style="
+                  background: #f1f5f9;
+                  border: none;
+                  padding: 10px 24px;
+                  border-radius: 8px;
+                  cursor: pointer;
+                  font-size: 0.85rem;
+                "
+              >
+                Make Another Booking
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- Booking Lookup -->
+        <div class="lookup-box" data-aos="fade-up">
+          <h4>
+            <i
+              class="fas fa-search"
+              style="color: var(--secondary, #d4af37); margin-right: 8px"
+            ></i
+            >Look Up a Booking
+          </h4>
+          <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 12px">
+            Enter your booking reference to check your reservation status.
+          </p>
+          <div class="lookup-row">
+            <input
+              type="text"
+              id="lookupRef"
+              placeholder="e.g. YHL3K5M2"
+              maxlength="20"
+              style="text-transform: uppercase"
+            />
+            <button class="btn-next" id="lookupBtn" style="padding: 11px 22px">
+              Search
+            </button>
+          </div>
+          <div class="lookup-result" id="lookupResult"></div>
+        </div>
+
+        <!-- Get in touch + map -->
         <div class="contact-page-grid">
           <div data-aos="fade-right">
             <h3
@@ -181,18 +730,17 @@
               "
             >
               Have questions about our rooms, facilities, or pricing? We would
-              love to hear from you. Reach us via any of the channels below and
-              we will respond promptly.
+              love to hear from you. Reach us via any of the channels below.
             </p>
             <a
-              href="https://wa.me/2348056874554?text=Hi%20Yetfem,%20I'd%20like%20to%20make%20a%20booking"
+              href="https://wa.me/2347064117411?text=Hi%20Yetfem,%20I'd%20like%20to%20make%20a%20booking"
               target="_blank"
               class="whatsapp-banner"
             >
               <i class="fab fa-whatsapp"></i>
               <div class="whatsapp-banner-text">
                 <h4>Chat on WhatsApp</h4>
-                <p>Quickest way to book - we respond within minutes</p>
+                <p>Quickest way to reach us — we respond within minutes</p>
               </div>
             </a>
             <div class="social-row">
@@ -223,12 +771,15 @@
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
+              >
+              </iframe>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- FAQ -->
     <section class="section section-dark" style="padding-bottom: 80px">
       <div class="container" style="max-width: 800px">
         <div class="section-header" data-aos="fade-up">
@@ -255,9 +806,9 @@
               ><i class="fas fa-plus"></i>
             </div>
             <div class="faq-answer">
-              Make a payment to our Moniepoint account and send proof of payment
-              via WhatsApp with your check-in date, room type, and number of
-              nights. We confirm within 30 minutes.
+              Submit your booking online to get a reference number, then make a
+              payment to our Moniepoint account and send proof of payment via
+              WhatsApp with your reference number. We confirm within 30 minutes.
             </div>
           </div>
           <div class="faq-item">
@@ -302,6 +853,7 @@
         </div>
       </div>
     </section>
+
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-main">
@@ -311,7 +863,7 @@
               ><span class="logo-subtitle">HOTEL</span>
             </div>
             <p class="footer-description">
-              Your trusted boutique hotel in the heart of Abuja.
+              Your trusted boutique hotel in the heart of Bwari, Abuja.
             </p>
             <div class="social-links">
               <a href="https://www.tiktok.com/@yetfemhotel" target="_blank"
@@ -341,7 +893,6 @@
               <li><a href="rooms.html">Standard Room</a></li>
               <li><a href="rooms.html">Deluxe Room</a></li>
               <li><a href="rooms.html">Executive Suite</a></li>
-              <li><a href="rooms.html">Family Room</a></li>
             </ul>
           </div>
           <div class="footer-section">
@@ -349,17 +900,18 @@
             <ul class="footer-links">
               <li>
                 <i class="fas fa-phone"></i
-                ><a href="tel:+2348056874554">+234 805 687 4554</a>
+                ><a href="tel:+2347064117411">+234 706 411 7411</a>
               </li>
               <li>
-                <i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span>
+                <i class="fas fa-map-marker-alt"></i
+                ><span>Bwari, Abuja, Nigeria</span>
               </li>
               <li><i class="fas fa-clock"></i><span>24/7 Service</span></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2025 Yetfem Hotel. All Rights Reserved.</p>
+          <p>&copy; 2026 Yetfem Hotel. All Rights Reserved.</p>
           <p>
             Crafted with <i class="fas fa-heart"></i> for exceptional
             hospitality
@@ -367,11 +919,357 @@
         </div>
       </div>
     </footer>
+
     <button id="scrollTop" class="scroll-top">
       <i class="fas fa-arrow-up"></i>
     </button>
     <script src="app.js"></script>
+
     <script>
+      /* ═══════════════════════════════════════════════════════
+         BOOKING SYSTEM — client-side logic
+         API base: same origin (booking.js server on port 3000)
+         ═══════════════════════════════════════════════════════ */
+      const API_BASE = ""; // e.g. "http://localhost:3000" if on different port
+
+      // State
+      let selectedCategory = null;
+      let availabilityData = null;
+      let bookingResult = null;
+
+      const WHATSAPP_NUM = "2347064117411";
+
+      // ── DOM refs ──────────────────────────────────────────
+      const $checkin = document.getElementById("bk-checkin");
+      const $checkout = document.getElementById("bk-checkout");
+      const $nightsDisplay = document.getElementById("nightsDisplay");
+
+      // ── Date logic ────────────────────────────────────────
+      const todayStr = () => new Date().toISOString().split("T")[0];
+
+      $checkin.min = todayStr();
+      $checkout.min = todayStr();
+
+      $checkin.addEventListener("change", () => {
+        if ($checkout.value && $checkout.value <= $checkin.value) {
+          const next = new Date($checkin.value);
+          next.setDate(next.getDate() + 1);
+          $checkout.value = next.toISOString().split("T")[0];
+        }
+        $checkout.min = $checkin.value;
+        updateNightsDisplay();
+        resetAvailability();
+      });
+      $checkout.addEventListener("change", () => {
+        updateNightsDisplay();
+        resetAvailability();
+      });
+
+      function calcNights() {
+        if (!$checkin.value || !$checkout.value) return 0;
+        const d1 = new Date($checkin.value),
+          d2 = new Date($checkout.value);
+        return Math.round((d2 - d1) / 86400000);
+      }
+      function updateNightsDisplay() {
+        const n = calcNights();
+        if (n > 0) {
+          $nightsDisplay.textContent = `${n} night${n > 1 ? "s" : ""}`;
+          $nightsDisplay.style.display = "block";
+        } else {
+          $nightsDisplay.style.display = "none";
+        }
+      }
+      function resetAvailability() {
+        document.getElementById("availGrid").style.display = "none";
+        document.getElementById("step1Nav").style.display = "none";
+        selectedCategory = null;
+        availabilityData = null;
+      }
+
+      // ── Check availability ────────────────────────────────
+      document
+        .getElementById("checkAvailBtn")
+        .addEventListener("click", async () => {
+          const ci = $checkin.value,
+            co = $checkout.value;
+          if (!ci || !co) {
+            alert("Please select check-in and check-out dates.");
+            return;
+          }
+          if (ci >= co) {
+            alert("Check-out must be after check-in.");
+            return;
+          }
+
+          const btn = document.getElementById("checkAvailBtn");
+          const label = document.getElementById("availBtnLabel");
+          btn.disabled = true;
+          label.innerHTML = '<span class="spinner"></span> Checking…';
+
+          try {
+            const res = await fetch(
+              `${API_BASE}/api/availability?checkin=${ci}&checkout=${co}`,
+            );
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Failed");
+            availabilityData = data.availability;
+            renderAvailability();
+          } catch (e) {
+            alert(
+              "Could not check availability: " +
+                e.message +
+                "\n\nPlease call us on +234 706 411 7411.",
+            );
+          } finally {
+            btn.disabled = false;
+            label.textContent = "Check Availability";
+          }
+        });
+
+      function renderAvailability() {
+        const grid = document.getElementById("availGrid");
+        const cats = [
+          { key: "standard", icon: "🛏️" },
+          { key: "deluxe", icon: "✨" },
+          { key: "executive", icon: "👑" },
+        ];
+        grid.innerHTML = cats
+          .map(({ key, icon }) => {
+            const d = availabilityData[key];
+            const avail = d.available > 0;
+            return `
+            <div class="avail-card ${avail ? "" : "unavailable"}" data-cat="${key}" onclick="selectCategory('${key}')">
+              <div class="check-mark"><i class="fas fa-check"></i></div>
+              <div class="avail-cat">${icon} ${key}</div>
+              <div class="avail-name">${d.label}</div>
+              <div class="avail-price">₦${d.pricePerNight.toLocaleString()} <span>/ night</span></div>
+              <div class="avail-count ${avail ? "has-rooms" : "no-rooms"}">
+                ${avail ? `${d.available} room${d.available > 1 ? "s" : ""} available` : "Fully Booked"}
+              </div>
+              <div style="font-size:0.72rem;color:#94a3b8;margin-top:6px;">Max ${d.maxGuests} guests</div>
+            </div>`;
+          })
+          .join("");
+        grid.style.display = "grid";
+        document.getElementById("step1Nav").style.display = "flex";
+        document.getElementById("toStep2Btn").disabled = true;
+      }
+
+      function selectCategory(cat) {
+        if (
+          !availabilityData ||
+          !availabilityData[cat] ||
+          availabilityData[cat].available === 0
+        )
+          return;
+        selectedCategory = cat;
+        document
+          .querySelectorAll(".avail-card")
+          .forEach((c) => c.classList.remove("selected"));
+        document
+          .querySelector(`.avail-card[data-cat="${cat}"]`)
+          .classList.add("selected");
+        document.getElementById("toStep2Btn").disabled = false;
+      }
+
+      // ── Step navigation ───────────────────────────────────
+      function goToStep(n) {
+        document
+          .querySelectorAll(".step-panel")
+          .forEach((p, i) => p.classList.toggle("active", i === n - 1));
+        document.querySelectorAll(".step").forEach((s, i) => {
+          s.classList.remove("active", "done");
+          if (i < n - 1) s.classList.add("done");
+          if (i === n - 1) s.classList.add("active");
+        });
+        window.scrollTo({
+          top: document.querySelector(".booking-system").offsetTop - 80,
+          behavior: "smooth",
+        });
+      }
+
+      document.getElementById("toStep2Btn").addEventListener("click", () => {
+        if (!selectedCategory) return;
+        renderSummary("bookingSummary");
+        goToStep(2);
+      });
+
+      document
+        .getElementById("backTo1Btn")
+        .addEventListener("click", () => goToStep(1));
+      document
+        .getElementById("backTo2Btn")
+        .addEventListener("click", () => goToStep(2));
+
+      document.getElementById("toStep3Btn").addEventListener("click", () => {
+        const name = document.getElementById("bk-name").value.trim();
+        const phone = document.getElementById("bk-phone").value.trim();
+        const guests = document.getElementById("bk-guests").value;
+        if (!name || !phone || !guests) {
+          alert("Please fill in your name, phone number and number of guests.");
+          return;
+        }
+        renderSummary("finalSummary", true);
+        goToStep(3);
+      });
+
+      function renderSummary(id, full = false) {
+        const d = availabilityData[selectedCategory];
+        const n = calcNights();
+        const total = d.pricePerNight * n;
+        const name = document.getElementById("bk-name").value.trim();
+        const phone = document.getElementById("bk-phone").value.trim();
+        const guests = document.getElementById("bk-guests").value;
+
+        let rows = `
+          <div class="summary-row"><span class="lbl">Room Type</span><span class="val">${d.label}</span></div>
+          <div class="summary-row"><span class="lbl">Check-In</span><span class="val">${fmtDate($checkin.value)}</span></div>
+          <div class="summary-row"><span class="lbl">Check-Out</span><span class="val">${fmtDate($checkout.value)}</span></div>
+          <div class="summary-row"><span class="lbl">Nights</span><span class="val">${n}</span></div>
+          <div class="summary-row"><span class="lbl">Rate / Night</span><span class="val">₦${d.pricePerNight.toLocaleString()}</span></div>`;
+        if (full && name)
+          rows += `<div class="summary-row"><span class="lbl">Guest Name</span><span class="val">${name}</span></div>`;
+        if (full && phone)
+          rows += `<div class="summary-row"><span class="lbl">Phone</span><span class="val">${phone}</span></div>`;
+        if (full && guests)
+          rows += `<div class="summary-row"><span class="lbl">Guests</span><span class="val">${guests}</span></div>`;
+        rows += `<div class="summary-row"><span class="lbl">Total</span><span class="val">₦${total.toLocaleString()}</span></div>`;
+
+        document.getElementById(id).innerHTML =
+          `<h4>Booking Summary</h4>${rows}`;
+      }
+
+      function fmtDate(s) {
+        if (!s) return "";
+        return new Date(s + "T00:00:00").toLocaleDateString("en-NG", {
+          weekday: "short",
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+      }
+
+      // ── Submit booking ────────────────────────────────────
+      document
+        .getElementById("submitBookingBtn")
+        .addEventListener("click", async () => {
+          const btn = document.getElementById("submitBookingBtn");
+          const label = document.getElementById("submitLabel");
+          btn.disabled = true;
+          label.innerHTML = '<span class="spinner"></span> Submitting…';
+
+          const payload = {
+            guestName: document.getElementById("bk-name").value.trim(),
+            guestPhone: document.getElementById("bk-phone").value.trim(),
+            guestEmail: document.getElementById("bk-email").value.trim(),
+            guestCount:
+              parseInt(document.getElementById("bk-guests").value) || 1,
+            category: selectedCategory,
+            checkin: $checkin.value,
+            checkout: $checkout.value,
+            notes: document.getElementById("bk-notes").value.trim(),
+            paymentRef: document.getElementById("bk-payref").value.trim(),
+          };
+
+          try {
+            const res = await fetch(`${API_BASE}/api/bookings`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Booking failed");
+
+            bookingResult = data.booking;
+            document.getElementById("confirmRef").textContent =
+              data.booking.ref;
+
+            // WhatsApp follow-up link
+            const d = availabilityData[selectedCategory];
+            const msg = `Hi Yetfem Hotel! My booking reference is *${data.booking.ref}*.\n\nGuest: ${payload.guestName}\nRoom: ${d.label} (${data.booking.roomNumber})\nCheck-In: ${fmtDate(payload.checkin)}\nCheck-Out: ${fmtDate(payload.checkout)}\nNights: ${data.booking.nights}\nTotal: ₦${data.booking.totalAmount.toLocaleString()}\n\nAttaching payment proof.`;
+            document.getElementById("confirmWhatsApp").href =
+              `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
+
+            goToStep(4);
+            // Hide stepper numbers on success
+            document.querySelector(".stepper").style.display = "none";
+          } catch (e) {
+            alert(
+              "Booking error: " +
+                e.message +
+                "\n\nPlease call +234 706 411 7411 to book directly.",
+            );
+          } finally {
+            btn.disabled = false;
+            label.textContent = "Submit Booking";
+          }
+        });
+
+      function resetBookingForm() {
+        selectedCategory = null;
+        availabilityData = null;
+        bookingResult = null;
+        document.getElementById("bk-name").value = "";
+        document.getElementById("bk-phone").value = "";
+        document.getElementById("bk-email").value = "";
+        document.getElementById("bk-guests").value = "";
+        document.getElementById("bk-notes").value = "";
+        document.getElementById("bk-payref").value = "";
+        $checkin.value = "";
+        $checkout.value = "";
+        $nightsDisplay.style.display = "none";
+        document.getElementById("availGrid").style.display = "none";
+        document.getElementById("step1Nav").style.display = "none";
+        document.querySelector(".stepper").style.display = "";
+        goToStep(1);
+      }
+      window.resetBookingForm = resetBookingForm;
+
+      // ── Booking lookup ────────────────────────────────────
+      document
+        .getElementById("lookupBtn")
+        .addEventListener("click", async () => {
+          const ref = document
+            .getElementById("lookupRef")
+            .value.trim()
+            .toUpperCase();
+          if (!ref) return;
+          const resultEl = document.getElementById("lookupResult");
+          resultEl.style.display = "block";
+          resultEl.innerHTML = "<span class='spinner'></span> Searching…";
+          try {
+            const res = await fetch(`${API_BASE}/api/bookings/${ref}`);
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Not found");
+            const b = data.booking;
+            const statusColors = {
+              pending: "#d97706",
+              confirmed: "#2563eb",
+              "checked-in": "#059669",
+              "checked-out": "#475569",
+              cancelled: "#dc2626",
+            };
+            resultEl.innerHTML = `
+            <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px;margin-top:8px;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
+                <span style="font-size:1rem;font-weight:800;color:#d4af37;letter-spacing:2px;">${b.ref}</span>
+                <span style="background:${statusColors[b.status]}20;color:${statusColors[b.status]};padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;">${b.status.toUpperCase()}</span>
+              </div>
+              <div style="font-size:0.85rem;line-height:2;color:#334155;">
+                <b>Guest:</b> ${b.guestName}<br/>
+                <b>Room:</b> ${b.roomNumber} — ${b.roomLabel}<br/>
+                <b>Check-In:</b> ${fmtDate(b.checkin)}<br/>
+                <b>Check-Out:</b> ${fmtDate(b.checkout)}<br/>
+                <b>Nights:</b> ${b.nights} &nbsp;|&nbsp; <b>Total:</b> ₦${b.totalAmount.toLocaleString()}
+              </div>
+            </div>`;
+          } catch (e) {
+            resultEl.innerHTML = `<p style="color:#dc2626;font-size:0.85rem;margin-top:8px;"><i class="fas fa-exclamation-circle"></i> ${e.message}</p>`;
+          }
+        });
+
+      // ── FAQ ───────────────────────────────────────────────
       document.querySelectorAll(".faq-question").forEach((q) => {
         q.addEventListener("click", () => {
           const item = q.parentElement;
@@ -381,25 +1279,6 @@
             .forEach((i) => i.classList.remove("open"));
           if (!wasOpen) item.classList.add("open");
         });
-      });
-      document.getElementById("quickBookBtn").addEventListener("click", () => {
-        const name = document.getElementById("qb-name").value.trim();
-        const phone = document.getElementById("qb-phone").value.trim();
-        const checkin = document.getElementById("qb-checkin").value;
-        const checkout = document.getElementById("qb-checkout").value;
-        const room = document.getElementById("qb-room").value;
-        const guests = document.getElementById("qb-guests").value;
-        if (!name || !phone || !checkin || !room) {
-          alert(
-            "Please fill in your name, phone, check-in date and room type.",
-          );
-          return;
-        }
-        const msg = `Hi Yetfem Hotel! I'd like to book a room.\n\nName: ${name}\nPhone: ${phone}\nRoom: ${room}\nCheck-in: ${checkin}\nCheck-out: ${checkout || "TBD"}\nGuests: ${guests || 1}\n\nPlease confirm availability. Thank you!`;
-        window.open(
-          `https://wa.me/2348056874554?text=${encodeURIComponent(msg)}`,
-          "_blank",
-        );
       });
     </script>
   </body>

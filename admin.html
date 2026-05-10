@@ -1,0 +1,1469 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Yetfem Hotel</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --gold: #d4af37;
+        --gold-light: #f0d060;
+        --dark: #070b1a;
+        --dark2: #0f1630;
+        --sidebar-w: 260px;
+        --radius: 12px;
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        --green: #10b981;
+        --red: #ef4444;
+        --blue: #3b82f6;
+        --orange: #f59e0b;
+        --purple: #8b5cf6;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #f1f5f9;
+        color: #1e293b;
+        min-height: 100vh;
+      }
+
+      /* ── Login ── */
+      #loginScreen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #070b1a 0%,
+          #0f1630 60%,
+          #1a0a00 100%
+        );
+      }
+      .login-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 48px 40px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      }
+      .login-logo {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .login-logo .wordmark {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark);
+        letter-spacing: 4px;
+      }
+      .login-logo .wordmark span {
+        color: var(--gold);
+      }
+      .login-logo p {
+        font-size: 0.75rem;
+        color: #94a3b8;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+      .login-field {
+        margin-bottom: 20px;
+      }
+      .login-field label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #475569;
+        margin-bottom: 6px;
+      }
+      .login-field input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-family: inherit;
+        outline: none;
+        transition: border 0.2s;
+      }
+      .login-field input:focus {
+        border-color: var(--gold);
+      }
+      .login-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--gold);
+        border: none;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--dark);
+        cursor: pointer;
+        transition: opacity 0.2s;
+        margin-top: 8px;
+      }
+      .login-btn:hover {
+        opacity: 0.9;
+      }
+      .login-error {
+        color: var(--red);
+        font-size: 0.82rem;
+        margin-top: 10px;
+        text-align: center;
+        display: none;
+      }
+
+      /* ── App shell ── */
+      #appShell {
+        display: none;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: var(--sidebar-w);
+        height: 100vh;
+        background: var(--dark);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        z-index: 100;
+        overflow-y: auto;
+      }
+      .sidebar-logo {
+        padding: 28px 24px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .sidebar-logo .name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        color: #fff;
+      }
+      .sidebar-logo .name span {
+        color: var(--gold);
+      }
+      .sidebar-logo .sub {
+        font-size: 0.65rem;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+
+      .nav-section {
+        padding: 16px 12px 8px;
+      }
+      .nav-section-label {
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        padding: 0 12px;
+        margin-bottom: 6px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 16px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        margin-bottom: 2px;
+      }
+      .nav-item i {
+        width: 18px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+      .nav-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        color: #fff;
+      }
+      .nav-item.active {
+        background: rgba(212, 175, 55, 0.15);
+        color: var(--gold);
+      }
+
+      .sidebar-footer {
+        margin-top: auto;
+        padding: 20px 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .sidebar-user {
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 4px;
+      }
+      .logout-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: rgba(239, 68, 68, 0.12);
+        color: #ef4444;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background 0.2s;
+      }
+      .logout-btn:hover {
+        background: rgba(239, 68, 68, 0.22);
+      }
+
+      .main {
+        margin-left: var(--sidebar-w);
+        padding: 32px;
+        min-height: 100vh;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+      }
+      .topbar h1 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .topbar p {
+        font-size: 0.82rem;
+        color: #64748b;
+        margin-top: 2px;
+      }
+      .today-badge {
+        background: var(--gold);
+        color: var(--dark);
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      /* ── Cards ── */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+      .stat-card {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 22px;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+      .stat-icon.gold {
+        background: rgba(212, 175, 55, 0.12);
+        color: var(--gold);
+      }
+      .stat-icon.green {
+        background: rgba(16, 185, 129, 0.12);
+        color: var(--green);
+      }
+      .stat-icon.blue {
+        background: rgba(59, 130, 246, 0.12);
+        color: var(--blue);
+      }
+      .stat-icon.orange {
+        background: rgba(245, 158, 11, 0.12);
+        color: var(--orange);
+      }
+      .stat-icon.red {
+        background: rgba(239, 68, 68, 0.12);
+        color: var(--red);
+      }
+      .stat-icon.purple {
+        background: rgba(139, 92, 246, 0.12);
+        color: var(--purple);
+      }
+      .stat-val {
+        font-size: 1.7rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #0f172a;
+      }
+      .stat-lbl {
+        font-size: 0.72rem;
+        color: #94a3b8;
+        margin-top: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* ── Panels ── */
+      .panel {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin-bottom: 24px;
+      }
+      .panel-header {
+        padding: 20px 24px;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .panel-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .panel-body {
+        padding: 24px;
+      }
+
+      /* ── Filters ── */
+      .filters {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .filter-select,
+      .filter-input {
+        padding: 8px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-family: inherit;
+        outline: none;
+        background: #fff;
+        color: #1e293b;
+      }
+      .filter-input {
+        min-width: 200px;
+      }
+      .filter-select:focus,
+      .filter-input:focus {
+        border-color: var(--gold);
+      }
+
+      /* ── Table ── */
+      .table-wrap {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.83rem;
+      }
+      th {
+        background: #f8fafc;
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #64748b;
+        font-weight: 600;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #f8fafc;
+        color: #334155;
+        vertical-align: middle;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: #fafbff;
+      }
+
+      /* ── Status badge ── */
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+      .badge-pending {
+        background: rgba(245, 158, 11, 0.12);
+        color: #d97706;
+      }
+      .badge-confirmed {
+        background: rgba(59, 130, 246, 0.12);
+        color: #2563eb;
+      }
+      .badge-checked-in {
+        background: rgba(16, 185, 129, 0.12);
+        color: #059669;
+      }
+      .badge-checked-out {
+        background: rgba(100, 116, 139, 0.12);
+        color: #475569;
+      }
+      .badge-cancelled {
+        background: rgba(239, 68, 68, 0.12);
+        color: #dc2626;
+      }
+
+      .action-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        margin: 2px;
+        font-family: inherit;
+        transition: opacity 0.2s;
+      }
+      .action-btn:hover {
+        opacity: 0.8;
+      }
+      .btn-confirm {
+        background: rgba(59, 130, 246, 0.12);
+        color: #2563eb;
+      }
+      .btn-checkin {
+        background: rgba(16, 185, 129, 0.12);
+        color: #059669;
+      }
+      .btn-checkout {
+        background: rgba(100, 116, 139, 0.12);
+        color: #475569;
+      }
+      .btn-cancel {
+        background: rgba(239, 68, 68, 0.12);
+        color: #dc2626;
+      }
+      .btn-delete {
+        background: rgba(239, 68, 68, 0.18);
+        color: #dc2626;
+      }
+
+      /* ── Room grid ── */
+      .room-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+      }
+      .room-tile {
+        border-radius: 10px;
+        padding: 16px 12px;
+        text-align: center;
+        border: 2px solid transparent;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .room-tile.free {
+        background: rgba(16, 185, 129, 0.08);
+        border-color: rgba(16, 185, 129, 0.3);
+      }
+      .room-tile.occupied {
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.25);
+      }
+      .room-tile .room-num {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .room-tile .room-cat {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #94a3b8;
+        margin-top: 2px;
+      }
+      .room-tile .room-status {
+        font-size: 0.72rem;
+        font-weight: 600;
+        margin-top: 8px;
+      }
+      .room-tile.free .room-status {
+        color: var(--green);
+      }
+      .room-tile.occupied .room-status {
+        color: var(--red);
+      }
+      .room-tile .room-guest {
+        font-size: 0.68rem;
+        color: #64748b;
+        margin-top: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* ── Category pill ── */
+      .cat-pill {
+        display: inline-block;
+        padding: 3px 9px;
+        border-radius: 20px;
+        font-size: 0.68rem;
+        font-weight: 600;
+      }
+      .cat-standard {
+        background: rgba(100, 116, 139, 0.12);
+        color: #475569;
+      }
+      .cat-deluxe {
+        background: rgba(59, 130, 246, 0.1);
+        color: #2563eb;
+      }
+      .cat-executive {
+        background: rgba(212, 175, 55, 0.15);
+        color: #92710a;
+      }
+
+      /* ── Pages ── */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      /* ── Pagination ── */
+      .pagination {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 24px;
+        justify-content: flex-end;
+        border-top: 1px solid #f1f5f9;
+      }
+      .page-btn {
+        padding: 6px 14px;
+        border: 1.5px solid #e2e8f0;
+        background: #fff;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+      .page-btn.active {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--dark);
+        font-weight: 600;
+      }
+      .page-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* ── Date picker bar ── */
+      .date-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .date-bar input[type="date"] {
+        padding: 8px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-family: inherit;
+        outline: none;
+      }
+      .date-bar input:focus {
+        border-color: var(--gold);
+      }
+
+      .btn-primary-sm {
+        padding: 8px 18px;
+        background: var(--gold);
+        border: none;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--dark);
+        cursor: pointer;
+      }
+      .btn-primary-sm:hover {
+        opacity: 0.9;
+      }
+
+      /* ── Occupancy bars ── */
+      .occ-bar-wrap {
+        margin-bottom: 16px;
+      }
+      .occ-bar-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+      }
+      .occ-bar-label .cat {
+        font-weight: 600;
+        color: #334155;
+      }
+      .occ-bar-label .nums {
+        color: #64748b;
+      }
+      .occ-track {
+        background: #f1f5f9;
+        border-radius: 99px;
+        height: 8px;
+        overflow: hidden;
+      }
+      .occ-fill {
+        height: 100%;
+        border-radius: 99px;
+        transition: width 0.5s ease;
+      }
+      .occ-standard .occ-fill {
+        background: #64748b;
+      }
+      .occ-deluxe .occ-fill {
+        background: var(--blue);
+      }
+      .occ-executive .occ-fill {
+        background: var(--gold);
+      }
+
+      /* ── Toast ── */
+      #toast {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        padding: 14px 22px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #fff;
+        transform: translateY(80px);
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 9999;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      }
+      #toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      #toast.success {
+        background: var(--green);
+      }
+      #toast.error {
+        background: var(--red);
+      }
+
+      /* ── Modal ── */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 500;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal-box {
+        background: #fff;
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 480px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+      }
+      .modal-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #0f172a;
+      }
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.85rem;
+      }
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+      .detail-row .lbl {
+        color: #64748b;
+      }
+      .detail-row .val {
+        font-weight: 600;
+        color: #1e293b;
+        text-align: right;
+      }
+      .modal-close-btn {
+        background: #f1f5f9;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        margin-top: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.3s;
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .main {
+          margin-left: 0;
+          padding: 16px;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── Login screen ── -->
+    <div id="loginScreen">
+      <div class="login-card">
+        <div class="login-logo">
+          <div class="wordmark"><span>Y</span>ETFEM</div>
+          <p>Hotel &amp; Suites · Admin</p>
+        </div>
+        <div class="login-field">
+          <label>Username</label>
+          <input
+            type="text"
+            id="loginUser"
+            placeholder="admin"
+            autocomplete="username"
+          />
+        </div>
+        <div class="login-field">
+          <label>Password</label>
+          <input
+            type="password"
+            id="loginPass"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          />
+        </div>
+        <button class="login-btn" id="loginBtn">Sign In</button>
+        <p class="login-error" id="loginError">
+          Invalid credentials. Please try again.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── App shell ── -->
+    <div id="appShell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+          <div class="name"><span>Y</span>ETFEM</div>
+          <div class="sub">Hotel Admin</div>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-label">Overview</div>
+          <a class="nav-item active" data-page="dashboard" href="#">
+            <i class="fas fa-chart-pie"></i> Dashboard
+          </a>
+          <a class="nav-item" data-page="rooms" href="#">
+            <i class="fas fa-door-open"></i> Room Grid
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-label">Bookings</div>
+          <a class="nav-item" data-page="bookings" href="#">
+            <i class="fas fa-calendar-check"></i> All Bookings
+          </a>
+          <a class="nav-item" data-page="checkins" href="#">
+            <i class="fas fa-arrow-right-to-bracket"></i> Today's Arrivals
+          </a>
+          <a class="nav-item" data-page="checkouts" href="#">
+            <i class="fas fa-arrow-right-from-bracket"></i> Today's Departures
+          </a>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-user" id="sidebarUser">Admin</div>
+          <div
+            id="sidebarRole"
+            style="font-size: 0.7rem; opacity: 0.6; margin-bottom: 6px"
+          ></div>
+          <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-right-from-bracket"></i> Logout
+          </button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <!-- Dashboard page -->
+        <div class="page active" id="page-dashboard">
+          <div class="topbar">
+            <div>
+              <h1>Dashboard</h1>
+              <p
+                id="dashDate"
+                style="font-size: 0.82rem; color: #64748b; margin-top: 2px"
+              ></p>
+            </div>
+            <span class="today-badge" id="todayBadge"></span>
+          </div>
+
+          <div class="stats-grid" id="statsGrid">
+            <!-- Filled by JS -->
+          </div>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 20px;
+              flex-wrap: wrap;
+            "
+            id="dashLower"
+          >
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">Occupancy Today</span>
+              </div>
+              <div class="panel-body" id="occupancyBars"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-header">
+                <span class="panel-title">Quick Stats</span>
+              </div>
+              <div class="panel-body" id="quickStats"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room Grid page -->
+        <div class="page" id="page-rooms">
+          <div class="topbar">
+            <div>
+              <h1>Room Grid</h1>
+              <p>Live occupancy map of all 17 rooms</p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">All Rooms</span>
+              <div class="date-bar">
+                <input type="date" id="roomGridDate" />
+                <button class="btn-primary-sm" id="roomGridBtn">View</button>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div id="roomGridCategories"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Bookings page -->
+        <div class="page" id="page-bookings">
+          <div class="topbar">
+            <div>
+              <h1>All Bookings</h1>
+              <p>Search, filter and manage reservations</p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Reservations</span>
+              <div class="filters">
+                <input
+                  class="filter-input"
+                  id="searchInput"
+                  type="text"
+                  placeholder="Search name / ref / phone…"
+                />
+                <select class="filter-select" id="statusFilter">
+                  <option value="">All Statuses</option>
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="checked-in">Checked-In</option>
+                  <option value="checked-out">Checked-Out</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+                <select class="filter-select" id="catFilter">
+                  <option value="">All Categories</option>
+                  <option value="standard">Standard</option>
+                  <option value="deluxe">Deluxe</option>
+                  <option value="executive">Executive</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ref</th>
+                    <th>Guest</th>
+                    <th>Phone</th>
+                    <th>Room</th>
+                    <th>Category</th>
+                    <th>Check-In</th>
+                    <th>Check-Out</th>
+                    <th>Nights</th>
+                    <th>Total (₦)</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bookingsBody"></tbody>
+              </table>
+            </div>
+            <div class="pagination" id="pagination"></div>
+          </div>
+        </div>
+
+        <!-- Today Arrivals page -->
+        <div class="page" id="page-checkins">
+          <div class="topbar">
+            <div>
+              <h1>Today's Arrivals</h1>
+              <p>Guests checking in today</p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ref</th>
+                    <th>Guest</th>
+                    <th>Phone</th>
+                    <th>Room</th>
+                    <th>Category</th>
+                    <th>Checkout</th>
+                    <th>Nights</th>
+                    <th>Total (₦)</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="checkinsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Today Departures page -->
+        <div class="page" id="page-checkouts">
+          <div class="topbar">
+            <div>
+              <h1>Today's Departures</h1>
+              <p>Guests checking out today</p>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ref</th>
+                    <th>Guest</th>
+                    <th>Phone</th>
+                    <th>Room</th>
+                    <th>Category</th>
+                    <th>Check-In</th>
+                    <th>Nights</th>
+                    <th>Total (₦)</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="checkoutsBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Booking detail modal -->
+    <div class="modal-overlay" id="detailModal">
+      <div class="modal-box">
+        <div class="modal-title">Booking Detail</div>
+        <div id="detailBody"></div>
+        <button class="modal-close-btn" id="closeModal">Close</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <script>
+      const API = ""; // same origin — adjust if server is on a different port e.g. "http://localhost:3000"
+      let TOKEN = localStorage.getItem("yetfem_token") || "";
+      let ROLE = localStorage.getItem("yetfem_role") || "";
+      let USER = localStorage.getItem("yetfem_user") || "";
+
+      // ── Toast ─────────────────────────────────────────────────
+      function toast(msg, type = "success") {
+        const el = document.getElementById("toast");
+        el.textContent = msg;
+        el.className = "show " + type;
+        setTimeout(() => {
+          el.className = "";
+        }, 3200);
+      }
+
+      // ── API helper ────────────────────────────────────────────
+      async function api(path, opts = {}) {
+        const res = await fetch(API + path, {
+          ...opts,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + TOKEN,
+            ...(opts.headers || {}),
+          },
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Request failed");
+        return data;
+      }
+
+      // ── Login ─────────────────────────────────────────────────
+      async function login() {
+        const username = document.getElementById("loginUser").value.trim();
+        const password = document.getElementById("loginPass").value;
+        const errEl = document.getElementById("loginError");
+        errEl.style.display = "none";
+        try {
+          const data = await api("/api/admin/login", {
+            method: "POST",
+            body: JSON.stringify({ username, password }),
+            headers: { Authorization: "" },
+          });
+          TOKEN = data.token;
+          ROLE = data.role;
+          USER = data.username;
+          localStorage.setItem("yetfem_token", TOKEN);
+          localStorage.setItem("yetfem_role", ROLE);
+          localStorage.setItem("yetfem_user", USER);
+          showApp();
+        } catch (e) {
+          errEl.style.display = "block";
+          errEl.textContent = e.message;
+        }
+      }
+
+      document.getElementById("loginBtn").addEventListener("click", login);
+      document.getElementById("loginPass").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") login();
+      });
+
+      function showApp() {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("appShell").style.display = "block";
+        document.getElementById("sidebarUser").textContent = USER;
+        document.getElementById("sidebarRole").textContent = ROLE;
+        const today = new Date();
+        const opts = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        document.getElementById("dashDate").textContent =
+          today.toLocaleDateString("en-NG", opts);
+        document.getElementById("todayBadge").textContent =
+          today.toLocaleDateString("en-NG", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        loadDashboard();
+      }
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        TOKEN = "";
+        ROLE = "";
+        USER = "";
+        localStorage.clear();
+        location.reload();
+      });
+
+      // Auto-login if token exists
+      if (TOKEN) {
+        showApp();
+      }
+
+      // ── Navigation ────────────────────────────────────────────
+      document.querySelectorAll(".nav-item[data-page]").forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          const page = item.dataset.page;
+          document
+            .querySelectorAll(".nav-item")
+            .forEach((n) => n.classList.remove("active"));
+          item.classList.add("active");
+          document
+            .querySelectorAll(".page")
+            .forEach((p) => p.classList.remove("active"));
+          document.getElementById("page-" + page).classList.add("active");
+          // load page data
+          if (page === "dashboard") loadDashboard();
+          if (page === "rooms") loadRoomGrid();
+          if (page === "bookings") loadBookings(1);
+          if (page === "checkins") loadTodayBookings("checkins");
+          if (page === "checkouts") loadTodayBookings("checkouts");
+        });
+      });
+
+      // ── Dashboard ─────────────────────────────────────────────
+      async function loadDashboard() {
+        try {
+          const d = await api("/api/admin/stats");
+          const sg = document.getElementById("statsGrid");
+          sg.innerHTML = `
+        <div class="stat-card"><div class="stat-icon gold"><i class="fas fa-calendar-check"></i></div><div><div class="stat-val">${d.totalBookings}</div><div class="stat-lbl">Total Bookings</div></div></div>
+        <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-hourglass-half"></i></div><div><div class="stat-val">${d.byStatus.pending}</div><div class="stat-lbl">Pending</div></div></div>
+        <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-check-circle"></i></div><div><div class="stat-val">${d.byStatus.confirmed}</div><div class="stat-lbl">Confirmed</div></div></div>
+        <div class="stat-card"><div class="stat-icon green"><i class="fas fa-door-open"></i></div><div><div class="stat-val">${d.byStatus.checkedIn}</div><div class="stat-lbl">Checked-In</div></div></div>
+        <div class="stat-card"><div class="stat-icon purple"><i class="fas fa-arrow-right-to-bracket"></i></div><div><div class="stat-val">${d.today.arrivals}</div><div class="stat-lbl">Arriving Today</div></div></div>
+        <div class="stat-card"><div class="stat-icon red"><i class="fas fa-naira-sign"></i></div><div><div class="stat-val">₦${d.totalRevenue.toLocaleString()}</div><div class="stat-lbl">Total Revenue</div></div></div>
+      `;
+
+          // Occupancy bars
+          const ob = document.getElementById("occupancyBars");
+          const cats = [
+            { key: "standard", label: "Standard (8 rooms)" },
+            { key: "deluxe", label: "Deluxe (6 rooms)" },
+            { key: "executive", label: "Executive (3 rooms)" },
+          ];
+          ob.innerHTML = cats
+            .map(({ key, label }) => {
+              const o = d.occupancy[key];
+              const pct = o.total
+                ? Math.round((o.occupied / o.total) * 100)
+                : 0;
+              return `
+          <div class="occ-bar-wrap occ-${key}">
+            <div class="occ-bar-label">
+              <span class="cat">${label}</span>
+              <span class="nums">${o.occupied}/${o.total} occupied (${pct}%)</span>
+            </div>
+            <div class="occ-track"><div class="occ-fill" style="width:${pct}%"></div></div>
+          </div>`;
+            })
+            .join("");
+
+          document.getElementById("quickStats").innerHTML = `
+        <div class="detail-row"><span class="lbl">Today Arrivals</span><span class="val">${d.today.arrivals}</span></div>
+        <div class="detail-row"><span class="lbl">Today Departures</span><span class="val">${d.today.departures}</span></div>
+        <div class="detail-row"><span class="lbl">Checked-Out (historic)</span><span class="val">${d.byStatus.checkedOut}</span></div>
+        <div class="detail-row"><span class="lbl">Cancelled</span><span class="val">${d.byStatus.cancelled}</span></div>
+        <div class="detail-row"><span class="lbl">Total Rooms</span><span class="val">17</span></div>
+      `;
+        } catch (e) {
+          toast(e.message, "error");
+        }
+      }
+
+      // ── Room Grid ─────────────────────────────────────────────
+      function todayStr() {
+        return new Date().toISOString().split("T")[0];
+      }
+
+      async function loadRoomGrid(date) {
+        date = date || todayStr();
+        document.getElementById("roomGridDate").value = date;
+        try {
+          const d = await api(`/api/admin/rooms?date=${date}`);
+          const cats = ["standard", "deluxe", "executive"];
+          const catLabels = {
+            standard: "Standard Rooms",
+            deluxe: "Deluxe Rooms",
+            executive: "Executive Suites",
+          };
+          let html = "";
+          for (const cat of cats) {
+            const rooms = d.rooms.filter((r) => r.category === cat);
+            html += `<h4 style="font-size:0.85rem;font-weight:700;color:#64748b;letter-spacing:1px;text-transform:uppercase;margin:20px 0 12px">${catLabels[cat]}</h4>`;
+            html += `<div class="room-grid">`;
+            for (const r of rooms) {
+              const cls = r.occupied ? "occupied" : "free";
+              const lbl = r.occupied ? "OCCUPIED" : "AVAILABLE";
+              const guest = r.booking ? r.booking.guestName : "";
+              html += `
+            <div class="room-tile ${cls}" onclick="${r.occupied ? `showBookingDetail('${r.booking._id}')` : ""}">
+              <div class="room-num">${r.number}</div>
+              <div class="room-cat">${r.label}</div>
+              <div class="room-status">${lbl}</div>
+              <div class="room-guest">${guest}</div>
+            </div>`;
+            }
+            html += "</div>";
+          }
+          document.getElementById("roomGridCategories").innerHTML = html;
+        } catch (e) {
+          toast(e.message, "error");
+        }
+      }
+
+      document.getElementById("roomGridBtn").addEventListener("click", () => {
+        loadRoomGrid(
+          document.getElementById("roomGridDate").value || todayStr(),
+        );
+      });
+      document.getElementById("roomGridDate").value = todayStr();
+
+      // ── Bookings table ────────────────────────────────────────
+      let currentPage = 1;
+      let searchTimer;
+
+      async function loadBookings(page = 1) {
+        currentPage = page;
+        const status = document.getElementById("statusFilter").value;
+        const cat = document.getElementById("catFilter").value;
+        const search = document.getElementById("searchInput").value.trim();
+        const params = new URLSearchParams({ page, limit: 15 });
+        if (status) params.set("status", status);
+        if (cat) params.set("category", cat);
+        if (search) params.set("search", search);
+        try {
+          const d = await api(`/api/admin/bookings?${params}`);
+          renderBookingsTable(d.bookings, "bookingsBody");
+          renderPagination(d.total, d.page, d.limit);
+        } catch (e) {
+          toast(e.message, "error");
+        }
+      }
+
+      document
+        .getElementById("statusFilter")
+        .addEventListener("change", () => loadBookings(1));
+      document
+        .getElementById("catFilter")
+        .addEventListener("change", () => loadBookings(1));
+      document.getElementById("searchInput").addEventListener("input", () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => loadBookings(1), 400);
+      });
+
+      function statusBadge(s) {
+        return `<span class="badge badge-${s}">${s.replace("-", " ")}</span>`;
+      }
+      function catPill(c) {
+        return `<span class="cat-pill cat-${c}">${c}</span>`;
+      }
+      function fmtDate(d) {
+        return d
+          ? new Date(d + "T00:00:00").toLocaleDateString("en-NG", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })
+          : "-";
+      }
+
+      function actionBtns(b) {
+        let btns = "";
+        if (b.status === "pending")
+          btns += `<button class="action-btn btn-confirm"  onclick="updateStatus('${b._id}','confirmed')">Confirm</button>`;
+        if (b.status === "confirmed")
+          btns += `<button class="action-btn btn-checkin"  onclick="updateStatus('${b._id}','checked-in')">Check In</button>`;
+        if (b.status === "checked-in")
+          btns += `<button class="action-btn btn-checkout" onclick="updateStatus('${b._id}','checked-out')">Check Out</button>`;
+        if (!["cancelled", "checked-out"].includes(b.status))
+          btns += `<button class="action-btn btn-cancel" onclick="updateStatus('${b._id}','cancelled')">Cancel</button>`;
+        btns += `<button class="action-btn" style="background:#f1f5f9;color:#334155" onclick="showBookingDetail('${b._id}')"><i class="fas fa-eye"></i></button>`;
+        if (ROLE === "superadmin")
+          btns += `<button class="action-btn btn-delete" onclick="deleteBooking('${b._id}')"><i class="fas fa-trash"></i></button>`;
+        return btns;
+      }
+
+      function renderBookingsTable(bookings, tbodyId) {
+        const tb = document.getElementById(tbodyId);
+        if (!bookings.length) {
+          tb.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:32px;color:#94a3b8;">No bookings found</td></tr>`;
+          return;
+        }
+        tb.innerHTML = bookings
+          .map(
+            (b) => `
+      <tr>
+        <td style="font-weight:700;font-size:0.78rem;color:#d4af37;">${b.ref}</td>
+        <td>${b.guestName}</td>
+        <td><a href="tel:${b.guestPhone}" style="color:#2563eb;text-decoration:none;">${b.guestPhone}</a></td>
+        <td style="font-weight:700;">${b.roomNumber}</td>
+        <td>${catPill(b.roomCategory)}</td>
+        <td>${fmtDate(b.checkin)}</td>
+        <td>${fmtDate(b.checkout)}</td>
+        <td style="text-align:center;">${b.nights}</td>
+        <td style="font-weight:600;">₦${b.totalAmount.toLocaleString()}</td>
+        <td>${statusBadge(b.status)}</td>
+        <td style="white-space:nowrap;">${actionBtns(b)}</td>
+      </tr>`,
+          )
+          .join("");
+      }
+
+      function renderPagination(total, page, limit) {
+        const pages = Math.ceil(total / limit);
+        const el = document.getElementById("pagination");
+        if (pages <= 1) {
+          el.innerHTML = "";
+          return;
+        }
+        let html = `<button class="page-btn" onclick="loadBookings(${page - 1})" ${page === 1 ? "disabled" : ""}>‹ Prev</button>`;
+        for (
+          let p = Math.max(1, page - 2);
+          p <= Math.min(pages, page + 2);
+          p++
+        ) {
+          html += `<button class="page-btn ${p === page ? "active" : ""}" onclick="loadBookings(${p})">${p}</button>`;
+        }
+        html += `<button class="page-btn" onclick="loadBookings(${page + 1})" ${page === pages ? "disabled" : ""}>Next ›</button>`;
+        html += `<span style="font-size:0.75rem;color:#94a3b8;margin-left:8px;">${total} total</span>`;
+        el.innerHTML = html;
+      }
+
+      // ── Today arrivals / departures ───────────────────────────
+      async function loadTodayBookings(type) {
+        const today = todayStr();
+        const params =
+          type === "checkins"
+            ? new URLSearchParams({
+                date: today,
+                status: "confirmed",
+                limit: 50,
+              })
+            : new URLSearchParams({ limit: 50 });
+
+        try {
+          let bookings;
+          if (type === "checkins") {
+            const d = await api(
+              `/api/admin/bookings?checkin=${today}&status=confirmed&limit=50`,
+            );
+            bookings = d.bookings.filter((b) => b.checkin === today);
+          } else {
+            const d = await api(`/api/admin/bookings?limit=200`);
+            bookings = d.bookings.filter(
+              (b) => b.checkout === today && b.status === "checked-in",
+            );
+          }
+          const tbodyId =
+            type === "checkins" ? "checkinsBody" : "checkoutsBody";
+          renderBookingsTable(bookings, tbodyId);
+        } catch (e) {
+          toast(e.message, "error");
+        }
+      }
+
+      // ── Status update ─────────────────────────────────────────
+      async function updateStatus(id, status) {
+        if (!confirm(`Set status to "${status}"?`)) return;
+        try {
+          await api(`/api/admin/bookings/${id}`, {
+            method: "PATCH",
+            body: JSON.stringify({ status }),
+          });
+          toast(`Status updated to ${status}`);
+          loadBookings(currentPage);
+          loadDashboard();
+        } catch (e) {
+          toast(e.message, "error");
+        }
+      }
+
+      async function deleteBooking(id) {
+        if (!confirm("Permanently delete this booking?")) return;
+        try {
+          await api(`/api/admin/bookings/${id}`, { method: "DELETE" });
+          toast("Booking deleted");
+          loadBookings(currentPage);
+        } catch (e) {
+          toast(e.message, "error");
+        }
+      }
+
+      // ── Booking detail modal ──────────────────────────────────
+      async function showBookingDetail(id) {
+        try {
+          const { booking: b } = await api(`/api/admin/bookings/${id}`);
+          document.getElementById("detailBody").innerHTML = `
+        <div class="detail-row"><span class="lbl">Reference</span><span class="val" style="color:#d4af37;">${b.ref}</span></div>
+        <div class="detail-row"><span class="lbl">Guest Name</span><span class="val">${b.guestName}</span></div>
+        <div class="detail-row"><span class="lbl">Phone</span><span class="val"><a href="tel:${b.guestPhone}">${b.guestPhone}</a></span></div>
+        <div class="detail-row"><span class="lbl">Email</span><span class="val">${b.guestEmail || "-"}</span></div>
+        <div class="detail-row"><span class="lbl">Guests</span><span class="val">${b.guestCount}</span></div>
+        <div class="detail-row"><span class="lbl">Room</span><span class="val">${b.roomNumber} — ${b.roomLabel}</span></div>
+        <div class="detail-row"><span class="lbl">Category</span><span class="val">${catPill(b.roomCategory)}</span></div>
+        <div class="detail-row"><span class="lbl">Check-In</span><span class="val">${fmtDate(b.checkin)}</span></div>
+        <div class="detail-row"><span class="lbl">Check-Out</span><span class="val">${fmtDate(b.checkout)}</span></div>
+        <div class="detail-row"><span class="lbl">Nights</span><span class="val">${b.nights}</span></div>
+        <div class="detail-row"><span class="lbl">Price/Night</span><span class="val">₦${b.pricePerNight.toLocaleString()}</span></div>
+        <div class="detail-row"><span class="lbl">Total Amount</span><span class="val" style="color:#059669;">₦${b.totalAmount.toLocaleString()}</span></div>
+        <div class="detail-row"><span class="lbl">Status</span><span class="val">${statusBadge(b.status)}</span></div>
+        <div class="detail-row"><span class="lbl">Payment Ref</span><span class="val">${b.paymentRef || "Not provided"}</span></div>
+        <div class="detail-row"><span class="lbl">Notes</span><span class="val">${b.notes || "-"}</span></div>
+        <div class="detail-row"><span class="lbl">Created</span><span class="val">${new Date(b.createdAt).toLocaleString("en-NG")}</span></div>
+        <div style="margin-top:16px;">${actionBtns(b)}</div>
+      `;
+          document.getElementById("detailModal").classList.add("open");
+        } catch (e) {
+          toast(e.message, "error");
+        }
+      }
+
+      document.getElementById("closeModal").addEventListener("click", () => {
+        document.getElementById("detailModal").classList.remove("open");
+      });
+      document.getElementById("detailModal").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("detailModal"))
+          document.getElementById("detailModal").classList.remove("open");
+      });
+
+      // expose to inline onclick
+      window.updateStatus = updateStatus;
+      window.deleteBooking = deleteBooking;
+      window.showBookingDetail = showBookingDetail;
+    </script>
+  </body>
+</html>

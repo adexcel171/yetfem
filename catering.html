@@ -7,791 +7,1141 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="styles.css" />
-
     <style>
-      /* ========================================
-         CATERING PAGE — ADDITIONAL STYLES
-         ======================================== */
+      :root {
+        --ivory: #faf7f2;
+        --cream: #f2ede4;
+        --espresso: #1a0f07;
+        --brown: #2d1a0e;
+        --gold: #c9a84c;
+        --gold-lt: #e8c96a;
+        --text: #2d1a0e;
+        --muted: #7a6a5a;
+        --white: #ffffff;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--ivory);
+        color: var(--text);
+        overflow-x: hidden;
+      }
 
-      /* ── Hero ── */
-      .catering-hero {
+      /* ── HERO: split screen ── */
+      .ct-hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
         position: relative;
-        height: 100vh;
-        min-height: 600px;
+      }
+      .ct-hero-text {
+        background: var(--espresso);
         display: flex;
-        align-items: center;
+        flex-direction: column;
         justify-content: center;
-        overflow: hidden;
-      }
-
-      .catering-hero-slides {
-        position: absolute;
-        inset: 0;
-      }
-
-      .catering-hero-slide {
-        position: absolute;
-        inset: 0;
-        background-size: cover;
-        background-position: center;
-        opacity: 0;
-        transition: opacity 1.2s ease;
-      }
-
-      .catering-hero-slide.active {
-        opacity: 1;
-      }
-
-      .catering-hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(7, 11, 26, 0.78) 0%,
-          rgba(7, 11, 26, 0.45) 60%,
-          rgba(180, 130, 20, 0.15) 100%
-        );
-      }
-
-      .catering-hero-content {
+        padding: 130px 72px 80px;
         position: relative;
         z-index: 2;
-        text-align: center;
-        padding: 0 24px;
-        max-width: 820px;
+        overflow: hidden;
       }
-
-      .catering-hero-label {
-        display: inline-flex;
+      .ct-hero-text::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url(./img/cat2.jpeg);
+        pointer-events: none;
+        opacity: 0.55;
+      }
+      .ct-hero-text::after {
+        content: "";
+        position: absolute;
+        top: 15%;
+        bottom: 15%;
+        right: 0;
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          var(--gold) 30%,
+          var(--gold) 70%,
+          transparent
+        );
+        opacity: 0.5;
+      }
+      .ct-hero-eyebrow {
+        display: flex;
         align-items: center;
-        gap: 10px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.7rem;
+        gap: 14px;
+        font-size: 0.65rem;
         font-weight: 600;
         letter-spacing: 5px;
         text-transform: uppercase;
-        color: #d4af37;
-        margin-bottom: 20px;
+        color: var(--gold);
+        margin-bottom: 32px;
         opacity: 0;
-        animation: ctFadeUp 0.7s 0.3s forwards;
+        animation: heroUp 0.8s 0.2s forwards;
       }
-
-      .catering-hero-label::before,
-      .catering-hero-label::after {
-        content: '';
+      .ct-hero-eyebrow::before {
+        content: "";
         display: block;
-        width: 28px;
+        width: 36px;
         height: 1px;
-        background: #d4af37;
-        opacity: 0.6;
+        background: var(--gold);
       }
-
-      .catering-hero-title {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(2.8rem, 7vw, 5.5rem);
+      .ct-hero-heading {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.6rem, 4.5vw, 4.4rem);
         font-weight: 900;
-        color: #ffffff;
-        line-height: 1.05;
-        margin-bottom: 20px;
+        color: var(--white);
+        line-height: 1.08;
+        margin-bottom: 28px;
         opacity: 0;
-        animation: ctFadeUp 0.8s 0.45s forwards;
+        animation: heroUp 0.9s 0.35s forwards;
       }
-
-      .catering-hero-title em {
+      .ct-hero-heading em {
         font-style: italic;
-        color: #d4af37;
+        color: var(--gold-lt);
+        display: block;
       }
-
-      .catering-hero-sub {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(1rem, 2.5vw, 1.35rem);
-        color: rgba(255, 255, 255, 0.78);
-        margin-bottom: 36px;
+      .ct-hero-sub {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.8;
+        margin-bottom: 48px;
+        max-width: 420px;
         opacity: 0;
-        animation: ctFadeUp 0.7s 0.6s forwards;
+        animation: heroUp 0.8s 0.5s forwards;
       }
-
-      .catering-hero-ctas {
+      .ct-hero-ctas {
         display: flex;
         gap: 14px;
-        justify-content: center;
         flex-wrap: wrap;
         opacity: 0;
-        animation: ctFadeUp 0.7s 0.75s forwards;
+        animation: heroUp 0.8s 0.65s forwards;
+      }
+      .ct-btn-gold {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 34px;
+        background: var(--gold);
+        color: var(--espresso);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+      .ct-btn-gold:hover {
+        background: var(--gold-lt);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(201, 168, 76, 0.35);
+      }
+      .ct-btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 34px;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.75);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 3px;
+        transition: all 0.3s ease;
+      }
+      .ct-btn-ghost:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .ct-hero-badges {
+        display: flex;
+        gap: 28px;
+        margin-top: 52px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        opacity: 0;
+        animation: heroUp 0.8s 0.8s forwards;
+      }
+      .ct-badge {
+        text-align: center;
+      }
+      .ct-badge-num {
+        font-family: "Playfair Display", serif;
+        font-size: 1.7rem;
+        font-weight: 900;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .ct-badge-lbl {
+        font-size: 0.62rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.38);
+        margin-top: 4px;
+      }
+      .ct-badge-div {
+        width: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        align-self: stretch;
       }
 
-      .catering-hero-dots {
+      /* Right: image */
+      .ct-hero-visual {
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-img-main {
+        position: absolute;
+        inset: 0;
+        background-image: url(./img/cat1.jpeg);
+        background-size: cover;
+        background-position: center;
+        transition: transform 10s ease;
+      }
+      .ct-hero-visual:hover .hero-img-main {
+        transform: scale(1.05);
+      }
+      .ct-hero-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(26, 15, 7, 0.15) 0%,
+          transparent 50%,
+          rgba(26, 15, 7, 0.3) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Floating food card */
+      .ct-float-card {
+        position: absolute;
+        bottom: 60px;
+        left: -38px;
+        width: 210px;
+        background: var(--white);
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: heroUp 0.9s 0.9s forwards;
+        z-index: 3;
+      }
+      .ct-float-card img {
+        width: 100%;
+        height: 128px;
+        object-fit: cover;
+        display: block;
+      }
+      .ct-float-card-body {
+        padding: 13px 16px;
+      }
+      .ct-float-card-body p {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--espresso);
+        letter-spacing: 0.5px;
+      }
+      .ct-float-card-body span {
+        font-size: 0.62rem;
+        color: var(--muted);
+        display: block;
+        margin-top: 2px;
+      }
+
+      /* Second float badge */
+      .ct-float-badge {
+        position: absolute;
+        top: 80px;
+        right: 28px;
+        width: 175px;
+        background: var(--espresso);
+        border-radius: 4px;
+        padding: 18px 20px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        animation: heroUp 0.8s 1.1s forwards;
+        z-index: 3;
+      }
+      .ct-float-badge .icon {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+      }
+      .ct-float-badge p {
+        font-family: "Playfair Display", serif;
+        font-size: 0.9rem;
+        color: var(--white);
+        line-height: 1.4;
+      }
+      .ct-float-badge span {
+        font-size: 0.62rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold);
+        display: block;
+        margin-top: 8px;
+      }
+
+      /* Scroll hint */
+      .hero-scroll-hint {
         position: absolute;
         bottom: 32px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: 8px;
-        z-index: 3;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        z-index: 10;
+        opacity: 0;
+        animation: heroUp 0.8s 1.3s forwards;
+      }
+      .hero-scroll-hint span {
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .hero-scroll-line {
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(180deg, var(--gold), transparent);
+        animation: pulse 1.8s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      @keyframes heroUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
-      .catering-hero-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.35);
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        padding: 0;
-      }
-
-      .catering-hero-dot.active {
-        background: #d4af37;
-        width: 22px;
-        border-radius: 3px;
-      }
-
-      /* ── Intro strip ── */
-      .intro-strip {
-        background: #d4af37;
-        padding: 28px 40px;
+      /* ── STATS STRIP ── */
+      .ct-strip {
+        background: var(--gold);
+        padding: 32px 48px;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 60px;
         flex-wrap: wrap;
       }
-
-      .intro-stat {
+      .ct-strip-item {
         text-align: center;
+        padding: 0 52px;
+        position: relative;
       }
-
-      .intro-stat-num {
-        font-family: 'Playfair Display', serif;
+      .ct-strip-item:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 10%;
+        bottom: 10%;
+        width: 1px;
+        background: rgba(26, 15, 7, 0.18);
+      }
+      .ct-strip-num {
+        font-family: "Playfair Display", serif;
         font-size: 2rem;
         font-weight: 900;
-        color: #070b1a;
+        color: var(--espresso);
         line-height: 1;
       }
-
-      .intro-stat-label {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.65rem;
+      .ct-strip-lbl {
+        font-size: 0.62rem;
         font-weight: 600;
         letter-spacing: 3px;
         text-transform: uppercase;
-        color: rgba(7, 11, 26, 0.65);
-        margin-top: 4px;
+        color: rgba(26, 15, 7, 0.55);
+        margin-top: 5px;
       }
 
-      .intro-divider {
-        width: 1px;
-        height: 44px;
-        background: rgba(7, 11, 26, 0.2);
+      /* ── SECTION BASE ── */
+      .ct-section {
+        padding: 110px 0 90px;
       }
-
-      /* ── Services / filter section ── */
-      .catering-services {
-        padding: 100px 0 80px;
-        background: #f8f9fa;
+      .ct-container {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 40px;
       }
-
-      /* Filter tabs */
-      .filter-bar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-bottom: 56px;
-      }
-
-      .filter-btn {
+      .ct-label {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 10px 22px;
-        border-radius: 50px;
-        border: 1.5px solid rgba(180, 140, 30, 0.3);
-        background: transparent;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.8rem;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        color: #525252;
-        cursor: pointer;
-        transition: all 0.25s ease;
+        gap: 12px;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 16px;
+      }
+      .ct-label::before {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 1px;
+        background: var(--gold);
+      }
+      .ct-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-weight: 900;
+        color: var(--espresso);
+        line-height: 1.1;
+        margin-bottom: 16px;
+      }
+      .ct-title em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .ct-subtitle {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.15rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 540px;
       }
 
-      .filter-btn i {
-        font-size: 0.85rem;
-        color: #d4af37;
+      /* ── SERVICES ── */
+      .ct-services-bg {
+        background: var(--cream);
       }
-
-      .filter-btn:hover {
-        border-color: #d4af37;
-        color: #0b132b;
-        background: rgba(212, 175, 55, 0.07);
-      }
-
-      .filter-btn.active {
-        background: #d4af37;
-        border-color: #d4af37;
-        color: #070b1a;
-        font-weight: 600;
-        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
-      }
-
-      .filter-btn.active i {
-        color: #070b1a;
-      }
-
-      /* Cards grid */
-      .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        gap: 28px;
-      }
-
-      .service-card {
-        background: #ffffff;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-        transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        cursor: pointer;
+      .ct-filter-bar {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 44px 0 52px;
+      }
+      .ct-filter-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 20px;
+        border-radius: 2px;
+        border: 1px solid rgba(45, 26, 14, 0.15);
+        background: transparent;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--muted);
+        cursor: pointer;
+        transition: all 0.22s;
+      }
+      .ct-filter-btn i {
+        color: var(--gold);
+        font-size: 0.78rem;
+      }
+      .ct-filter-btn:hover {
+        border-color: var(--gold);
+        color: var(--text);
+        background: rgba(201, 168, 76, 0.06);
+      }
+      .ct-filter-btn.active {
+        background: var(--espresso);
+        border-color: var(--espresso);
+        color: var(--white);
+        box-shadow: 0 6px 20px rgba(26, 15, 7, 0.2);
+      }
+      .ct-filter-btn.active i {
+        color: var(--gold);
       }
 
-      .service-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+      /* Service cards — editorial mosaic */
+      .ct-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3px;
       }
-
-      .service-card.hidden {
+      .ct-card {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        background: #111;
+        aspect-ratio: 3/4;
+        transition: all 0.4s;
+      }
+      .ct-card:first-child:not(.hidden) {
+        grid-column: span 2;
+        aspect-ratio: auto;
+        min-height: 460px;
+      }
+      .ct-card.hidden {
         display: none;
       }
-
-      .service-card-img {
-        position: relative;
-        height: 220px;
-        overflow: hidden;
-      }
-
-      .service-card-img img {
+      .ct-card-img {
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.6s ease;
+        transition:
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          filter 0.5s;
+        filter: brightness(0.75) saturate(0.9);
       }
-
-      .service-card:hover .service-card-img img {
-        transform: scale(1.06);
+      .ct-card:hover .ct-card-img {
+        transform: scale(1.07);
+        filter: brightness(0.65) saturate(1.1);
       }
-
-      .service-card-badge {
+      .ct-card-overlay {
         position: absolute;
-        top: 14px;
-        left: 14px;
-        background: #d4af37;
-        color: #070b1a;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.65rem;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(26, 15, 7, 0.92) 0%,
+          rgba(26, 15, 7, 0.2) 55%,
+          transparent 100%
+        );
+      }
+      .ct-card-body {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 32px 28px;
+        transform: translateY(8px);
+        transition: transform 0.4s;
+      }
+      .ct-card:hover .ct-card-body {
+        transform: translateY(0);
+      }
+      .ct-card-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background: var(--gold);
+        color: var(--espresso);
+        font-size: 0.6rem;
         font-weight: 700;
         letter-spacing: 2px;
         text-transform: uppercase;
-        padding: 5px 12px;
-        border-radius: 50px;
+        border-radius: 2px;
+        margin-bottom: 10px;
       }
-
-      .service-card-popular {
-        position: absolute;
-        top: 14px;
-        right: 14px;
-        background: rgba(7, 11, 26, 0.8);
-        color: #d4af37;
-        font-family: 'Poppins', sans-serif;
+      .ct-card-pill {
+        display: inline-block;
+        padding: 3px 10px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(6px);
+        color: rgba(255, 255, 255, 0.8);
         font-size: 0.6rem;
         font-weight: 600;
-        letter-spacing: 1.5px;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        padding: 5px 10px;
-        border-radius: 50px;
-        backdrop-filter: blur(8px);
+        border-radius: 2px;
+        margin-left: 6px;
       }
-
-      .service-card-body {
-        padding: 24px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .service-card-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        background: rgba(212, 175, 55, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-        color: #d4af37;
-        margin-bottom: 14px;
-      }
-
-      .service-card-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.25rem;
+      .ct-card-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
         font-weight: 700;
-        color: #0b132b;
+        color: var(--white);
+        line-height: 1.2;
         margin-bottom: 8px;
       }
-
-      .service-card-desc {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.875rem;
-        color: #737373;
+      .ct-card-desc {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.65);
         line-height: 1.65;
-        flex: 1;
-        margin-bottom: 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.4s,
+          opacity 0.4s;
+        opacity: 0;
       }
-
-      .service-card-meta {
+      .ct-card:hover .ct-card-desc {
+        max-height: 120px;
+        opacity: 1;
+      }
+      .ct-card-footer {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding-top: 16px;
-        border-top: 1px solid #e5e5e5;
+        gap: 14px;
+        margin-top: 14px;
       }
-
-      .service-card-guests {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: #737373;
+      .ct-card-guests {
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.5);
         display: flex;
         align-items: center;
         gap: 5px;
       }
-
-      .service-card-guests i {
-        color: #d4af37;
-        font-size: 0.8rem;
+      .ct-card-guests i {
+        color: var(--gold);
       }
-
-      .service-card-price {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #0b132b;
+      .ct-card-cta {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: var(--white);
+        font-size: 0.75rem;
+        transition: all 0.3s;
+        text-decoration: none;
       }
-
-      .service-card-price span {
-        color: #d4af37;
-        font-size: 1rem;
-        font-weight: 700;
+      .ct-card:hover .ct-card-cta {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--espresso);
       }
-
-      /* No results */
-      .no-results {
+      .ct-no-results {
         grid-column: 1/-1;
         text-align: center;
-        padding: 60px 20px;
+        padding: 80px 20px;
         display: none;
       }
-
-      .no-results.visible {
+      .ct-no-results.visible {
         display: block;
       }
-
-      .no-results i {
-        font-size: 3rem;
-        color: #d4d4d4;
-        margin-bottom: 16px;
+      .ct-no-results i {
+        font-size: 2.5rem;
+        color: #ccc;
         display: block;
+        margin-bottom: 12px;
+      }
+      .ct-no-results p {
+        color: var(--muted);
+        font-size: 0.9rem;
       }
 
-      .no-results p {
-        font-family: 'Poppins', sans-serif;
-        color: #a3a3a3;
-        font-size: 0.95rem;
+      /* ── SPLIT FEATURES ── */
+      .ct-feature {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 540px;
       }
-
-      /* ── Carousel (Testimonials / Gallery) ── */
-      .catering-carousel-section {
-        background: #0b132b;
-        padding: 100px 0;
+      .ct-feature.reverse {
+        direction: rtl;
+      }
+      .ct-feature.reverse > * {
+        direction: ltr;
+      }
+      .ct-feature-img {
+        position: relative;
         overflow: hidden;
       }
+      .ct-feature-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.8s;
+      }
+      .ct-feature:hover .ct-feature-img img {
+        transform: scale(1.04);
+      }
+      .ct-feature-img::after {
+        content: "";
+        position: absolute;
+        top: 12%;
+        bottom: 12%;
+        right: 0;
+        width: 3px;
+        background: var(--gold);
+        opacity: 0.7;
+      }
+      .ct-feature.reverse .ct-feature-img::after {
+        right: auto;
+        left: 0;
+      }
+      .ct-feature-text {
+        background: var(--espresso);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 72px 80px;
+      }
+      .ct-feature.alt .ct-feature-text {
+        background: var(--ivory);
+      }
+      .ct-feature-text .ct-title {
+        color: var(--white);
+        margin-bottom: 20px;
+      }
+      .ct-feature-text .ct-subtitle {
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 32px;
+      }
+      .ct-feature.alt .ct-feature-text .ct-title {
+        color: var(--espresso);
+      }
+      .ct-feature.alt .ct-feature-text .ct-subtitle {
+        color: var(--muted);
+      }
+      .ct-feature-points {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 36px;
+      }
+      .ct-feature-points li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+      }
+      .ct-feature.alt .ct-feature-points li {
+        color: var(--muted);
+      }
+      .ct-feature-points li i {
+        color: var(--gold);
+        font-size: 0.75rem;
+        margin-top: 4px;
+        flex-shrink: 0;
+      }
 
-      .carousel-track-wrap {
-        position: relative;
+      /* ── TESTIMONIALS ── */
+      .ct-testimonials {
+        background: var(--espresso);
+        padding: 110px 0;
+        overflow: hidden;
+      }
+      .ct-carousel-wrap {
         overflow: hidden;
         margin-top: 56px;
       }
-
-      .carousel-track {
+      .ct-carousel-track {
         display: flex;
-        gap: 24px;
+        gap: 20px;
         transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-        will-change: transform;
       }
-
-      .carousel-slide {
+      .ct-tc {
         min-width: 340px;
         flex-shrink: 0;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(212,175,55,0.12);
-        border-radius: 20px;
+        border-radius: 3px;
         overflow: hidden;
-        transition: transform 0.35s ease;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(201, 168, 76, 0.12);
+        transition: transform 0.3s;
       }
-
-      @media (max-width: 600px) {
-        .carousel-slide { min-width: 280px; }
+      .ct-tc:hover {
+        transform: translateY(-4px);
       }
-
-      .carousel-slide-img {
+      .ct-tc-img {
         width: 100%;
-        height: 220px;
+        height: 200px;
         object-fit: cover;
+        display: block;
+        filter: saturate(0.8);
       }
-
-      .carousel-slide-body {
+      .ct-tc-body {
         padding: 24px;
       }
-
-      .carousel-slide-quote {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.1rem;
+      .ct-tc-stars {
+        color: var(--gold);
+        font-size: 0.72rem;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+      }
+      .ct-tc-quote {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.05rem;
         font-style: italic;
-        color: rgba(255,255,255,0.85);
+        color: rgba(255, 255, 255, 0.8);
         line-height: 1.7;
         margin-bottom: 18px;
       }
-
-      .carousel-slide-author {
+      .ct-tc-author {
         display: flex;
         align-items: center;
         gap: 12px;
       }
-
-      .carousel-slide-avatar {
-        width: 40px;
-        height: 40px;
+      .ct-tc-avatar {
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #d4af37, #b08d1f);
+        background: linear-gradient(135deg, var(--gold), #8a6018);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 700;
-        color: #070b1a;
+        color: var(--espresso);
         flex-shrink: 0;
       }
-
-      .carousel-slide-name {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.85rem;
+      .ct-tc-name {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
         font-weight: 600;
-        color: #ffffff;
-        line-height: 1.2;
+        color: var(--white);
       }
-
-      .carousel-slide-event {
-        font-size: 0.72rem;
-        color: #d4af37;
-        font-weight: 500;
+      .ct-tc-event {
+        font-size: 0.68rem;
+        color: var(--gold);
+        margin-top: 2px;
         letter-spacing: 0.5px;
       }
-
-      .carousel-stars {
-        color: #d4af37;
-        font-size: 0.75rem;
-        margin-bottom: 10px;
-      }
-
-      .carousel-controls {
+      .ct-carousel-controls {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 14px;
-        margin-top: 36px;
+        margin-top: 40px;
       }
-
-      .carousel-btn {
-        width: 48px;
-        height: 48px;
+      .ct-carousel-btn {
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
-        border: 1.5px solid rgba(212,175,55,0.35);
+        border: 1px solid rgba(201, 168, 76, 0.35);
         background: transparent;
-        color: #d4af37;
-        font-size: 1rem;
+        color: var(--gold);
+        font-size: 0.9rem;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.25s ease;
+        transition: all 0.25s;
       }
-
-      .carousel-btn:hover {
-        background: #d4af37;
-        color: #070b1a;
-        border-color: #d4af37;
+      .ct-carousel-btn:hover {
+        background: var(--gold);
+        color: var(--espresso);
+        border-color: var(--gold);
       }
-
-      .carousel-dots {
+      .ct-carousel-dots {
         display: flex;
         gap: 7px;
       }
-
-      .carousel-dot {
+      .ct-carousel-dot {
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: rgba(255,255,255,0.2);
+        background: rgba(255, 255, 255, 0.2);
         border: none;
         cursor: pointer;
         padding: 0;
-        transition: all 0.3s ease;
+        transition: all 0.3s;
       }
-
-      .carousel-dot.active {
-        background: #d4af37;
+      .ct-carousel-dot.active {
+        background: var(--gold);
         width: 18px;
         border-radius: 3px;
       }
 
-      /* ── Menu Preview ── */
-      .menu-preview {
-        padding: 100px 0;
-        background: #ffffff;
+      /* ── MENU PREVIEW ── */
+      .ct-menu {
+        background: var(--ivory);
+        padding: 110px 0;
       }
-
-      .menu-tabs {
+      .ct-menu-tabs {
         display: flex;
         justify-content: center;
-        gap: 0;
-        border-bottom: 2px solid #e5e5e5;
-        margin-bottom: 48px;
+        border-bottom: 1px solid rgba(45, 26, 14, 0.12);
+        margin: 48px 0;
         flex-wrap: wrap;
       }
-
-      .menu-tab {
-        padding: 14px 28px;
+      .ct-menu-tab {
+        padding: 14px 30px;
         border: none;
         background: none;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.82rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.8rem;
         font-weight: 500;
-        color: #737373;
+        color: var(--muted);
         cursor: pointer;
         border-bottom: 2px solid transparent;
-        margin-bottom: -2px;
-        transition: all 0.25s ease;
+        margin-bottom: -1px;
+        transition: all 0.25s;
         letter-spacing: 0.5px;
       }
-
-      .menu-tab.active {
-        color: #0b132b;
-        border-bottom-color: #d4af37;
+      .ct-menu-tab.active {
+        color: var(--espresso);
+        border-bottom-color: var(--gold);
         font-weight: 700;
       }
-
-      .menu-panel {
+      .ct-menu-panel {
         display: none;
       }
-
-      .menu-panel.active {
+      .ct-menu-panel.active {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
-        animation: ctFadeUp 0.4s ease;
+        gap: 16px;
+        animation: fadeIn 0.4s ease;
       }
-
-      .menu-item {
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .ct-menu-item {
         display: flex;
         align-items: flex-start;
         gap: 14px;
-        padding: 18px;
-        border-radius: 12px;
-        border: 1px solid #e5e5e5;
-        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        padding: 20px;
+        border-radius: 3px;
+        border: 1px solid rgba(45, 26, 14, 0.08);
+        background: var(--white);
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s;
       }
-
-      .menu-item:hover {
-        border-color: rgba(212,175,55,0.4);
-        box-shadow: 0 4px 16px rgba(212,175,55,0.1);
+      .ct-menu-item:hover {
+        border-color: rgba(201, 168, 76, 0.4);
+        box-shadow: 0 4px 20px rgba(201, 168, 76, 0.1);
       }
-
-      .menu-item-icon {
-        font-size: 1.5rem;
+      .ct-menu-item-icon {
+        font-size: 1.6rem;
         flex-shrink: 0;
-        line-height: 1;
         margin-top: 2px;
       }
-
-      .menu-item-info h5 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.9rem;
+      .ct-menu-item-info h5 {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.88rem;
         font-weight: 600;
-        color: #0b132b;
+        color: var(--espresso);
         margin-bottom: 3px;
       }
-
-      .menu-item-info p {
-        font-family: 'Inter', sans-serif;
+      .ct-menu-item-info p {
         font-size: 0.78rem;
-        color: #737373;
+        color: var(--muted);
         line-height: 1.5;
       }
 
-      /* ── Process ── */
-      .catering-process {
-        background: #f8f9fa;
-        padding: 100px 0;
+      /* ── PROCESS ── */
+      .ct-process {
+        background: var(--cream);
+        padding: 110px 0;
       }
-
-      .process-steps {
+      .ct-process-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 0;
-        margin-top: 56px;
+        margin-top: 60px;
         position: relative;
       }
-
-      .process-steps::before {
-        content: '';
+      .ct-process-grid::before {
+        content: "";
         position: absolute;
-        top: 36px;
-        left: 10%;
-        right: 10%;
+        top: 35px;
+        left: 12%;
+        right: 12%;
         height: 1px;
-        background: linear-gradient(90deg, transparent, #d4af37, #d4af37, transparent);
-        opacity: 0.3;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          var(--gold),
+          transparent
+        );
+        opacity: 0.25;
       }
-
-      .process-step {
+      .ct-process-step {
         text-align: center;
-        padding: 0 20px;
-        position: relative;
+        padding: 0 24px;
       }
-
-      .process-step-num {
-        width: 72px;
-        height: 72px;
+      .ct-process-num {
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
-        background: #ffffff;
-        border: 2px solid rgba(212,175,55,0.25);
+        background: var(--white);
+        border: 1.5px solid rgba(201, 168, 76, 0.3);
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 20px;
-        font-family: 'Playfair Display', serif;
-        font-size: 1.4rem;
+        margin: 0 auto 22px;
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
         font-weight: 900;
-        color: #d4af37;
+        color: var(--gold);
         position: relative;
         z-index: 1;
-        transition: all 0.3s ease;
+        transition: all 0.3s;
       }
-
-      .process-step:hover .process-step-num {
-        background: #d4af37;
-        color: #070b1a;
-        border-color: #d4af37;
-        box-shadow: 0 8px 28px rgba(212,175,55,0.35);
+      .ct-process-step:hover .ct-process-num {
+        background: var(--gold);
+        color: var(--espresso);
+        border-color: var(--gold);
+        box-shadow: 0 8px 28px rgba(201, 168, 76, 0.3);
       }
-
-      .process-step h4 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #0b132b;
+      .ct-process-step h4 {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--espresso);
         margin-bottom: 8px;
       }
-
-      .process-step p {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.8rem;
-        color: #737373;
-        line-height: 1.6;
+      .ct-process-step p {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.65;
       }
 
-      /* ── CTA Banner ── */
-      .catering-cta {
-        background: linear-gradient(135deg, #070b1a 0%, #1c2541 60%, #0b132b 100%);
-        padding: 90px 40px;
-        text-align: center;
+      /* ── CTA ── */
+      .ct-cta {
         position: relative;
         overflow: hidden;
+        background: var(--espresso);
+        padding: 110px 40px;
+        text-align: center;
       }
-
-      .catering-cta::before {
-        content: '';
+      .ct-cta::before {
+        content: "";
         position: absolute;
         inset: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        opacity: 1;
+        background-image:
+          radial-gradient(
+            ellipse at 20% 50%,
+            rgba(201, 168, 76, 0.08) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 80% 50%,
+            rgba(201, 168, 76, 0.06) 0%,
+            transparent 60%
+          );
       }
-
-      .catering-cta-content {
+      .ct-cta-inner {
         position: relative;
         z-index: 1;
         max-width: 640px;
         margin: 0 auto;
       }
-
-      .catering-cta h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(2rem, 5vw, 3rem);
+      .ct-cta h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.2rem, 5vw, 3.4rem);
         font-weight: 900;
-        color: #ffffff;
-        margin-bottom: 16px;
+        color: var(--white);
+        margin-bottom: 18px;
+        line-height: 1.1;
       }
-
-      .catering-cta h2 em {
+      .ct-cta h2 em {
         font-style: italic;
-        color: #d4af37;
+        color: var(--gold-lt);
       }
-
-      .catering-cta p {
-        font-family: 'Cormorant Garamond', serif;
+      .ct-cta p {
+        font-family: "Cormorant Garamond", serif;
         font-size: 1.2rem;
-        color: rgba(255,255,255,0.7);
-        margin-bottom: 36px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 40px;
+        line-height: 1.7;
       }
-
-      .catering-cta-btns {
+      .ct-cta-btns {
         display: flex;
         gap: 14px;
         justify-content: center;
         flex-wrap: wrap;
       }
 
-      /* ── Keyframes ── */
-      @keyframes ctFadeUp {
-        from { opacity: 0; transform: translateY(24px); }
-        to { opacity: 1; transform: none; }
+      /* ── RESPONSIVE ── */
+      @media (max-width: 960px) {
+        .ct-hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+        .ct-hero-text {
+          padding: 140px 40px 60px;
+        }
+        .ct-hero-visual {
+          height: 50vh;
+          min-height: 320px;
+        }
+        .ct-float-card,
+        .ct-float-badge {
+          display: none;
+        }
+        .ct-cards-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .ct-card:first-child:not(.hidden) {
+          grid-column: span 2;
+        }
+        .ct-feature {
+          grid-template-columns: 1fr;
+        }
+        .ct-feature-img {
+          height: 300px;
+        }
+        .ct-feature-text {
+          padding: 52px 40px;
+        }
+        .ct-feature.reverse {
+          direction: ltr;
+        }
+        .ct-process-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+        }
+        .ct-process-grid::before {
+          display: none;
+        }
       }
-
-      /* ── Responsive ── */
-      @media (max-width: 768px) {
-        .intro-strip { gap: 28px; }
-        .intro-divider { display: none; }
-        .process-steps::before { display: none; }
-        .process-steps { gap: 32px; }
-        .services-grid { grid-template-columns: 1fr; }
+      @media (max-width: 600px) {
+        .ct-hero-text {
+          padding: 120px 24px 48px;
+        }
+        .ct-strip-item {
+          padding: 16px 24px;
+        }
+        .ct-cards-grid {
+          grid-template-columns: 1fr;
+        }
+        .ct-card:first-child:not(.hidden) {
+          grid-column: span 1;
+        }
+        .ct-process-grid {
+          grid-template-columns: 1fr;
+        }
+        .ct-container {
+          padding: 0 20px;
+        }
+        .ct-feature-text {
+          padding: 40px 24px;
+        }
       }
     </style>
   </head>
   <body>
-
-    <!-- ===== PRELOADER ===== -->
+    <!-- PRELOADER -->
     <div id="preloader" class="preloader" aria-hidden="true">
       <div class="loader-ring"></div>
       <div class="preloader-logo">
@@ -801,8 +1151,8 @@
       <div class="preloader-bar"></div>
     </div>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav id="navbar" class="navbar scrolled">
+    <!-- NAVBAR -->
+    <nav id="navbar" class="navbar" style="background: transparent">
       <div class="nav-container">
         <a href="index.html" class="logo">
           <div class="logo-icon"><i class="fas fa-gem"></i></div>
@@ -813,10 +1163,10 @@
         </a>
         <ul class="nav-links" id="navLinks">
           <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="catering.html" class="nav-link active">Catering</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="rooms.html" class="nav-link">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-          <li><a href="catering.html" class="nav-link active">Catering</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -825,476 +1175,879 @@
       </div>
     </nav>
 
-    <!-- ===== HERO ===== -->
-    <section class="catering-hero">
-      <div class="catering-hero-slides" id="heroSlides">
-        <div class="catering-hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1555244162-803834f70033?w=1600&q=80')"></div>
-        <div class="catering-hero-slide" style="background-image:url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1600&q=80')"></div>
-        <div class="catering-hero-slide" style="background-image:url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1600&q=80')"></div>
-        <div class="catering-hero-slide" style="background-image:url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1600&q=80')"></div>
-      </div>
-      <div class="catering-hero-overlay"></div>
-      <div class="catering-hero-content">
-        <div class="catering-hero-label">
-          <i class="fas fa-utensils"></i>
-          Yetfem Catering Services
+    <!-- ══ HERO ══ -->
+    <section class="ct-hero" id="home">
+      <div class="ct-hero-text">
+        <div class="ct-hero-eyebrow">
+          <i class="fas fa-utensils"></i> Yetfem Catering Services
         </div>
-        <h1 class="catering-hero-title">
-          Every Occasion<br>Deserves <em>Perfect</em> Food
+        <h1 class="ct-hero-heading">
+          Every Occasion<br />Deserves
+          <em>Perfect Food</em>
         </h1>
-        <p class="catering-hero-sub">
-          From intimate birthday dinners to grand weddings — we bring<br>
-          luxury Nigerian hospitality to your event, wherever it is.
+        <p class="ct-hero-sub">
+          From intimate birthday dinners to grand weddings — we bring luxury
+          Nigerian hospitality to your event, wherever it is in Abuja.
         </p>
-        <div class="catering-hero-ctas">
-          <a href="contact.html" class="btn">Get a Quote <i class="fas fa-arrow-right"></i></a>
-          <a href="#services" class="btn btn-outline" style="border:1.5px solid rgba(255,255,255,0.4);color:#fff;background:transparent;padding:14px 30px;border-radius:50px;font-family:'Poppins',sans-serif;font-size:0.85rem;font-weight:600;text-decoration:none;transition:all 0.3s ease;">
-            Explore Services
-          </a>
+        <div class="ct-hero-ctas">
+          <a href="contact.html" class="ct-btn-gold"
+            >Get a Quote <i class="fas fa-arrow-right"></i
+          ></a>
+          <a href="#services" class="ct-btn-ghost">Explore Services</a>
         </div>
       </div>
-      <div class="catering-hero-dots" id="heroDots"></div>
+
+      <div class="ct-hero-visual">
+        <div class="hero-img-main"></div>
+        <div class="ct-float-card">
+          <img src="./img/cat1.jpeg" alt="Nigerian cuisine" />
+          <div class="ct-float-card-body">
+            <p>Nigerian Fine Dining</p>
+            <span>Freshly prepared · Every event</span>
+          </div>
+        </div>
+        <div class="ct-float-badge">
+          <div class="icon">🍽️</div>
+          <p>Professional team at every event</p>
+          <span>Uniformed Staff</span>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
     </section>
 
-    <!-- ===== INTRO STATS ===== -->
-    <div class="intro-strip" data-aos="fade-up">
-      <div class="intro-stat">
-        <div class="intro-stat-num">500+</div>
-        <div class="intro-stat-label">Events Catered</div>
-      </div>
-      <div class="intro-divider"></div>
-      <div class="intro-stat">
-        <div class="intro-stat-num">6</div>
-        <div class="intro-stat-label">Event Categories</div>
-      </div>
-      <div class="intro-divider"></div>
-      <div class="intro-stat">
-        <div class="intro-stat-num">50+</div>
-        <div class="intro-stat-label">Menu Options</div>
-      </div>
-      <div class="intro-divider"></div>
-      <div class="intro-stat">
-        <div class="intro-stat-num">24/7</div>
-        <div class="intro-stat-label">Event Support</div>
-      </div>
-    </div>
+    <!-- STATS STRIP -->
 
-    <!-- ===== SERVICES WITH FILTER ===== -->
-    <section class="catering-services" id="services">
-      <div class="container">
-        <div class="section-header" data-aos="fade-up">
-          <span class="section-label">Our Services</span>
-          <h2 class="section-title">Choose Your <span class="accent">Occasion</span></h2>
-          <p class="section-subtitle">Filter by event type to find the perfect catering package for you</p>
+    <!-- ══ SERVICES ══ -->
+    <section class="ct-section ct-services-bg" id="services">
+      <div class="ct-container">
+        <div class="ct-label" data-aos="fade-up">
+          <i class="fas fa-star"></i> Our Services
         </div>
+        <h2 class="ct-title" data-aos="fade-up">
+          Choose Your <em>Occasion</em>
+        </h2>
+        <p class="ct-subtitle" data-aos="fade-up">
+          Hover any card to learn more — click the arrow to get a quote
+        </p>
 
-        <!-- Filter bar -->
-        <div class="filter-bar" id="filterBar" data-aos="fade-up" data-aos-delay="100">
-          <button class="filter-btn active" data-filter="all">
+        <div class="ct-filter-bar" id="filterBar">
+          <button class="ct-filter-btn active" data-filter="all">
             <i class="fas fa-th-large"></i> All Events
           </button>
-          <button class="filter-btn" data-filter="birthday">
+          <button class="ct-filter-btn" data-filter="birthday">
             <i class="fas fa-birthday-cake"></i> Birthday
           </button>
-          <button class="filter-btn" data-filter="wedding">
+          <button class="ct-filter-btn" data-filter="wedding">
             <i class="fas fa-rings-wedding"></i> Wedding
           </button>
-          <button class="filter-btn" data-filter="meeting">
+          <button class="ct-filter-btn" data-filter="meeting">
             <i class="fas fa-briefcase"></i> Meeting
           </button>
-          <button class="filter-btn" data-filter="burial">
+          <button class="ct-filter-btn" data-filter="burial">
             <i class="fas fa-dove"></i> Burial
           </button>
-          <button class="filter-btn" data-filter="naming">
+          <button class="ct-filter-btn" data-filter="naming">
             <i class="fas fa-baby"></i> Naming Ceremony
           </button>
-          <button class="filter-btn" data-filter="gala">
+          <button class="ct-filter-btn" data-filter="gala">
             <i class="fas fa-glass-cheers"></i> Gala / Dinner
           </button>
         </div>
 
-        <!-- Cards -->
-        <div class="services-grid" id="servicesGrid">
-
-          <!-- Birthday -->
-          <div class="service-card" data-category="birthday" data-aos="fade-up">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Birthday Catering" loading="lazy" />
-              <span class="service-card-badge">Birthday</span>
-              <span class="service-card-popular">⭐ Popular</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-birthday-cake"></i></div>
-              <h3 class="service-card-title">Birthday Celebration Package</h3>
-              <p class="service-card-desc">From intimate family gatherings to big surprise parties — custom cakes, finger foods, jollof stations, and dedicated service staff to make the celebrant feel like royalty.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 20 – 500 guests</div>
-                <div class="service-card-price">From <span>₦150k</span></div>
+        <div class="ct-cards-grid" id="servicesGrid">
+          <!-- Birthday — first = large -->
+          <div class="ct-card" data-category="birthday" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat3.jpeg"
+              alt="Birthday Catering"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div>
+                <span class="ct-card-badge">Birthday</span
+                ><span class="ct-card-pill">⭐ Popular</span>
+              </div>
+              <h3 class="ct-card-title">Birthday Celebration Package</h3>
+              <p class="ct-card-desc">
+                Custom cakes, finger foods, jollof stations and dedicated
+                service staff to make the celebrant feel like royalty — from 20
+                to 500 guests.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 20 – 500 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Wedding -->
-          <div class="service-card" data-category="wedding" data-aos="fade-up" data-aos-delay="80">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80" alt="Wedding Catering" loading="lazy" />
-              <span class="service-card-badge">Wedding</span>
-              <span class="service-card-popular">💍 Premium</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-rings-wedding"></i></div>
-              <h3 class="service-card-title">Royal Wedding Catering</h3>
-              <p class="service-card-desc">Full-service wedding catering — cocktail reception, multi-course dinner, live food stations, wedding cake service, drinks and fully uniformed serving team for your perfect day.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 100 – 1,500 guests</div>
-                <div class="service-card-price">From <span>₦500k</span></div>
+          <div class="ct-card" data-category="wedding" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat3.jpeg"
+              alt="Wedding"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div>
+                <span class="ct-card-badge">Wedding</span
+                ><span class="ct-card-pill">💍 Premium</span>
+              </div>
+              <h3 class="ct-card-title">Royal Wedding Catering</h3>
+              <p class="ct-card-desc">
+                Full-service wedding catering — cocktail reception, multi-course
+                dinner, live food stations and uniformed serving team.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 100 – 1,500 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Meeting -->
-          <div class="service-card" data-category="meeting" data-aos="fade-up" data-aos-delay="120">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="Corporate Meeting" loading="lazy" />
-              <span class="service-card-badge">Meeting</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-briefcase"></i></div>
-              <h3 class="service-card-title">Corporate Meeting Package</h3>
-              <p class="service-card-desc">Professional buffet spreads, executive lunch boxes, conference snacks and beverage stations. Keep your team focused and well-fed throughout any business event.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 10 – 200 guests</div>
-                <div class="service-card-price">From <span>₦80k</span></div>
+          <div class="ct-card" data-category="meeting" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat3.jpeg"
+              alt="Corporate Meeting"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div><span class="ct-card-badge">Meeting</span></div>
+              <h3 class="ct-card-title">Corporate Meeting Package</h3>
+              <p class="ct-card-desc">
+                Professional buffet spreads, executive lunch boxes, conference
+                snacks and beverage stations for any business event.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 10 – 200 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Burial -->
-          <div class="service-card" data-category="burial" data-aos="fade-up">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Burial Catering" loading="lazy" />
-              <span class="service-card-badge">Burial</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-dove"></i></div>
-              <h3 class="service-card-title">Burial &amp; Remembrance Service</h3>
-              <p class="service-card-desc">Dignified, respectful catering for burial ceremonies and celebrations of life. Hearty traditional Nigerian meals served with warmth and decorum to honour the departed.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 50 – 1,000 guests</div>
-                <div class="service-card-price">From <span>₦200k</span></div>
+          <div class="ct-card" data-category="burial" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat1.jpeg"
+              alt="Burial Catering"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div><span class="ct-card-badge">Burial</span></div>
+              <h3 class="ct-card-title">Burial &amp; Remembrance Service</h3>
+              <p class="ct-card-desc">
+                Dignified, respectful catering served with warmth and decorum to
+                honour the departed at burial and celebration-of-life
+                ceremonies.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 50 – 1,000 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Naming -->
-          <div class="service-card" data-category="naming" data-aos="fade-up" data-aos-delay="80">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt="Naming Ceremony" loading="lazy" />
-              <span class="service-card-badge">Naming</span>
-              <span class="service-card-popular">🎉 Joyful</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-baby"></i></div>
-              <h3 class="service-card-title">Naming Ceremony Catering</h3>
-              <p class="service-card-desc">Celebrate the arrival of your little one with colourful, joyful food spreads — small chops, puff-puff, pepper soup, jollof rice and more, beautifully presented for the occasion.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 30 – 300 guests</div>
-                <div class="service-card-price">From <span>₦120k</span></div>
+          <div class="ct-card" data-category="naming" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat2.jpeg"
+              alt="Naming Ceremony"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div>
+                <span class="ct-card-badge">Naming</span
+                ><span class="ct-card-pill">🎉 Joyful</span>
+              </div>
+              <h3 class="ct-card-title">Naming Ceremony Catering</h3>
+              <p class="ct-card-desc">
+                Colourful food spreads — puff-puff, pepper soup, jollof rice and
+                more, beautifully presented to celebrate the new arrival.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 30 – 300 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Gala -->
-          <div class="service-card" data-category="gala" data-aos="fade-up" data-aos-delay="120">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80" alt="Gala Dinner" loading="lazy" />
-              <span class="service-card-badge">Gala</span>
-              <span class="service-card-popular">✨ Luxury</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-glass-cheers"></i></div>
-              <h3 class="service-card-title">Gala &amp; Award Dinner</h3>
-              <p class="service-card-desc">Upscale multi-course plated dinners, themed cocktail receptions and live carving stations. Perfect for award nights, fundraisers, annual dinners and diplomatic events.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 50 – 800 guests</div>
-                <div class="service-card-price">From <span>₦350k</span></div>
+          <div class="ct-card" data-category="gala" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat1.jpeg"
+              alt="Gala Dinner"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div>
+                <span class="ct-card-badge">Gala</span
+                ><span class="ct-card-pill">✨ Luxury</span>
+              </div>
+              <h3 class="ct-card-title">Gala &amp; Award Dinner</h3>
+              <p class="ct-card-desc">
+                Multi-course plated dinners, cocktail receptions and live
+                carving stations for award nights, fundraisers and diplomatic
+                events.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 50 – 800 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Birthday kids -->
-          <div class="service-card" data-category="birthday" data-aos="fade-up">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80" alt="Kids Birthday" loading="lazy" />
-              <span class="service-card-badge">Birthday</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-hat-wizard"></i></div>
-              <h3 class="service-card-title">Kids Birthday Special</h3>
-              <p class="service-card-desc">Fun-filled menus designed for little ones — themed cakes, mini chops, fruit skewers, juice stations and friendly staff who love making kids smile.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 20 – 150 guests</div>
-                <div class="service-card-price">From <span>₦90k</span></div>
+          <div class="ct-card" data-category="birthday" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat1.jpeg"
+              alt="Kids Birthday"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div><span class="ct-card-badge">Birthday</span></div>
+              <h3 class="ct-card-title">Kids Birthday Party</h3>
+              <p class="ct-card-desc">
+                Themed setups, custom cakes, mini chops and fun food stations
+                designed to delight children and impress parents.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 20 – 150 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Wedding traditional -->
-          <div class="service-card" data-category="wedding" data-aos="fade-up" data-aos-delay="80">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=600&q=80" alt="Traditional Wedding" loading="lazy" />
-              <span class="service-card-badge">Wedding</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-heart"></i></div>
-              <h3 class="service-card-title">Traditional Engagement Feast</h3>
-              <p class="service-card-desc">Rich traditional Nigerian dishes — ofe onugbu, egusi, fried rice, asun, peppered goat, zobo and more — beautifully served for your introduction and engagement ceremony.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 50 – 600 guests</div>
-                <div class="service-card-price">From <span>₦300k</span></div>
+          <div class="ct-card" data-category="meeting" data-aos="fade-up">
+            <img
+              class="ct-card-img"
+              src="./img/cat1.jpeg"
+              alt="Workshop"
+              loading="lazy"
+            />
+            <div class="ct-card-overlay"></div>
+            <div class="ct-card-body">
+              <div><span class="ct-card-badge">Workshop</span></div>
+              <h3 class="ct-card-title">Training &amp; Workshop Catering</h3>
+              <p class="ct-card-desc">
+                All-day packages with morning tea, mid-day buffet and afternoon
+                snacks to keep energy high throughout the session.
+              </p>
+              <div class="ct-card-footer">
+                <span class="ct-card-guests"
+                  ><i class="fas fa-users"></i> 15 – 100 guests</span
+                >
+                <a href="contact.html" class="ct-card-cta"
+                  ><i class="fas fa-arrow-right"></i
+                ></a>
               </div>
             </div>
           </div>
 
-          <!-- Corporate training -->
-          <div class="service-card" data-category="meeting" data-aos="fade-up" data-aos-delay="120">
-            <div class="service-card-img">
-              <img src="https://images.unsplash.com/photo-1541614101331-1a5a3a194e92?w=600&q=80" alt="Training Catering" loading="lazy" />
-              <span class="service-card-badge">Meeting</span>
-            </div>
-            <div class="service-card-body">
-              <div class="service-card-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-              <h3 class="service-card-title">Training &amp; Workshop Catering</h3>
-              <p class="service-card-desc">All-day catering packages for workshops and training sessions — morning tea, mid-day buffet, afternoon snacks and refreshment stations to keep energy levels high.</p>
-              <div class="service-card-meta">
-                <div class="service-card-guests"><i class="fas fa-users"></i> 15 – 100 guests</div>
-                <div class="service-card-price">From <span>₦60k</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- No results placeholder -->
-          <div class="no-results" id="noResults">
+          <div class="ct-no-results" id="noResults">
             <i class="fas fa-search"></i>
-            <p>No packages found for this category.<br>Contact us for a custom quote.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== TESTIMONIALS CAROUSEL ===== -->
-    <section class="catering-carousel-section">
-      <div class="container">
-        <div class="section-header" data-aos="fade-up" style="text-align:center">
-          <span class="section-label" style="color:#d4af37">What Clients Say</span>
-          <h2 class="section-title" style="color:#fff">Real Stories, <span class="accent">Real Events</span></h2>
-          <p class="section-subtitle" style="color:rgba(255,255,255,0.6)">We've served hundreds of events across Abuja — here's what our clients have to say</p>
-        </div>
-
-        <div class="carousel-track-wrap">
-          <div class="carousel-track" id="carouselTrack">
-
-            <div class="carousel-slide">
-              <img class="carousel-slide-img" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=80" alt="Wedding Event" loading="lazy" />
-              <div class="carousel-slide-body">
-                <div class="carousel-stars">★★★★★</div>
-                <p class="carousel-slide-quote">"Yetfem made our wedding reception absolutely unforgettable. The jollof was perfect, the presentation was stunning, and every guest kept asking who the caterer was."</p>
-                <div class="carousel-slide-author">
-                  <div class="carousel-slide-avatar">AC</div>
-                  <div>
-                    <div class="carousel-slide-name">Adaeze & Chukwuemeka</div>
-                    <div class="carousel-slide-event">Wedding · Abuja, 2024</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <img class="carousel-slide-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=500&q=80" alt="Birthday Party" loading="lazy" />
-              <div class="carousel-slide-body">
-                <div class="carousel-stars">★★★★★</div>
-                <p class="carousel-slide-quote">"My daughter's 7th birthday was magical. The kids loved the themed cake and the mini chops were gone in minutes. Professional team from start to finish!"</p>
-                <div class="carousel-slide-author">
-                  <div class="carousel-slide-avatar">FO</div>
-                  <div>
-                    <div class="carousel-slide-name">Funmi Okafor</div>
-                    <div class="carousel-slide-event">Birthday Party · Bwari, 2024</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <img class="carousel-slide-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&q=80" alt="Corporate Event" loading="lazy" />
-              <div class="carousel-slide-body">
-                <div class="carousel-stars">★★★★★</div>
-                <p class="carousel-slide-quote">"We've used Yetfem for our quarterly board meetings three times now. Always on time, always excellent quality. Our executives are very impressed."</p>
-                <div class="carousel-slide-author">
-                  <div class="carousel-slide-avatar">BI</div>
-                  <div>
-                    <div class="carousel-slide-name">Babatunde Ibrahim</div>
-                    <div class="carousel-slide-event">Corporate Quarterly Meeting · 2024</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <img class="carousel-slide-img" src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80" alt="Gala Dinner" loading="lazy" />
-              <div class="carousel-slide-body">
-                <div class="carousel-stars">★★★★★</div>
-                <p class="carousel-slide-quote">"The gala dinner service was impeccable — white glove service, perfect timing, gorgeous presentation. Our guests were thoroughly impressed. We'll book again!"</p>
-                <div class="carousel-slide-author">
-                  <div class="carousel-slide-avatar">NK</div>
-                  <div>
-                    <div class="carousel-slide-name">Nkechi Kolawole</div>
-                    <div class="carousel-slide-event">Annual Gala · Abuja Hilton, 2024</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <img class="carousel-slide-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="Burial Ceremony" loading="lazy" />
-              <div class="carousel-slide-body">
-                <div class="carousel-stars">★★★★★</div>
-                <p class="carousel-slide-quote">"At such a difficult time, Yetfem handled everything with grace and dignity. The food was comforting, the service was respectful. Our family is truly grateful."</p>
-                <div class="carousel-slide-author">
-                  <div class="carousel-slide-avatar">EO</div>
-                  <div>
-                    <div class="carousel-slide-name">Emeka Obi Family</div>
-                    <div class="carousel-slide-event">Burial Ceremony · Bwari, 2024</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <p>
+              No packages found for this category.<br />Contact us for a custom
+              quote.
+            </p>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="carousel-controls">
-          <button class="carousel-btn" id="carouselPrev" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
-          <div class="carousel-dots" id="carouselDots"></div>
-          <button class="carousel-btn" id="carouselNext" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+    <!-- ══ FEATURE SPLIT 1 ══ -->
+    <div class="ct-feature">
+      <div class="ct-feature-img" data-aos="fade-right">
+        <img src="./img/cat2.jpeg" alt="Catering Team" loading="lazy" />
+      </div>
+      <div class="ct-feature-text" data-aos="fade-left">
+        <div class="ct-label"><i class="fas fa-award"></i> Why Choose Us</div>
+        <h2 class="ct-title">Excellence in <em>Every Plate</em></h2>
+        <p
+          class="ct-subtitle"
+          style="color: rgba(255, 255, 255, 0.55); margin-bottom: 28px"
+        >
+          We don't just cook — we craft experiences that leave your guests
+          talking long after the last bite.
+        </p>
+        <ul class="ct-feature-points">
+          <li>
+            <i class="fas fa-check-circle"></i> Fully uniformed, professional
+            serving team at every event
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i> Fresh, locally sourced Nigerian
+            and continental ingredients
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i> Complete setup and breakdown —
+            you relax, we handle everything
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i> Custom menu consultations
+            tailored to your event theme
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i> Available across Abuja and
+            surrounding states
+          </li>
+        </ul>
+        <a href="contact.html" class="ct-btn-gold"
+          >Book a Consultation <i class="fas fa-arrow-right"></i
+        ></a>
+      </div>
+    </div>
+
+    <!-- ══ FEATURE SPLIT 2 ══ -->
+    <div class="ct-feature reverse alt">
+      <div class="ct-feature-img" data-aos="fade-left">
+        <img src="./img/cat2.jpeg" alt="Nigerian Food" loading="lazy" />
+      </div>
+      <div class="ct-feature-text" data-aos="fade-right">
+        <div class="ct-label"><i class="fas fa-utensils"></i> Our Cuisine</div>
+        <h2 class="ct-title" style="color: var(--espresso)">
+          Rich Flavours, <em>Proudly Nigerian</em>
+        </h2>
+        <p class="ct-subtitle">
+          From fragrant jollof rice and pepper soup to elegant continental
+          platters — authentic taste with modern presentation at every event.
+        </p>
+        <ul class="ct-feature-points" style="margin-bottom: 28px">
+          <li>
+            <i class="fas fa-check-circle"></i> Jollof rice, fried rice, and all
+            Nigerian staples done perfectly
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i> Small chops, puff-puff, and live
+            frying stations
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i> Continental and fusion options
+            available on request
+          </li>
+          <li>
+            <i class="fas fa-check-circle"></i> Dietary accommodations:
+            vegetarian, halal, and more
+          </li>
+        </ul>
+        <a
+          href="#menu"
+          class="ct-btn-gold"
+          style="background: var(--espresso); color: var(--white)"
+          >View Sample Menu <i class="fas fa-arrow-right"></i
+        ></a>
+      </div>
+    </div>
+
+    <!-- ══ TESTIMONIALS ══ -->
+    <section class="ct-testimonials" id="testimonials">
+      <div class="ct-container">
+        <div class="ct-label" style="color: var(--gold)" data-aos="fade-up">
+          <i class="fas fa-star"></i> What Clients Say
+        </div>
+        <h2 class="ct-title" style="color: var(--white)" data-aos="fade-up">
+          Real Stories, <em>Real Events</em>
+        </h2>
+        <p
+          class="ct-subtitle"
+          style="color: rgba(255, 255, 255, 0.5)"
+          data-aos="fade-up"
+        >
+          We've served hundreds of events across Abuja — here's what our clients
+          say
+        </p>
+        <div class="ct-carousel-wrap">
+          <div class="ct-carousel-track" id="ctCarouselTrack">
+            <div class="ct-tc">
+              <img
+                class="ct-tc-img"
+                src="./img/cat1.jpeg"
+                alt="Wedding"
+                loading="lazy"
+              />
+              <div class="ct-tc-body">
+                <div class="ct-tc-stars">★★★★★</div>
+                <p class="ct-tc-quote">
+                  "Yetfem made our wedding reception absolutely unforgettable.
+                  The jollof was perfect, the presentation was stunning, and
+                  every guest kept asking who the caterer was."
+                </p>
+                <div class="ct-tc-author">
+                  <div class="ct-tc-avatar">AC</div>
+                  <div>
+                    <div class="ct-tc-name">Adaeze &amp; Chukwuemeka</div>
+                    <div class="ct-tc-event">Wedding · Abuja, 2024</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ct-tc">
+              <img
+                class="ct-tc-img"
+                src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=500&q=80"
+                alt="Birthday"
+                loading="lazy"
+              />
+              <div class="ct-tc-body">
+                <div class="ct-tc-stars">★★★★★</div>
+                <p class="ct-tc-quote">
+                  "My daughter's 7th birthday was magical. The kids loved the
+                  themed cake and the mini chops were gone in minutes.
+                  Professional team from start to finish!"
+                </p>
+                <div class="ct-tc-author">
+                  <div class="ct-tc-avatar">FO</div>
+                  <div>
+                    <div class="ct-tc-name">Funmi Okafor</div>
+                    <div class="ct-tc-event">Birthday Party · Bwari, 2024</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ct-tc">
+              <img
+                class="ct-tc-img"
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&q=80"
+                alt="Corporate"
+                loading="lazy"
+              />
+              <div class="ct-tc-body">
+                <div class="ct-tc-stars">★★★★★</div>
+                <p class="ct-tc-quote">
+                  "We've used Yetfem for our quarterly board meetings three
+                  times now. Always on time, always excellent quality. Our
+                  executives are very impressed."
+                </p>
+                <div class="ct-tc-author">
+                  <div class="ct-tc-avatar">BI</div>
+                  <div>
+                    <div class="ct-tc-name">Babatunde Ibrahim</div>
+                    <div class="ct-tc-event">Corporate Meeting · 2024</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ct-tc">
+              <img
+                class="ct-tc-img"
+                src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80"
+                alt="Gala"
+                loading="lazy"
+              />
+              <div class="ct-tc-body">
+                <div class="ct-tc-stars">★★★★★</div>
+                <p class="ct-tc-quote">
+                  "The gala dinner service was impeccable — white glove service,
+                  perfect timing, gorgeous presentation. Our guests were
+                  thoroughly impressed. We'll book again!"
+                </p>
+                <div class="ct-tc-author">
+                  <div class="ct-tc-avatar">NK</div>
+                  <div>
+                    <div class="ct-tc-name">Nkechi Kolawole</div>
+                    <div class="ct-tc-event">Annual Gala · Abuja, 2024</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ct-tc">
+              <img
+                class="ct-tc-img"
+                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80"
+                alt="Burial"
+                loading="lazy"
+              />
+              <div class="ct-tc-body">
+                <div class="ct-tc-stars">★★★★★</div>
+                <p class="ct-tc-quote">
+                  "At such a difficult time, Yetfem handled everything with
+                  grace and dignity. The food was comforting, the service was
+                  respectful. Our family is truly grateful."
+                </p>
+                <div class="ct-tc-author">
+                  <div class="ct-tc-avatar">EO</div>
+                  <div>
+                    <div class="ct-tc-name">Emeka Obi Family</div>
+                    <div class="ct-tc-event">Burial Ceremony · Bwari, 2024</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ct-carousel-controls">
+          <button class="ct-carousel-btn" id="ctPrev">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <div class="ct-carousel-dots" id="ctDots"></div>
+          <button class="ct-carousel-btn" id="ctNext">
+            <i class="fas fa-arrow-right"></i>
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- ===== MENU PREVIEW ===== -->
-    <section class="menu-preview">
-      <div class="container">
-        <div class="section-header" data-aos="fade-up">
-          <span class="section-label">Sample Menus</span>
-          <h2 class="section-title">A Taste of <span class="accent">What We Offer</span></h2>
-          <p class="section-subtitle">Explore our curated menus — every item freshly prepared by our executive chef</p>
+    <!-- ══ MENU PREVIEW ══ -->
+    <section class="ct-menu" id="menu">
+      <div class="ct-container">
+        <div class="ct-label" data-aos="fade-up">
+          <i class="fas fa-book-open"></i> Sample Menu
         </div>
-
-        <div class="menu-tabs" id="menuTabs">
-          <button class="menu-tab active" data-menu="starters">Starters</button>
-          <button class="menu-tab" data-menu="mains">Main Dishes</button>
-          <button class="menu-tab" data-menu="desserts">Desserts</button>
-          <button class="menu-tab" data-menu="drinks">Drinks</button>
+        <h2 class="ct-title" data-aos="fade-up">
+          A Taste of <em>What We Offer</em>
+        </h2>
+        <p class="ct-subtitle" data-aos="fade-up">
+          Every menu is fully customisable — these are just highlights from our
+          kitchen
+        </p>
+        <div class="ct-menu-tabs">
+          <button class="ct-menu-tab active" data-menu="nigerian">
+            Nigerian Classics
+          </button>
+          <button class="ct-menu-tab" data-menu="continental">
+            Continental
+          </button>
+          <button class="ct-menu-tab" data-menu="smallchops">
+            Small Chops
+          </button>
+          <button class="ct-menu-tab" data-menu="drinks">Drinks</button>
         </div>
-
-        <div class="menu-panel active" id="menu-starters">
-          <div class="menu-item"><div class="menu-item-icon">🥟</div><div class="menu-item-info"><h5>Small Chops Platter</h5><p>Samosa, spring rolls, puff-puff, chicken skewers & dips</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🥗</div><div class="menu-item-info"><h5>Nigerian Salad Bowl</h5><p>Coleslaw, lettuce, carrots, cucumber, boiled egg & creamy dressing</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍢</div><div class="menu-item-info"><h5>Suya Skewers</h5><p>Spiced beef suya served with sliced onions & tomatoes</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍜</div><div class="menu-item-info"><h5>Pepper Soup</h5><p>Catfish or goat meat pepper soup, richly spiced</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🥚</div><div class="menu-item-info"><h5>Scotch Eggs</h5><p>Hard-boiled eggs wrapped in seasoned minced beef, deep fried</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🦐</div><div class="menu-item-info"><h5>Peppered Prawns</h5><p>Jumbo prawns in a rich, spicy sauce — a crowd favourite</p></div></div>
+        <div class="ct-menu-panel active" id="menu-nigerian">
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🍚</div>
+            <div class="ct-menu-item-info">
+              <h5>Party Jollof Rice</h5>
+              <p>
+                The iconic smoky Nigerian jollof cooked over firewood with
+                premium tomato base
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🍗</div>
+            <div class="ct-menu-item-info">
+              <h5>Peppered Assorted Meat</h5>
+              <p>
+                Slow-cooked assorted meats in a rich, spiced tomato-pepper sauce
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🐟</div>
+            <div class="ct-menu-item-info">
+              <h5>Catfish Pepper Soup</h5>
+              <p>
+                Freshly made with aromatic Nigerian spices, served hot at your
+                event
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🍲</div>
+            <div class="ct-menu-item-info">
+              <h5>Egusi &amp; Ofe Onugbu Soup</h5>
+              <p>
+                Classic rich Nigerian soups paired with pounded yam, eba or
+                semovita
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🍖</div>
+            <div class="ct-menu-item-info">
+              <h5>Suya Station</h5>
+              <p>
+                Live-grilled spiced beef suya with fresh sliced onions and
+                tomatoes
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🍛</div>
+            <div class="ct-menu-item-info">
+              <h5>Fried Rice &amp; Moin Moin</h5>
+              <p>
+                Fluffy fried rice served with steamed moin moin and coleslaw
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div class="menu-panel" id="menu-mains">
-          <div class="menu-item"><div class="menu-item-icon">🍛</div><div class="menu-item-info"><h5>Party Jollof Rice</h5><p>Wood-fire smoky jollof rice with assorted meat & fried plantain</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍖</div><div class="menu-item-info"><h5>Peppered Goat Meat</h5><p>Slow-cooked goat in rich pepper sauce — a Nigerian classic</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍲</div><div class="menu-item-info"><h5>Egusi Soup & Pounded Yam</h5><p>Rich egusi with stockfish, assorted meat, served with pounded yam</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍗</div><div class="menu-item-info"><h5>Grilled Chicken</h5><p>Whole spatchcock chicken, marinated & grilled over open flame</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🐟</div><div class="menu-item-info"><h5>Buka-Style Fried Fish</h5><p>Fresh tilapia or catfish, seasoned & fried golden with pepper sauce</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🥘</div><div class="menu-item-info"><h5>Ofe Onugbu (Bitter Leaf Soup)</h5><p>Traditional Igbo soup with assorted meats & stockfish</p></div></div>
+        <div class="ct-menu-panel" id="menu-continental">
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🥩</div>
+            <div class="ct-menu-item-info">
+              <h5>Grilled Chicken Platter</h5>
+              <p>
+                Herb-marinated chicken with roasted vegetables and sauce trio
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🥗</div>
+            <div class="ct-menu-item-info">
+              <h5>Caesar &amp; Garden Salads</h5>
+              <p>
+                Fresh tossed salads with house dressings — perfect for buffet
+                spreads
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🍝</div>
+            <div class="ct-menu-item-info">
+              <h5>Pasta Stations</h5>
+              <p>Creamy alfredo and tomato-based pasta served live at events</p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🥧</div>
+            <div class="ct-menu-item-info">
+              <h5>Dessert Table</h5>
+              <p>
+                Curated assortment of cakes, tarts and petit fours styled for
+                your event
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div class="menu-panel" id="menu-desserts">
-          <div class="menu-item"><div class="menu-item-icon">🎂</div><div class="menu-item-info"><h5>Custom Event Cake</h5><p>Tiered fondant cakes designed for your occasion & colour theme</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍩</div><div class="menu-item-info"><h5>Puff-Puff Station</h5><p>Hot, fluffy puff-puff served with chocolate, strawberry & caramel dips</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍦</div><div class="menu-item-info"><h5>Soft Serve Ice Cream Bar</h5><p>Vanilla, chocolate, mixed — with toppings: sprinkles, nuts, syrup</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍓</div><div class="menu-item-info"><h5>Fruit Platter</h5><p>Seasonal tropical fruits — mango, pineapple, watermelon, pawpaw</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍮</div><div class="menu-item-info"><h5>Chin-Chin Jar Station</h5><p>Crunchy Nigerian chin-chin in flavoured jars — elegant display</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🧁</div><div class="menu-item-info"><h5>Cupcake Tower</h5><p>Decorated cupcakes in your event colours, arranged in tiered display</p></div></div>
+        <div class="ct-menu-panel" id="menu-smallchops">
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🧆</div>
+            <div class="ct-menu-item-info">
+              <h5>Puff Puff</h5>
+              <p>
+                Light, golden deep-fried dough — an all-time Nigerian party
+                favourite
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🥟</div>
+            <div class="ct-menu-item-info">
+              <h5>Spring Rolls</h5>
+              <p>
+                Crispy vegetable and meat filled rolls served with dipping sauce
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🍢</div>
+            <div class="ct-menu-item-info">
+              <h5>Chicken Skewers</h5>
+              <p>Spiced chicken on skewers, grilled to golden perfection</p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🥊</div>
+            <div class="ct-menu-item-info">
+              <h5>Samosas</h5>
+              <p>Crispy pastry pockets filled with spiced beef or vegetables</p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🦐</div>
+            <div class="ct-menu-item-info">
+              <h5>Peppered Prawns</h5>
+              <p>
+                Juicy prawns in a hot pepper sauce — a crowd-pleaser at every
+                event
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🌮</div>
+            <div class="ct-menu-item-info">
+              <h5>Chin Chin &amp; Mini Donuts</h5>
+              <p>
+                Crunchy chin chin and freshly fried mini donuts for sweet
+                snacking
+              </p>
+            </div>
+          </div>
         </div>
-
-        <div class="menu-panel" id="menu-drinks">
-          <div class="menu-item"><div class="menu-item-icon">🥤</div><div class="menu-item-info"><h5>Zobo Station</h5><p>Fresh hibiscus drink in classic, ginger & pineapple variants</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🍹</div><div class="menu-item-info"><h5>Chapman</h5><p>Classic Nigerian Chapman cocktail with a Yetfem twist</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🧃</div><div class="menu-item-info"><h5>Kunu & Tigernut Milk</h5><p>Chilled traditional Nigerian non-alcoholic drinks</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">☕</div><div class="menu-item-info"><h5>Tea & Coffee Station</h5><p>Premium tea, coffee & hot chocolate with a selection of condiments</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">🥂</div><div class="menu-item-info"><h5>Mocktail Bar</h5><p>Custom non-alcoholic cocktails designed for your event theme</p></div></div>
-          <div class="menu-item"><div class="menu-item-icon">💧</div><div class="menu-item-info"><h5>Branded Water & Soft Drinks</h5><p>Still & sparkling water, full range of sodas, branded bottles</p></div></div>
+        <div class="ct-menu-panel" id="menu-drinks">
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">☕</div>
+            <div class="ct-menu-item-info">
+              <h5>Tea &amp; Coffee Station</h5>
+              <p>
+                Premium tea, coffee and hot chocolate with a selection of
+                condiments
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🥂</div>
+            <div class="ct-menu-item-info">
+              <h5>Mocktail Bar</h5>
+              <p>
+                Custom non-alcoholic cocktails designed for your event theme
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">💧</div>
+            <div class="ct-menu-item-info">
+              <h5>Branded Water &amp; Soft Drinks</h5>
+              <p>
+                Still and sparkling water, full range of sodas and branded
+                bottles
+              </p>
+            </div>
+          </div>
+          <div class="ct-menu-item">
+            <div class="ct-menu-item-icon">🧃</div>
+            <div class="ct-menu-item-info">
+              <h5>Fresh Juice Station</h5>
+              <p>
+                Zobo, kunu, chapman and freshly squeezed tropical fruit juices
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== HOW IT WORKS ===== -->
-    <section class="catering-process">
-      <div class="container">
-        <div class="section-header" data-aos="fade-up">
-          <span class="section-label">How It Works</span>
-          <h2 class="section-title">Simple, <span class="accent">Seamless</span> Booking</h2>
-          <p class="section-subtitle">From inquiry to the last plate — we handle everything with care</p>
+    <!-- ══ PROCESS ══ -->
+    <section class="ct-process">
+      <div class="ct-container">
+        <div style="text-align: center">
+          <div
+            class="ct-label"
+            style="justify-content: center"
+            data-aos="fade-up"
+          >
+            <i class="fas fa-route"></i> How It Works
+          </div>
+          <h2 class="ct-title" style="text-align: center" data-aos="fade-up">
+            Simple, <em>Seamless</em> Booking
+          </h2>
+          <p
+            class="ct-subtitle"
+            style="margin: 0 auto; text-align: center"
+            data-aos="fade-up"
+          >
+            From inquiry to the last plate — we handle everything with care
+          </p>
         </div>
-        <div class="process-steps" data-aos="fade-up" data-aos-delay="100">
-          <div class="process-step">
-            <div class="process-step-num">01</div>
+        <div class="ct-process-grid" data-aos="fade-up" data-aos-delay="100">
+          <div class="ct-process-step">
+            <div class="ct-process-num">01</div>
             <h4>Get in Touch</h4>
-            <p>Call, WhatsApp or fill our contact form with your event details and guest count.</p>
+            <p>
+              Call, WhatsApp or fill our contact form with your event details
+              and guest count.
+            </p>
           </div>
-          <div class="process-step">
-            <div class="process-step-num">02</div>
+          <div class="ct-process-step">
+            <div class="ct-process-num">02</div>
             <h4>Menu Consultation</h4>
-            <p>We meet to understand your taste, dietary needs, event theme and budget.</p>
+            <p>
+              We meet to understand your taste, dietary needs, event theme and
+              expectations.
+            </p>
           </div>
-          <div class="process-step">
-            <div class="process-step-num">03</div>
+          <div class="ct-process-step">
+            <div class="ct-process-num">03</div>
             <h4>Tasting Session</h4>
-            <p>Sample our dishes, choose your favourites and finalise your personalised menu.</p>
+            <p>
+              Sample our dishes, choose your favourites and finalise your
+              personalised menu.
+            </p>
           </div>
-          <div class="process-step">
-            <div class="process-step-num">04</div>
+          <div class="ct-process-step">
+            <div class="ct-process-num">04</div>
             <h4>We Deliver</h4>
-            <p>Our team arrives early, sets up beautifully and serves your guests with pride.</p>
+            <p>
+              Our team arrives early, sets up beautifully and serves your guests
+              with pride.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== CTA BANNER ===== -->
-    <section class="catering-cta">
-      <div class="catering-cta-content">
+    <!-- ══ CTA ══ -->
+    <section class="ct-cta">
+      <div class="ct-cta-inner">
         <h2>Ready to Plan Your <em>Perfect Event?</em></h2>
-        <p>Let's create something extraordinary together. Our events team is standing by.</p>
-        <div class="catering-cta-btns">
-          <a href="contact.html" class="btn">Book a Consultation <i class="fas fa-arrow-right"></i></a>
-          <a href="tel:+2348056874554" class="btn" style="background:transparent;border:1.5px solid rgba(212,175,55,0.5);color:#d4af37;">
-            <i class="fas fa-phone"></i> Call Us Now
-          </a>
+        <p>
+          Let's create something extraordinary together. Our events team is
+          standing by.
+        </p>
+        <div class="ct-cta-btns">
+          <a href="contact.html" class="ct-btn-gold"
+            >Book a Consultation <i class="fas fa-arrow-right"></i
+          ></a>
+          <a href="tel:+2348083427366" class="ct-btn-ghost"
+            ><i class="fas fa-phone"></i> +234 808 342 7366</a
+          >
         </div>
       </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-main">
           <div class="footer-section footer-brand">
             <div class="footer-logo">
-              <span class="logo-text">YETFEM</span><span class="logo-subtitle">HOTEL</span>
+              <span class="logo-text">YETFEM</span
+              ><span class="logo-subtitle">HOTEL</span>
             </div>
-            <p class="footer-description">Your trusted boutique hotel and catering service in the heart of Abuja.</p>
+            <p class="footer-description">
+              Your trusted boutique hotel and catering service in the heart of
+              Bwari, Abuja.
+            </p>
             <div class="social-links">
-              <a href="https://www.tiktok.com/@yetfemhotel" target="_blank"><i class="fab fa-tiktok"></i></a>
-              <a href="https://www.instagram.com/yetfemhotel" target="_blank"><i class="fab fa-instagram"></i></a>
-              <a href="http://linkedin.com/in/yetfemhotel" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+              <a href="https://www.tiktok.com/@yetfemhotel" target="_blank"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+              <a href="https://www.instagram.com/yetfemhotel" target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="http://linkedin.com/in/yetfemhotel" target="_blank"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
             </div>
           </div>
           <div class="footer-section">
@@ -1321,138 +2074,127 @@
           <div class="footer-section">
             <h3>Contact Info</h3>
             <ul class="footer-links">
-              <li><i class="fas fa-phone"></i><a href="tel:+2348056874554">+234 805 687 4554</a></li>
-              <li><i class="fas fa-map-marker-alt"></i><span>Abuja, Nigeria</span></li>
+              <li>
+                <i class="fas fa-phone"></i
+                ><a href="tel:+2348083427366">+234 808 342 7366</a>
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i
+                ><span>Bwari, Abuja, Nigeria</span>
+              </li>
               <li><i class="fas fa-clock"></i><span>24/7 Service</span></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2025 Yetfem Hotel. All Rights Reserved.</p>
-          <p>Crafted with <i class="fas fa-heart"></i> for exceptional hospitality</p>
+          <p>&copy; 2026 Yetfem Hotel. All Rights Reserved.</p>
+          <p>
+            Crafted with <i class="fas fa-heart"></i> for exceptional
+            hospitality
+          </p>
         </div>
       </div>
     </footer>
 
-    <button id="scrollTop" class="scroll-top"><i class="fas fa-arrow-up"></i></button>
-
+    <button id="scrollTop" class="scroll-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
     <script src="app.js"></script>
     <script>
-      // ── Hero auto-slide ──────────────────────────────
-      (function() {
-        const slides = document.querySelectorAll('.catering-hero-slide');
-        const dotsWrap = document.getElementById('heroDots');
-        let current = 0;
-        let timer;
-
-        // Build dots
-        slides.forEach((_, i) => {
-          const d = document.createElement('button');
-          d.className = 'catering-hero-dot' + (i === 0 ? ' active' : '');
-          d.setAttribute('aria-label', 'Slide ' + (i + 1));
-          d.addEventListener('click', () => goTo(i));
-          dotsWrap.appendChild(d);
-        });
-
-        function goTo(n) {
-          slides[current].classList.remove('active');
-          dotsWrap.children[current].classList.remove('active');
-          current = (n + slides.length) % slides.length;
-          slides[current].classList.add('active');
-          dotsWrap.children[current].classList.add('active');
-          clearInterval(timer);
-          timer = setInterval(() => goTo(current + 1), 5000);
-        }
-
-        timer = setInterval(() => goTo(current + 1), 5000);
-      })();
-
-      // ── Services filter ──────────────────────────────
-      (function() {
-        const btns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.service-card[data-category]');
-        const noResults = document.getElementById('noResults');
-
-        btns.forEach(btn => {
-          btn.addEventListener('click', () => {
-            btns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
+      // ── Services filter ───────────────────────────────────
+      (function () {
+        const btns = document.querySelectorAll(".ct-filter-btn");
+        const cards = document.querySelectorAll(".ct-card[data-category]");
+        const noRes = document.getElementById("noResults");
+        btns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            btns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
             const filter = btn.dataset.filter;
             let visible = 0;
-
-            cards.forEach(card => {
-              const match = filter === 'all' || card.dataset.category === filter;
-              card.classList.toggle('hidden', !match);
+            cards.forEach((card) => {
+              const match =
+                filter === "all" || card.dataset.category === filter;
+              card.classList.toggle("hidden", !match);
               if (match) visible++;
             });
-
-            noResults.classList.toggle('visible', visible === 0);
+            // Re-apply large card to first visible
+            const visCards = [...cards].filter(
+              (c) => !c.classList.contains("hidden"),
+            );
+            visCards.forEach((c, i) => {
+              c.style.gridColumn =
+                i === 0 && visCards.length > 1 ? "span 2" : "";
+            });
+            noRes.classList.toggle("visible", visible === 0);
           });
         });
       })();
 
-      // ── Testimonials carousel ────────────────────────
-      (function() {
-        const track = document.getElementById('carouselTrack');
-        const slides = track.querySelectorAll('.carousel-slide');
-        const dotsWrap = document.getElementById('carouselDots');
-        const prevBtn = document.getElementById('carouselPrev');
-        const nextBtn = document.getElementById('carouselNext');
-        let current = 0;
-        let autoTimer;
-        const visibleCount = () => window.innerWidth < 600 ? 1 : window.innerWidth < 900 ? 2 : 3;
+      // ── Testimonials carousel ─────────────────────────────
+      (function () {
+        const track = document.getElementById("ctCarouselTrack");
+        const slides = track.querySelectorAll(".ct-tc");
+        const dots = document.getElementById("ctDots");
+        const prev = document.getElementById("ctPrev");
+        const next = document.getElementById("ctNext");
+        let cur = 0,
+          timer;
 
-        // Build dots
-        const totalDots = Math.ceil(slides.length / 1);
-        for (let i = 0; i < slides.length; i++) {
-          const d = document.createElement('button');
-          d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-          d.setAttribute('aria-label', 'Slide ' + (i + 1));
-          d.addEventListener('click', () => goTo(i));
-          dotsWrap.appendChild(d);
+        slides.forEach((_, i) => {
+          const d = document.createElement("button");
+          d.className = "ct-carousel-dot" + (i === 0 ? " active" : "");
+          d.setAttribute("aria-label", "Slide " + (i + 1));
+          d.addEventListener("click", () => goTo(i));
+          dots.appendChild(d);
+        });
+
+        function vis() {
+          return window.innerWidth < 600 ? 1 : window.innerWidth < 900 ? 2 : 3;
         }
-
-        function getSlideWidth() {
-          const slide = slides[0];
-          return slide.offsetWidth + 24; // gap
+        function sw() {
+          return slides[0].offsetWidth + 20;
         }
-
         function goTo(n) {
-          const max = slides.length - visibleCount();
-          current = Math.max(0, Math.min(n, max));
-          track.style.transform = `translateX(-${current * getSlideWidth()}px)`;
-          dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => {
-            d.classList.toggle('active', i === current);
-          });
+          cur = Math.max(0, Math.min(n, slides.length - vis()));
+          track.style.transform = `translateX(-${cur * sw()}px)`;
+          dots
+            .querySelectorAll(".ct-carousel-dot")
+            .forEach((d, i) => d.classList.toggle("active", i === cur));
         }
-
-        prevBtn.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
-        nextBtn.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
-
         function resetAuto() {
-          clearInterval(autoTimer);
-          autoTimer = setInterval(() => {
-            const next = current + 1 > slides.length - visibleCount() ? 0 : current + 1;
-            goTo(next);
-          }, 4000);
+          clearInterval(timer);
+          timer = setInterval(
+            () => goTo(cur + 1 > slides.length - vis() ? 0 : cur + 1),
+            4500,
+          );
         }
-
+        prev.addEventListener("click", () => {
+          goTo(cur - 1);
+          resetAuto();
+        });
+        next.addEventListener("click", () => {
+          goTo(cur + 1);
+          resetAuto();
+        });
         resetAuto();
-        window.addEventListener('resize', () => goTo(current));
+        window.addEventListener("resize", () => goTo(cur));
       })();
 
-      // ── Menu tabs ────────────────────────────────────
-      (function() {
-        const tabs = document.querySelectorAll('.menu-tab');
-        const panels = document.querySelectorAll('.menu-panel');
-
-        tabs.forEach(tab => {
-          tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            panels.forEach(p => p.classList.remove('active'));
-            tab.classList.add('active');
-            document.getElementById('menu-' + tab.dataset.menu).classList.add('active');
+      // ── Menu tabs ─────────────────────────────────────────
+      (function () {
+        document.querySelectorAll(".ct-menu-tab").forEach((tab) => {
+          tab.addEventListener("click", () => {
+            document
+              .querySelectorAll(".ct-menu-tab")
+              .forEach((t) => t.classList.remove("active"));
+            document
+              .querySelectorAll(".ct-menu-panel")
+              .forEach((p) => p.classList.remove("active"));
+            tab.classList.add("active");
+            document
+              .getElementById("menu-" + tab.dataset.menu)
+              .classList.add("active");
           });
         });
       })();
