@@ -41,212 +41,303 @@
         overflow-x: hidden;
       }
 
-      /* ── HERO: split screen ── */
+      /* ── HERO: full-screen cinematic ── */
       .ct-hero {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        position: relative;
         min-height: 100vh;
-        position: relative;
-      }
-      .ct-hero-text {
-        background: var(--espresso);
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 130px 72px 80px;
-        position: relative;
-        z-index: 2;
+        align-items: flex-end;
         overflow: hidden;
       }
-      .ct-hero-text::before {
-        content: "";
+
+      /* Full-bleed background image */
+      .ct-hero-bg {
         position: absolute;
         inset: 0;
-        background-image: url(./img/cat2.jpeg);
-        pointer-events: none;
-        opacity: 0.55;
+        background-image: url(./img/cat1.jpeg);
+        background-size: cover;
+        background-position: center 30%;
+        transform: scale(1.06);
+        animation: heroZoom 12s ease-out forwards;
       }
-      .ct-hero-text::after {
-        content: "";
+
+      @keyframes heroZoom {
+        from {
+          transform: scale(1.06);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+
+      /* Layered cinematic overlays */
+      .ct-hero-overlay {
         position: absolute;
-        top: 15%;
-        bottom: 15%;
+        inset: 0;
+        background:
+          linear-gradient(
+            to top,
+            rgba(10, 5, 2, 0.97) 0%,
+            rgba(10, 5, 2, 0.55) 45%,
+            rgba(10, 5, 2, 0.1) 100%
+          ),
+          linear-gradient(to right, rgba(10, 5, 2, 0.5) 0%, transparent 60%);
+      }
+
+      /* Decorative grain texture */
+      .ct-hero-grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        background-size: 200px;
+        pointer-events: none;
+      }
+
+      /* Gold accent bar — top */
+      .ct-hero-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
         right: 0;
-        width: 1px;
+        height: 3px;
         background: linear-gradient(
-          180deg,
+          90deg,
           transparent,
           var(--gold) 30%,
-          var(--gold) 70%,
+          var(--gold-lt) 60%,
           transparent
         );
-        opacity: 0.5;
+        opacity: 0;
+        animation: heroFade 1s 0.3s forwards;
       }
+
+      @keyframes heroFade {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Content container */
+      .ct-hero-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 60px 100px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: flex-end;
+        gap: 60px;
+      }
+
+      .ct-hero-left {
+        max-width: 680px;
+      }
+
       .ct-hero-eyebrow {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 14px;
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 5px;
+        gap: 12px;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 6px;
         text-transform: uppercase;
         color: var(--gold);
-        margin-bottom: 32px;
+        margin-bottom: 28px;
         opacity: 0;
-        animation: heroUp 0.8s 0.2s forwards;
+        animation: heroUp 0.8s 0.4s forwards;
+      }
+      .ct-hero-eyebrow i {
+        font-size: 0.7rem;
       }
       .ct-hero-eyebrow::before {
         content: "";
         display: block;
-        width: 36px;
+        width: 40px;
         height: 1px;
         background: var(--gold);
+        flex-shrink: 0;
       }
+
       .ct-hero-heading {
         font-family: "Playfair Display", serif;
-        font-size: clamp(2.6rem, 4.5vw, 4.4rem);
+        font-size: clamp(3rem, 6vw, 6rem);
         font-weight: 900;
         color: var(--white);
-        line-height: 1.08;
-        margin-bottom: 28px;
+        line-height: 1;
+        margin-bottom: 24px;
         opacity: 0;
-        animation: heroUp 0.9s 0.35s forwards;
+        animation: heroUp 0.9s 0.55s forwards;
+        letter-spacing: -0.5px;
       }
       .ct-hero-heading em {
         font-style: italic;
         color: var(--gold-lt);
         display: block;
       }
+
       .ct-hero-sub {
         font-family: "Cormorant Garamond", serif;
-        font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+        font-size: clamp(1.1rem, 1.8vw, 1.35rem);
         font-weight: 300;
-        color: rgba(255, 255, 255, 0.65);
-        line-height: 1.8;
-        margin-bottom: 48px;
-        max-width: 420px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.85;
+        margin-bottom: 44px;
+        max-width: 500px;
         opacity: 0;
-        animation: heroUp 0.8s 0.5s forwards;
+        animation: heroUp 0.8s 0.7s forwards;
       }
+
       .ct-hero-ctas {
         display: flex;
         gap: 14px;
         flex-wrap: wrap;
         opacity: 0;
-        animation: heroUp 0.8s 0.65s forwards;
+        animation: heroUp 0.8s 0.85s forwards;
       }
+
       .ct-btn-gold {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 15px 34px;
+        padding: 16px 38px;
         background: var(--gold);
         color: var(--espresso);
         font-family: "DM Sans", sans-serif;
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         font-weight: 700;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
         text-decoration: none;
-        border-radius: 3px;
+        border-radius: 2px;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .ct-btn-gold::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--gold-lt);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+      .ct-btn-gold:hover::before {
+        transform: scaleX(1);
+      }
+      .ct-btn-gold span,
+      .ct-btn-gold i {
+        position: relative;
+        z-index: 1;
       }
       .ct-btn-gold:hover {
-        background: var(--gold-lt);
         transform: translateY(-2px);
-        box-shadow: 0 12px 32px rgba(201, 168, 76, 0.35);
+        box-shadow: 0 16px 40px rgba(201, 168, 76, 0.4);
       }
+
       .ct-btn-ghost {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 15px 34px;
+        padding: 16px 38px;
         background: transparent;
         color: rgba(255, 255, 255, 0.75);
         font-family: "DM Sans", sans-serif;
-        font-size: 0.82rem;
+        font-size: 0.8rem;
         font-weight: 600;
         letter-spacing: 0.5px;
         text-decoration: none;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
         transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
       }
       .ct-btn-ghost:hover {
         border-color: var(--gold);
         color: var(--gold);
-      }
-      .ct-hero-badges {
-        display: flex;
-        gap: 28px;
-        margin-top: 52px;
-        padding-top: 32px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        opacity: 0;
-        animation: heroUp 0.8s 0.8s forwards;
-      }
-      .ct-badge {
-        text-align: center;
-      }
-      .ct-badge-num {
-        font-family: "Playfair Display", serif;
-        font-size: 1.7rem;
-        font-weight: 900;
-        color: var(--gold);
-        line-height: 1;
-      }
-      .ct-badge-lbl {
-        font-size: 0.62rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.38);
-        margin-top: 4px;
-      }
-      .ct-badge-div {
-        width: 1px;
-        background: rgba(255, 255, 255, 0.1);
-        align-self: stretch;
+        background: rgba(201, 168, 76, 0.07);
       }
 
-      /* Right: image */
-      .ct-hero-visual {
-        position: relative;
-        overflow: hidden;
+      /* Right side: vertical trust indicators */
+      .ct-hero-trust {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        opacity: 0;
+        animation: heroUp 0.8s 1s forwards;
+        border-left: 1px solid rgba(201, 168, 76, 0.25);
+        padding-left: 40px;
       }
-      .hero-img-main {
+      .ct-trust-item {
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .ct-trust-item:last-child {
+        border-bottom: none;
+      }
+      .ct-trust-icon {
+        font-size: 1rem;
+        color: var(--gold);
+        margin-bottom: 6px;
+      }
+      .ct-trust-label {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1;
+      }
+      .ct-trust-sub {
+        font-size: 0.62rem;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: 4px;
+      }
+
+      /* Floating food card — REMOVED */
+
+      /* Scroll hint */
+      .hero-scroll-hint {
         position: absolute;
-        inset: 0;
-        background-image: url(./img/cat1.jpeg);
-        background-size: cover;
-        background-position: center;
-        transition: transform 10s ease;
+        bottom: 36px;
+        right: 60px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 10;
+        opacity: 0;
+        animation: heroFade 0.8s 1.4s forwards;
       }
-      .ct-hero-visual:hover .hero-img-main {
-        transform: scale(1.05);
+      .hero-scroll-hint span {
+        font-size: 0.58rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        writing-mode: vertical-rl;
       }
-      .ct-hero-visual::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          180deg,
-          rgba(26, 15, 7, 0.15) 0%,
-          transparent 50%,
-          rgba(26, 15, 7, 0.3) 100%
-        );
-        pointer-events: none;
+      .hero-scroll-line {
+        width: 1px;
+        height: 44px;
+        background: linear-gradient(180deg, var(--gold), transparent);
+        animation: pulse 1.8s ease-in-out infinite;
+      }
+
+      /* Legacy selectors kept for badge/div below */
+      .ct-hero-badges,
+      .ct-badge,
+      .ct-badge-num,
+      .ct-badge-lbl,
+      .ct-badge-div {
+        display: none;
       }
 
       /* Floating food card */
       .ct-float-card {
-        position: absolute;
-        bottom: 60px;
-        left: -38px;
-        width: 210px;
-        background: var(--white);
-        border-radius: 4px;
-        overflow: hidden;
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+        display: none;
         opacity: 0;
         transform: translateY(20px);
         animation: heroUp 0.9s 0.9s forwards;
@@ -1074,20 +1165,22 @@
 
       /* ── RESPONSIVE ── */
       @media (max-width: 960px) {
-        .ct-hero {
+        .ct-hero-content {
           grid-template-columns: 1fr;
-          min-height: auto;
+          padding: 0 40px 80px;
+          gap: 40px;
         }
-        .ct-hero-text {
-          padding: 140px 40px 60px;
+        .ct-hero-trust {
+          flex-direction: row;
+          border-left: none;
+          border-top: 1px solid rgba(201, 168, 76, 0.25);
+          padding-left: 0;
+          padding-top: 28px;
+          gap: 28px;
         }
-        .ct-hero-visual {
-          height: 50vh;
-          min-height: 320px;
-        }
-        .ct-float-card,
-        .ct-float-badge {
-          display: none;
+        .ct-trust-item {
+          border-bottom: none;
+          padding: 0;
         }
         .ct-cards-grid {
           grid-template-columns: 1fr 1fr;
@@ -1116,8 +1209,14 @@
         }
       }
       @media (max-width: 600px) {
-        .ct-hero-text {
-          padding: 120px 24px 48px;
+        .ct-hero-content {
+          padding: 0 24px 72px;
+        }
+        .ct-hero-trust {
+          gap: 20px;
+        }
+        .hero-scroll-hint {
+          right: 24px;
         }
         .ct-strip-item {
           padding: 16px 24px;
@@ -1177,39 +1276,48 @@
 
     <!-- ══ HERO ══ -->
     <section class="ct-hero" id="home">
-      <div class="ct-hero-text">
-        <div class="ct-hero-eyebrow">
-          <i class="fas fa-utensils"></i> Yetfem Catering Services
-        </div>
-        <h1 class="ct-hero-heading">
-          Every Occasion<br />Deserves
-          <em>Perfect Food</em>
-        </h1>
-        <p class="ct-hero-sub">
-          From intimate birthday dinners to grand weddings — we bring luxury
-          Nigerian hospitality to your event, wherever it is in Abuja.
-        </p>
-        <div class="ct-hero-ctas">
-          <a href="contact.html" class="ct-btn-gold"
-            >Get a Quote <i class="fas fa-arrow-right"></i
-          ></a>
-          <a href="#services" class="ct-btn-ghost">Explore Services</a>
-        </div>
-      </div>
+      <div class="ct-hero-bg"></div>
+      <div class="ct-hero-overlay"></div>
+      <div class="ct-hero-grain"></div>
+      <div class="ct-hero-bar"></div>
 
-      <div class="ct-hero-visual">
-        <div class="hero-img-main"></div>
-        <div class="ct-float-card">
-          <img src="./img/cat2.jpeg" alt="Nigerian cuisine" />
-          <div class="ct-float-card-body">
-            <p>Nigerian Fine Dining</p>
-            <span>Freshly prepared · Every event</span>
+      <div class="ct-hero-content">
+        <div class="ct-hero-left">
+          <div class="ct-hero-eyebrow">
+            <i class="fas fa-utensils"></i> Yetfem Catering &amp; Events
+          </div>
+          <h1 class="ct-hero-heading">
+            Every Occasion<br />Deserves
+            <em>Perfect Food</em>
+          </h1>
+          <p class="ct-hero-sub">
+            From intimate birthday dinners to grand weddings — we bring luxury
+            Nigerian hospitality to your event, wherever you are in Abuja.
+          </p>
+          <div class="ct-hero-ctas">
+            <a href="contact.html" class="ct-btn-gold">
+              <span>Get a Quote</span> <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="#services" class="ct-btn-ghost">Explore Services</a>
           </div>
         </div>
-        <div class="ct-float-badge">
-          <div class="icon">🍽️</div>
-          <p>Professional team at every event</p>
-          <span>Uniformed Staff</span>
+
+        <div class="ct-hero-trust">
+          <div class="ct-trust-item">
+            <div class="ct-trust-icon"><i class="fas fa-trophy"></i></div>
+            <div class="ct-trust-label">500+</div>
+            <div class="ct-trust-sub">Events Served</div>
+          </div>
+          <div class="ct-trust-item">
+            <div class="ct-trust-icon"><i class="fas fa-star"></i></div>
+            <div class="ct-trust-label">5.0</div>
+            <div class="ct-trust-sub">Client Rating</div>
+          </div>
+          <div class="ct-trust-item">
+            <div class="ct-trust-icon"><i class="fas fa-clock"></i></div>
+            <div class="ct-trust-label">24/7</div>
+            <div class="ct-trust-sub">Always Ready</div>
+          </div>
         </div>
       </div>
 
@@ -1276,13 +1384,9 @@
               <h3 class="ct-card-title">Birthday Celebration Package</h3>
               <p class="ct-card-desc">
                 Custom cakes, finger foods, jollof stations and dedicated
-                service staff to make the celebrant feel like royalty — from 20
-                to 500 guests.
+                service staff to make the celebrant feel like royalty.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 20 – 500 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
@@ -1309,9 +1413,6 @@
                 dinner, live food stations and uniformed serving team.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 100 – 1,500 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
@@ -1335,9 +1436,6 @@
                 snacks and beverage stations for any business event.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 10 – 200 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
@@ -1362,9 +1460,6 @@
                 ceremonies.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 50 – 1,000 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
@@ -1391,9 +1486,6 @@
                 more, beautifully presented to celebrate the new arrival.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 30 – 300 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
@@ -1421,9 +1513,6 @@
                 events.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 50 – 800 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
@@ -1447,9 +1536,6 @@
                 designed to delight children and impress parents.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 20 – 150 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
@@ -1473,9 +1559,6 @@
                 snacks to keep energy high throughout the session.
               </p>
               <div class="ct-card-footer">
-                <span class="ct-card-guests"
-                  ><i class="fas fa-users"></i> 15 – 100 guests</span
-                >
                 <a href="contact.html" class="ct-card-cta"
                   ><i class="fas fa-arrow-right"></i
                 ></a>
