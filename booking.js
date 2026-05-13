@@ -195,8 +195,40 @@ function authAdmin(req, res, next) {
 // ── App setup ────────────────────────────────────────────────
 const app = express();
 
-app.use(helmet());
-app.use(cors({ origin: "*" })); // Restrict in production to your domain
+app.use(cors({ origin: "*" }));
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "cdnjs.cloudflare.com",
+          "fonts.googleapis.com",
+        ],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "cdnjs.cloudflare.com",
+          "fonts.googleapis.com",
+          "fonts.gstatic.com",
+        ],
+        fontSrc: ["'self'", "fonts.gstatic.com", "cdnjs.cloudflare.com"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "images.unsplash.com",
+          "*.googleapis.com",
+          "maps.gstatic.com",
+        ],
+        connectSrc: ["'self'"],
+        frameSrc: ["'self'", "www.google.com"],
+      },
+    },
+    crossOriginEmbedderPolicy: false,
+  }),
+);
 app.use(express.json());
 app.use(express.static(".")); // serve HTML files from same directory
 

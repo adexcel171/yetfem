@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Dark background with rounded corners -->
+  <rect width="64" height="64" rx="12" fill="#070b1a"/>
+  <!-- Gold top accent line -->
+  <rect x="8" y="6" width="48" height="2.5" rx="1.25" fill="#d4af37" opacity="0.7"/>
+  <!-- Gold "Y" letterform -->
+  <text
+    x="32"
+    y="46"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="42"
+    font-weight="700"
+    text-anchor="middle"
+    fill="#d4af37"
+    letter-spacing="-1"
+  >Y</text>
+  <!-- Thin gold underline beneath the Y -->
+  <rect x="18" y="51" width="28" height="1.8" rx="0.9" fill="#d4af37" opacity="0.5"/>
+</svg>

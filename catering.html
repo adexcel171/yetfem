@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catering Services | Yetfem Hotel</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="shortcut icon" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -2180,7 +2182,17 @@
     </button>
     <script src="app.js"></script>
     <script>
-      // ── Services filter ───────────────────────────────────
+      // ── Make entire service cards clickable ───────────────
+      (function () {
+        document.querySelectorAll(".ct-card[data-category]").forEach((card) => {
+          card.style.cursor = "pointer";
+          card.addEventListener("click", function (e) {
+            // Don't double-fire if they clicked the arrow link directly
+            if (e.target.closest(".ct-card-cta")) return;
+            window.location.href = "contact.html";
+          });
+        });
+      })();
       (function () {
         const btns = document.querySelectorAll(".ct-filter-btn");
         const cards = document.querySelectorAll(".ct-card[data-category]");
