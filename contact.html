@@ -1042,7 +1042,7 @@
             const d = availabilityData[key];
             const avail = d.available > 0;
             return `
-            <div class="avail-card ${avail ? "" : "unavailable"}" data-cat="${key}" onclick="selectCategory('${key}')">
+            <div class="avail-card ${avail ? "" : "unavailable"}" data-cat="${key}">
               <div class="check-mark"><i class="fas fa-check"></i></div>
               <div class="avail-cat">${icon} ${key}</div>
               <div class="avail-name">${d.label}</div>
@@ -1054,6 +1054,16 @@
             </div>`;
           })
           .join("");
+
+        // Attach click listeners after rendering (inline onclick can't reach scoped functions)
+        grid
+          .querySelectorAll(".avail-card:not(.unavailable)")
+          .forEach((card) => {
+            card.addEventListener("click", () =>
+              selectCategory(card.dataset.cat),
+            );
+          });
+
         grid.style.display = "grid";
         document.getElementById("step1Nav").style.display = "flex";
         document.getElementById("toStep2Btn").disabled = true;
