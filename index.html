@@ -9,7 +9,7 @@
     />
     <title>Yetfem Hotel & Suites | Home</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="shortcut icon" href="favicon.svg" />
+    <link rel="shortcut icon" href="/favicon (1).svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -64,13 +64,13 @@
       <div class="hero-carousel" id="heroCarousel">
         <div
           class="carousel-slide active"
-          style="background-image: url(/img/hpm.jpg)"
+          style="background-image: url(/img/signboard.jpeg)"
         >
           <div class="slide-ken"></div>
         </div>
         <div
           class="carousel-slide"
-          style="background-image: url(/img/signboard.jpeg)"
+          style="background-image: url(/img/room1.jpeg)"
         >
           <div class="slide-ken"></div>
         </div>
@@ -85,9 +85,7 @@
         </div>
         <div
           class="carousel-slide"
-          style="
-            background-image: url(&quot;https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1920&q=85&quot;);
-          "
+          style="background-image: url(/img/cat2.jpeg)"
         >
           <div class="slide-ken"></div>
         </div>
@@ -175,6 +173,12 @@
 
           <!-- CTAs -->
           <div class="hero-cta">
+            <a href="catering.html" class="hero-btn hero-btn-ghost">
+              <span>Catering Page</span>
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+          <div class="" style="margin-top: 20px">
             <a href="rooms.html" class="hero-btn hero-btn-primary">
               <span>Explore Rooms</span>
               <span class="btn-icon-box"
@@ -902,7 +906,7 @@
         let progTimer = null;
         const INTERVAL = 5500; // ms per slide
 
-        ctot.textContent = String(slides.length).padStart(2, "0");
+        if (ctot) ctot.textContent = String(slides.length).padStart(2, "0");
 
         function goTo(idx) {
           slides[current].classList.remove("active");
@@ -912,7 +916,7 @@
 
           slides[current].classList.add("active");
           dots[current].classList.add("active");
-          ccur.textContent = String(current + 1).padStart(2, "0");
+          if (ccur) ccur.textContent = String(current + 1).padStart(2, "0");
 
           resetProgress();
         }
@@ -989,4 +993,4 @@
       })();
     </script>
   </body>
-</html> 
+</html>
