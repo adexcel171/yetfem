@@ -64,7 +64,7 @@
       <div class="hero-carousel" id="heroCarousel">
         <div
           class="carousel-slide active"
-          style="background-image: url(/img/signboard.jpeg)"
+          style="background-image: url(/img/room1.jpeg)"
         >
           <div class="slide-ken"></div>
         </div>
@@ -874,6 +874,149 @@
     <button id="scrollTop" class="scroll-top" aria-label="Scroll to top">
       <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- ===== WHATSAPP FLOATING BOT ===== -->
+    <style>
+      .wa-float {
+        position: fixed;
+        bottom: 90px;
+        right: 28px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 12px;
+      }
+      .wa-float-bubble {
+        background: #fff;
+        border-radius: 18px 18px 4px 18px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        padding: 14px 18px;
+        max-width: 240px;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.82rem;
+        color: #1a1a1a;
+        line-height: 1.5;
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        pointer-events: none;
+        position: relative;
+      }
+      .wa-float-bubble.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+      .wa-float-bubble strong {
+        display: block;
+        margin-bottom: 3px;
+        color: #075e54;
+        font-size: 0.85rem;
+      }
+      .wa-float-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        right: 14px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 0px solid transparent;
+        border-top: 8px solid #fff;
+      }
+      .wa-float-btn {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+        cursor: pointer;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        text-decoration: none;
+        position: relative;
+        border: none;
+        outline: none;
+      }
+      .wa-float-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 10px 36px rgba(37, 211, 102, 0.55);
+      }
+      .wa-float-btn i {
+        font-size: 1.7rem;
+        color: #fff;
+      }
+      .wa-float-btn .wa-pulse {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: rgba(37, 211, 102, 0.35);
+        animation: waPulse 2.2s ease-out infinite;
+      }
+      @keyframes waPulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        100% {
+          transform: scale(1.8);
+          opacity: 0;
+        }
+      }
+      .wa-float-btn .wa-dot {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 14px;
+        height: 14px;
+        background: #ff3b30;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        font-size: 0.45rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 800;
+      }
+    </style>
+    <div class="wa-float" id="waFloat">
+      <div class="wa-float-bubble" id="waBubble">
+        <strong>👋 Hello! Welcome to Yetfem</strong>
+        Chat with us on WhatsApp — rooms,
+      </div>
+      <a
+        href="https://wa.me/2347064117411?text=Hello%20Yetfem%20Hotel!%20I%27d%20like%20to%20make%20an%20enquiry."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="wa-float-btn"
+        id="waBtn"
+        aria-label="Chat on WhatsApp"
+        title="Chat with Yetfem on WhatsApp"
+      >
+        <span class="wa-pulse"></span>
+        <i class="fab fa-whatsapp"></i>
+        <span class="wa-dot">1</span>
+      </a>
+    </div>
+    <script>
+      // Show bubble after 3s, auto-dismiss after 8s
+      (function () {
+        const bubble = document.getElementById("waBubble");
+        const btn = document.getElementById("waBtn");
+        setTimeout(() => bubble.classList.add("show"), 3000);
+        setTimeout(() => bubble.classList.remove("show"), 11000);
+        btn.addEventListener("click", () => bubble.classList.remove("show"));
+        // Toggle bubble on hover
+        btn.addEventListener("mouseenter", () => bubble.classList.add("show"));
+      })();
+    </script>
 
     <script src="app.js"></script>
     <!-- ===== HERO ANIMATE on load ===== -->
