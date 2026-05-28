@@ -1046,6 +1046,53 @@
         color: #fff;
         font-weight: 800;
       }
+      /* ── FAQ Accordion ── */
+      .faq-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .faq-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #fff;
+        gap: 16px;
+        user-select: none;
+        transition: color 0.2s;
+      }
+      .faq-question:hover {
+        color: var(--secondary, #d4af37);
+      }
+      .faq-question i {
+        flex-shrink: 0;
+        font-size: 0.85rem;
+        color: var(--secondary, #d4af37);
+        transition: transform 0.3s ease;
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.8;
+        transition:
+          max-height 0.4s ease,
+          padding 0.3s ease;
+        padding-bottom: 0;
+      }
+      .faq-item.open .faq-answer {
+        max-height: 300px;
+        padding-bottom: 20px;
+      }
+      .faq-item.open .faq-question {
+        color: var(--secondary, #d4af37);
+      }
+      .faq-item.open .faq-question i {
+        transform: rotate(45deg);
+      }
     </style>
     <div class="wa-float" id="waFloat">
       <div class="wa-float-bubble" id="waBubble">
@@ -1079,361 +1126,7 @@
     <script src="app.js"></script>
 
     <script>
-      /* ═══════════════════════════════════════════════════════
-         BOOKING SYSTEM — client-side logic
-         API base: same origin (booking.js server on port 3000)
-         ═══════════════════════════════════════════════════════ */
-      const API_BASE = ""; // e.g. "http://localhost:3000" if on different port
-
-      // State
-      let selectedCategory = null;
-      let availabilityData = null;
-      let bookingResult = null;
-
       const WHATSAPP_NUM = "2347064117411";
-
-      // ── DOM refs ──────────────────────────────────────────
-      const $checkin = document.getElementById("bk-checkin");
-      const $checkout = document.getElementById("bk-checkout");
-      const $nightsDisplay = document.getElementById("nightsDisplay");
-
-      // ── Date logic ────────────────────────────────────────
-      const todayStr = () => new Date().toISOString().split("T")[0];
-
-      $checkin.min = todayStr();
-      $checkout.min = todayStr();
-
-      $checkin.addEventListener("change", () => {
-        if ($checkout.value && $checkout.value <= $checkin.value) {
-          const next = new Date($checkin.value);
-          next.setDate(next.getDate() + 1);
-          $checkout.value = next.toISOString().split("T")[0];
-        }
-        $checkout.min = $checkin.value;
-        updateNightsDisplay();
-        resetAvailability();
-      });
-      $checkout.addEventListener("change", () => {
-        updateNightsDisplay();
-        resetAvailability();
-      });
-
-      function calcNights() {
-        if (!$checkin.value || !$checkout.value) return 0;
-        const d1 = new Date($checkin.value),
-          d2 = new Date($checkout.value);
-        return Math.round((d2 - d1) / 86400000);
-      }
-      function updateNightsDisplay() {
-        const n = calcNights();
-        if (n > 0) {
-          $nightsDisplay.textContent = `${n} night${n > 1 ? "s" : ""}`;
-          $nightsDisplay.style.display = "block";
-        } else {
-          $nightsDisplay.style.display = "none";
-        }
-      }
-      function resetAvailability() {
-        document.getElementById("availGrid").style.display = "none";
-        document.getElementById("step1Nav").style.display = "none";
-        selectedCategory = null;
-        availabilityData = null;
-      }
-
-      // ── Check availability ────────────────────────────────
-      document
-        .getElementById("checkAvailBtn")
-        .addEventListener("click", async () => {
-          const ci = $checkin.value,
-            co = $checkout.value;
-          if (!ci || !co) {
-            alert("Please select check-in and check-out dates.");
-            return;
-          }
-          if (ci >= co) {
-            alert("Check-out must be after check-in.");
-            return;
-          }
-
-          const btn = document.getElementById("checkAvailBtn");
-          const label = document.getElementById("availBtnLabel");
-          btn.disabled = true;
-          label.innerHTML = '<span class="spinner"></span> Checking…';
-
-          try {
-            const res = await fetch(
-              `${API_BASE}/api/availability?checkin=${ci}&checkout=${co}`,
-            );
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Failed");
-            availabilityData = data.availability;
-            renderAvailability();
-          } catch (e) {
-            alert(
-              "Could not check availability: " +
-                e.message +
-                "\n\nPlease call us on +234 706 411 7411.",
-            );
-          } finally {
-            btn.disabled = false;
-            label.textContent = "Check Availability";
-          }
-        });
-
-      function renderAvailability() {
-        const grid = document.getElementById("availGrid");
-        const cats = [
-          { key: "standard", icon: "🛏️" },
-          { key: "deluxe", icon: "✨" },
-          { key: "executive", icon: "👑" },
-        ];
-        grid.innerHTML = cats
-          .map(({ key, icon }) => {
-            const d = availabilityData[key];
-            const avail = d.available > 0;
-            return `
-            <div class="avail-card ${avail ? "" : "unavailable"}" data-cat="${key}">
-              <div class="check-mark"><i class="fas fa-check"></i></div>
-              <div class="avail-cat">${icon} ${key}</div>
-              <div class="avail-name">${d.label}</div>
-              <div class="avail-price">₦${d.pricePerNight.toLocaleString()} <span>/ night</span></div>
-              <div class="avail-count ${avail ? "has-rooms" : "no-rooms"}">
-                ${avail ? `${d.available} room${d.available > 1 ? "s" : ""} available` : "Fully Booked"}
-              </div>
-              <div style="font-size:0.72rem;color:#94a3b8;margin-top:6px;">Max ${d.maxGuests} guests</div>
-            </div>`;
-          })
-          .join("");
-
-        // Attach click listeners after rendering (inline onclick can't reach scoped functions)
-        grid
-          .querySelectorAll(".avail-card:not(.unavailable)")
-          .forEach((card) => {
-            card.addEventListener("click", () =>
-              selectCategory(card.dataset.cat),
-            );
-          });
-
-        grid.style.display = "grid";
-        document.getElementById("step1Nav").style.display = "flex";
-        document.getElementById("toStep2Btn").disabled = true;
-      }
-
-      function selectCategory(cat) {
-        if (
-          !availabilityData ||
-          !availabilityData[cat] ||
-          availabilityData[cat].available === 0
-        )
-          return;
-        selectedCategory = cat;
-        document
-          .querySelectorAll(".avail-card")
-          .forEach((c) => c.classList.remove("selected"));
-        document
-          .querySelector(`.avail-card[data-cat="${cat}"]`)
-          .classList.add("selected");
-        document.getElementById("toStep2Btn").disabled = false;
-      }
-
-      // ── Step navigation ───────────────────────────────────
-      function goToStep(n) {
-        document
-          .querySelectorAll(".step-panel")
-          .forEach((p, i) => p.classList.toggle("active", i === n - 1));
-        document.querySelectorAll(".step").forEach((s, i) => {
-          s.classList.remove("active", "done");
-          if (i < n - 1) s.classList.add("done");
-          if (i === n - 1) s.classList.add("active");
-        });
-        window.scrollTo({
-          top: document.querySelector(".booking-system").offsetTop - 80,
-          behavior: "smooth",
-        });
-      }
-
-      document.getElementById("toStep2Btn").addEventListener("click", () => {
-        if (!selectedCategory) return;
-        renderSummary("bookingSummary");
-        goToStep(2);
-      });
-
-      document
-        .getElementById("backTo1Btn")
-        .addEventListener("click", () => goToStep(1));
-      document
-        .getElementById("backTo2Btn")
-        .addEventListener("click", () => goToStep(2));
-
-      document.getElementById("toStep3Btn").addEventListener("click", () => {
-        const name = document.getElementById("bk-name").value.trim();
-        const phone = document.getElementById("bk-phone").value.trim();
-        const guests = document.getElementById("bk-guests").value;
-        if (!name || !phone || !guests) {
-          alert("Please fill in your name, phone number and number of guests.");
-          return;
-        }
-        renderSummary("finalSummary", true);
-        goToStep(3);
-      });
-
-      function renderSummary(id, full = false) {
-        const d = availabilityData[selectedCategory];
-        const n = calcNights();
-        const total = d.pricePerNight * n;
-        const name = document.getElementById("bk-name").value.trim();
-        const phone = document.getElementById("bk-phone").value.trim();
-        const guests = document.getElementById("bk-guests").value;
-
-        let rows = `
-          <div class="summary-row"><span class="lbl">Room Type</span><span class="val">${d.label}</span></div>
-          <div class="summary-row"><span class="lbl">Check-In</span><span class="val">${fmtDate($checkin.value)}</span></div>
-          <div class="summary-row"><span class="lbl">Check-Out</span><span class="val">${fmtDate($checkout.value)}</span></div>
-          <div class="summary-row"><span class="lbl">Nights</span><span class="val">${n}</span></div>
-          <div class="summary-row"><span class="lbl">Rate / Night</span><span class="val">₦${d.pricePerNight.toLocaleString()}</span></div>`;
-        if (full && name)
-          rows += `<div class="summary-row"><span class="lbl">Guest Name</span><span class="val">${name}</span></div>`;
-        if (full && phone)
-          rows += `<div class="summary-row"><span class="lbl">Phone</span><span class="val">${phone}</span></div>`;
-        if (full && guests)
-          rows += `<div class="summary-row"><span class="lbl">Guests</span><span class="val">${guests}</span></div>`;
-        rows += `<div class="summary-row"><span class="lbl">Total</span><span class="val">₦${total.toLocaleString()}</span></div>`;
-
-        document.getElementById(id).innerHTML =
-          `<h4>Booking Summary</h4>${rows}`;
-      }
-
-      function fmtDate(s) {
-        if (!s) return "";
-        return new Date(s + "T00:00:00").toLocaleDateString("en-NG", {
-          weekday: "short",
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        });
-      }
-
-      // ── Submit booking ────────────────────────────────────
-      document
-        .getElementById("submitBookingBtn")
-        .addEventListener("click", function () {
-          const btn = document.getElementById("submitBookingBtn");
-          const label = document.getElementById("submitLabel");
-
-          const name = document.getElementById("bk-name").value.trim();
-          const phone = document.getElementById("bk-phone").value.trim();
-          const email = document.getElementById("bk-email").value.trim();
-          const guests = document.getElementById("bk-guests").value.trim();
-          const notes = document.getElementById("bk-notes").value.trim();
-          const payref = document.getElementById("bk-payref").value.trim();
-
-          if (!name || !phone || !guests) {
-            alert(
-              "Please fill in your name, phone number and number of guests.",
-            );
-            return;
-          }
-
-          const d = availabilityData[selectedCategory];
-          const n = calcNights();
-          const total = d.pricePerNight * n;
-
-          // Build a descriptive WhatsApp message
-          let msg = `🏨 *NEW BOOKING REQUEST — Yetfem Hotel*\n\n`;
-          msg += `*Guest Name:* ${name}\n`;
-          msg += `*Phone:* ${phone}\n`;
-          if (email) msg += `*Email:* ${email}\n`;
-          msg += `*Guests:* ${guests}\n\n`;
-          msg += `*Room Type:* ${d.label}\n`;
-          msg += `*Check-In:* ${fmtDate($checkin.value)}\n`;
-          msg += `*Check-Out:* ${fmtDate($checkout.value)}\n`;
-          msg += `*Nights:* ${n}\n`;
-          msg += `*Rate/Night:* ₦${d.pricePerNight.toLocaleString()}\n`;
-          msg += `*Total:* ₦${total.toLocaleString()}\n`;
-          if (payref) msg += `\n*Payment Ref:* ${payref}\n`;
-          if (notes) msg += `\n*Special Requests:* ${notes}\n`;
-          msg += `\nKindly confirm my reservation. Thank you!`;
-
-          // Show brief confirmation UI then redirect
-          btn.disabled = true;
-          label.innerHTML =
-            '<span class="spinner"></span> Redirecting to WhatsApp…';
-
-          setTimeout(function () {
-            const waURL = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
-            window.open(waURL, "_blank");
-            // Show success panel
-            goToStep(4);
-            document.querySelector(".stepper").style.display = "none";
-            // Update WhatsApp confirmation link as well
-            document.getElementById("confirmWhatsApp").href = waURL;
-            btn.disabled = false;
-            label.textContent = "Submit Booking";
-          }, 800);
-        });
-
-      function resetBookingForm() {
-        selectedCategory = null;
-        availabilityData = null;
-        bookingResult = null;
-        document.getElementById("bk-name").value = "";
-        document.getElementById("bk-phone").value = "";
-        document.getElementById("bk-email").value = "";
-        document.getElementById("bk-guests").value = "";
-        document.getElementById("bk-notes").value = "";
-        document.getElementById("bk-payref").value = "";
-        $checkin.value = "";
-        $checkout.value = "";
-        $nightsDisplay.style.display = "none";
-        document.getElementById("availGrid").style.display = "none";
-        document.getElementById("step1Nav").style.display = "none";
-        document.querySelector(".stepper").style.display = "";
-        goToStep(1);
-      }
-      window.resetBookingForm = resetBookingForm;
-
-      // ── Booking lookup ────────────────────────────────────
-      document
-        .getElementById("lookupBtn")
-        .addEventListener("click", async () => {
-          const ref = document
-            .getElementById("lookupRef")
-            .value.trim()
-            .toUpperCase();
-          if (!ref) return;
-          const resultEl = document.getElementById("lookupResult");
-          resultEl.style.display = "block";
-          resultEl.innerHTML = "<span class='spinner'></span> Searching…";
-          try {
-            const res = await fetch(`${API_BASE}/api/bookings/${ref}`);
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Not found");
-            const b = data.booking;
-            const statusColors = {
-              pending: "#d97706",
-              confirmed: "#2563eb",
-              "checked-in": "#059669",
-              "checked-out": "#475569",
-              cancelled: "#dc2626",
-            };
-            resultEl.innerHTML = `
-            <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px;margin-top:8px;">
-              <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
-                <span style="font-size:1rem;font-weight:800;color:#d4af37;letter-spacing:2px;">${b.ref}</span>
-                <span style="background:${statusColors[b.status]}20;color:${statusColors[b.status]};padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;">${b.status.toUpperCase()}</span>
-              </div>
-              <div style="font-size:0.85rem;line-height:2;color:#334155;">
-                <b>Guest:</b> ${b.guestName}<br/>
-                <b>Room:</b> ${b.roomNumber} — ${b.roomLabel}<br/>
-                <b>Check-In:</b> ${fmtDate(b.checkin)}<br/>
-                <b>Check-Out:</b> ${fmtDate(b.checkout)}<br/>
-                <b>Nights:</b> ${b.nights} &nbsp;|&nbsp; <b>Total:</b> ₦${b.totalAmount.toLocaleString()}
-              </div>
-            </div>`;
-          } catch (e) {
-            resultEl.innerHTML = `<p style="color:#dc2626;font-size:0.85rem;margin-top:8px;"><i class="fas fa-exclamation-circle"></i> ${e.message}</p>`;
-          }
-        });
 
       // ── FAQ ───────────────────────────────────────────────
       document.querySelectorAll(".faq-question").forEach((q) => {
