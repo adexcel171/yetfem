@@ -2871,7 +2871,7 @@
     <button id="scrollTop" class="scroll-top">
       <i class="fas fa-arrow-up"></i>
     </button>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
     <!-- ===== WHATSAPP FLOATING BOT ===== -->
     <style>
       .wa-float {
@@ -3045,6 +3045,7 @@
       // ── Testimonials carousel ─────────────────────────────
       (function () {
         const track = document.getElementById("ctCarouselTrack");
+        if (!track) return; // guard: element missing, skip carousel init
         const slides = track.querySelectorAll(".ct-tc");
         const dots = document.getElementById("ctDots");
         const prev = document.getElementById("ctPrev");
