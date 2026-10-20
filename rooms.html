@@ -35,32 +35,35 @@
     <nav id="navbar" class="navbar scrolled">
       <div class="nav-container">
         <a href="index.html" class="logo">
-          <div class="logo-icon"><i class="fas fa-diamond"></i></div>
+          <div class="logo-icon"><i class="fas fa-gem"></i></div>
           <div class="logo-words">
             <span class="logo-name">YETFEM</span>
             <span class="logo-tagline">Hotel &amp; Suites</span>
           </div>
         </a>
         <ul class="nav-links" id="navLinks">
-          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="catering.html" class="nav-link">Catering</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="rooms.html" class="nav-link active">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
-    <div class="page-hero">
+    <div class="page-hero rooms-page-hero">
       <div
         class="page-hero-bg"
-        style="
-          background-image: url(&quot;https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1400&quot;);
-        "
+        style="background-image: url('img/room1.jpeg')"
       ></div>
       <div class="page-hero-overlay"></div>
       <div class="page-hero-content">
@@ -95,7 +98,12 @@
             data-aos="fade-up"
           >
             <div class="room-image-wrapper">
-              <img src="/img/room.jpg" alt="Standard Room" class="room-image" />
+              <img
+                src="img/room.jpg"
+                alt="Standard Room"
+                class="room-image"
+                loading="lazy"
+              />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
                   <i class="fas fa-eye"></i><span>View Details</span>
@@ -146,7 +154,12 @@
             data-aos-delay="100"
           >
             <div class="room-image-wrapper">
-              <img src="/img/room1.jpeg" alt="Deluxe Room" class="room-image" />
+              <img
+                src="img/room1.jpeg"
+                alt="Deluxe Room"
+                class="room-image"
+                loading="lazy"
+              />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
                   <i class="fas fa-eye"></i><span>View Details</span>
@@ -195,9 +208,10 @@
           >
             <div class="room-image-wrapper">
               <img
-                src="/img/room2.jpeg"
+                src="img/room2.jpeg"
                 alt="Executive Suite"
                 class="room-image"
+                loading="lazy"
               />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
@@ -249,7 +263,12 @@
             data-aos-delay="300"
           >
             <div class="room-image-wrapper">
-              <img src="/img/room1.jpeg" alt="Family Room" class="room-image" />
+              <img
+                src="img/ro.jpg"
+                alt="Family Room"
+                class="room-image"
+                loading="lazy"
+              />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
                   <i class="fas fa-eye"></i><span>View Details</span>

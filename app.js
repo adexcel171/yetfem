@@ -152,7 +152,7 @@ const roomData = {
   standard: {
     title: "Standard Room",
     price: "₦12,000",
-    image: "/img/room.jpg",
+    image: "img/room.jpg",
     description:
       "Perfect for couples or solo travelers, our Standard Room offers cozy comfort with modern amenities. Thoughtfully designed with elegant furnishings and all the essentials for a restful stay.",
     features: [
@@ -168,7 +168,7 @@ const roomData = {
   deluxe: {
     title: "Deluxe Room",
     price: "₦12,000",
-    image: "/img/room1.jpeg",
+    image: "img/room1.jpeg",
     description:
       "Enhanced comfort with premium furnishings. Our Deluxe Room is ideal for guests seeking extra space and a touch of luxury, featuring a separate seating area and upgraded amenities.",
     features: ["King Bed", "Smart TV", "Air Conditioning", "2 Guests Max"],
@@ -176,7 +176,7 @@ const roomData = {
   executive: {
     title: "Executive Suite",
     price: "₦15,000",
-    image: "/img/room2.jpeg",
+    image: "img/room2.jpeg",
     description:
       "Our Executive Suite represents the pinnacle of luxury. Featuring a separate living area, premium minibar, and panoramic views—perfect for distinguished guests and special occasions.",
     features: ["King Bed", "2–3 Guests"],
@@ -184,7 +184,7 @@ const roomData = {
   family: {
     title: "Family Room",
     price: "₦12,000",
-    image: "/img/room2.jpeg",
+    image: "img/ro.jpg",
     description:
       "Spacious and welcoming, our Family Room is designed to accommodate the whole family. With multiple beds, extra space, and child-friendly amenities, it is the perfect home away from home.",
     features: ["Free WiFi", "Smart TV", "Air Conditioning", "4 Guests Max"],

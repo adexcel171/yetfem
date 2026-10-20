@@ -46,53 +46,37 @@
       /* ── HERO: full-screen cinematic ── */
       .ct-hero {
         position: relative;
-        min-height: 100vh;
+        min-height: clamp(620px, 88vh, 900px);
         display: flex;
         align-items: flex-end;
+        margin-top: 0;
         overflow: hidden;
+        isolation: isolate;
+        /* background image + overlay come from styles.css (section.ct-hero) */
+        background-color: #070b1a;
       }
 
-      /* Full-bleed background image */
-      .ct-hero-bg {
+      .ct-hero::before {
+        content: "";
         position: absolute;
-        inset: 0;
-        background-image: url(./img/cat2.jpeg);
-        background-size: cover;
-        background-position: center 30%;
-        transform: scale(1.06);
-        animation: heroZoom 12s ease-out forwards;
+        inset: 110px 5vw 48px;
+        z-index: -1;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        pointer-events: none;
       }
 
-      @keyframes heroZoom {
-        from {
-          transform: scale(1.06);
-        }
-        to {
-          transform: scale(1);
-        }
-      }
-
-      /* Layered cinematic overlays */
+      /* Subtle tonal shading keeps the text legible without a photo. */
       .ct-hero-overlay {
         position: absolute;
         inset: 0;
         background:
           linear-gradient(
             to top,
-            rgba(10, 5, 2, 0.97) 0%,
-            rgba(10, 5, 2, 0.55) 45%,
-            rgba(10, 5, 2, 0.1) 100%
+            rgba(7, 11, 26, 0.5) 0%,
+            rgba(7, 11, 26, 0.16) 60%,
+            transparent 100%
           ),
-          linear-gradient(to right, rgba(10, 5, 2, 0.5) 0%, transparent 60%);
-      }
-
-      /* Decorative grain texture */
-      .ct-hero-grain {
-        position: absolute;
-        inset: 0;
-        opacity: 0.04;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        background-size: 200px;
+          linear-gradient(90deg, rgba(7, 11, 26, 0.28), transparent 72%);
         pointer-events: none;
       }
 
@@ -127,6 +111,7 @@
         width: 100%;
         max-width: 1240px;
         margin: 0 auto;
+        margin-top: clamp(96px, 12vh, 140px);
         padding: 20px 60px 100px;
         display: grid;
         grid-template-columns: 1fr auto;
@@ -1009,7 +994,7 @@
       .ct-menu-item {
         display: flex;
         align-items: flex-start;
-        gap: 14px;
+        gap: 0;
         padding: 20px;
         border-radius: 3px;
         border: 1px solid rgba(45, 26, 14, 0.08);
@@ -1023,9 +1008,7 @@
         box-shadow: 0 4px 20px rgba(201, 168, 76, 0.1);
       }
       .ct-menu-item-icon {
-        font-size: 1.6rem;
-        flex-shrink: 0;
-        margin-top: 2px;
+        display: none;
       }
       .ct-menu-item-info h5 {
         font-family: "Poppins", sans-serif;
@@ -1211,8 +1194,15 @@
         }
       }
       @media (max-width: 600px) {
+        .ct-hero {
+          min-height: 760px;
+          align-items: center;
+          padding-top: 82px;
+          padding-bottom: 36px;
+        }
         .ct-hero-content {
-          padding: 0 24px 72px;
+          padding: 0 24px;
+          gap: 32px;
         }
         .ct-hero-trust {
           gap: 20px;
@@ -1253,7 +1243,7 @@
     </div>
 
     <!-- NAVBAR -->
-    <nav id="navbar" class="navbar" style="background: transparent">
+    <nav id="navbar" class="navbar">
       <div class="nav-container">
         <a href="index.html" class="logo">
           <div class="logo-icon"><i class="fas fa-gem"></i></div>
@@ -1263,14 +1253,19 @@
           </div>
         </a>
         <ul class="nav-links" id="navLinks">
-          <li><a href="index.html" class="nav-link">Home</a></li>
           <li><a href="catering.html" class="nav-link active">Catering</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="rooms.html" class="nav-link">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link">Gallery</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -1278,9 +1273,7 @@
 
     <!-- ══ HERO ══ -->
     <section class="ct-hero" id="home">
-      <div class="ct-hero-bg"></div>
       <div class="ct-hero-overlay"></div>
-      <div class="ct-hero-grain"></div>
       <div class="ct-hero-bar"></div>
 
       <div class="ct-hero-content">

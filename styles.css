@@ -281,11 +281,14 @@ button {
   left: 0;
   right: 0;
   z-index: 10000;
-  transition: all 0.4s ease;
-  background: rgba(7, 11, 26, 0.55);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  background: rgba(7, 11, 26, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
 }
 
 /* When mobile menu is open, give navbar a solid dark background so logo is always readable */
@@ -296,15 +299,15 @@ button {
 
 #navbar.scrolled {
   background: rgba(7, 11, 26, 0.97);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
+  border-bottom-color: rgba(212, 175, 55, 0.18);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
 }
 
 .nav-container {
-  max-width: 1440px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 60px);
-  height: 76px;
+  padding: 0 clamp(20px, 4.5vw, 68px);
+  height: 82px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -321,14 +324,15 @@ button {
 }
 
 .logo-icon {
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid rgba(212, 175, 55, 0.65);
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(212, 175, 55, 0.65);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--secondary);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   flex-shrink: 0;
   transition:
     transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
@@ -349,20 +353,20 @@ button {
 
 .logo-name {
   font-family: var(--font-primary);
-  font-size: 1.4rem;
+  font-size: 1.32rem;
   font-weight: 900;
   color: var(--white);
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   line-height: 1;
   /* no background */
 }
 
 .logo-tagline {
   font-family: var(--font-secondary);
-  font-size: 0.55rem;
+  font-size: 0.58rem;
   font-weight: 400;
   color: var(--secondary);
-  letter-spacing: 3.5px;
+  letter-spacing: 2.6px;
   text-transform: uppercase;
   line-height: 1;
   opacity: 0.85;
@@ -391,7 +395,7 @@ button {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 36px;
+  gap: clamp(14px, 1.7vw, 26px);
 }
 
 .nav-link {
@@ -399,8 +403,8 @@ button {
   color: rgba(255, 255, 255, 0.82);
   font-family: var(--font-primary);
   font-weight: 500;
-  font-size: 0.8rem;
-  letter-spacing: 1.2px;
+  font-size: 0.74rem;
+  letter-spacing: 1px;
   text-transform: uppercase;
   padding: 6px 0;
   transition: color 0.3s ease;
@@ -433,15 +437,15 @@ button {
 /* ── Book Now button ── */
 .btn-nav {
   font-family: var(--font-primary) !important;
-  font-size: 0.72rem !important;
+  font-size: 0.68rem !important;
   font-weight: 700 !important;
-  letter-spacing: 2px !important;
+  letter-spacing: 1.5px !important;
   text-transform: uppercase !important;
   color: var(--primary) !important;
-  background: var(--secondary) !important;
-  border: 1.5px solid var(--secondary) !important;
-  border-radius: 0 !important;
-  padding: 11px 26px !important;
+  background: linear-gradient(135deg, var(--secondary-light), var(--secondary)) !important;
+  border: 1px solid var(--secondary) !important;
+  border-radius: 999px !important;
+  padding: 12px 22px !important;
   transition:
     background 0.3s ease,
     color 0.3s ease !important;
@@ -450,7 +454,7 @@ button {
 
 .btn-nav:hover {
   background: transparent !important;
-  color: var(--secondary) !important;
+  color: var(--secondary-light) !important;
   transform: none !important;
   box-shadow: none !important;
 }
@@ -495,12 +499,45 @@ button {
 /* Hero container */
 .hero {
   position: relative;
-  height: 100vh;
-  min-height: 700px;
+  height: clamp(620px, 88vh, 900px);
+  min-height: 620px;
   display: flex;
   align-items: stretch;
   overflow: hidden;
-  background: #04060f;
+  isolation: isolate;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(7, 11, 26, 0.9) 0%,
+      rgba(7, 11, 26, 0.68) 48%,
+      rgba(7, 11, 26, 0.3) 100%
+    ),
+    #070b1a;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 110px 5vw 48px;
+  z-index: -1;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  right: 12%;
+  width: clamp(220px, 34vw, 500px);
+  aspect-ratio: 1;
+  z-index: -1;
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 34px rgba(212, 175, 55, 0.025),
+    0 0 0 82px rgba(212, 175, 55, 0.02);
+  pointer-events: none;
 }
 
 /* ============================================
@@ -553,8 +590,8 @@ button {
   background: radial-gradient(
     ellipse at 30% 50%,
     rgba(4, 6, 15, 0.12) 0%,
-    rgba(4, 6, 15, 0.58) 70%,
-    rgba(4, 6, 15, 0.82) 100%
+    rgba(4, 6, 15, 0.42) 70%,
+    rgba(4, 6, 15, 0.68) 100%
   );
 }
 
@@ -564,9 +601,9 @@ button {
   z-index: 2;
   background: linear-gradient(
     100deg,
-    rgba(4, 6, 15, 0.9) 0%,
-    rgba(4, 6, 15, 0.62) 38%,
-    rgba(4, 6, 15, 0.1) 65%,
+    rgba(4, 6, 15, 0.78) 0%,
+    rgba(4, 6, 15, 0.48) 38%,
+    rgba(4, 6, 15, 0.08) 65%,
     transparent 100%
   );
 }
@@ -797,16 +834,23 @@ button {
   z-index: 5;
   width: 100%;
   max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 64px 140px 120px;
+  margin: 10px auto;
+  padding: clamp(100px, 12vh, 150px) 64px 140px 120px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 100vh;
+  min-height: inherit;
 }
 
 .hero-content {
   color: #ffffff;
+}
+
+.hero-cta-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 20px;
 }
 
 /* Eyebrow */
@@ -1216,12 +1260,22 @@ button {
     height: 34px;
   }
   .carousel-slide {
-    background-position: center top;
+    background-position: center center;
     background-size: cover;
   }
 }
 
 @media (max-width: 480px) {
+  .hero {
+    height: max(800px, 100svh);
+    min-height: 800px;
+  }
+
+  .hero-cta-secondary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .hero-wrapper {
     padding: 0 18px 155px 18px;
   }
@@ -1370,8 +1424,8 @@ button {
 }
 
 .btn-nav {
-  padding: 12px 28px !important;
-  font-size: 0.9rem !important;
+  padding: 12px 22px !important;
+  font-size: 0.68rem !important;
 }
 
 /* ============================================
@@ -1638,14 +1692,15 @@ button {
 }
 
 .room-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-xl);
 }
 
 .room-image-wrapper {
   position: relative;
-  height: 320px;
+  height: clamp(260px, 27vw, 360px);
   overflow: hidden;
+  background: var(--gray-100);
 }
 
 .room-image {
@@ -1656,22 +1711,41 @@ button {
 }
 
 .room-card:hover .room-image {
-  transform: scale(1.15);
+  transform: scale(1.06);
 }
 
 .room-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(13, 27, 42, 0.9), transparent);
+  background: linear-gradient(
+    to top,
+    rgba(7, 11, 26, 0.76),
+    rgba(7, 11, 26, 0.08) 55%,
+    transparent 75%
+  );
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 22px;
   opacity: 0;
   transition: opacity var(--transition-base);
 }
 
-.room-card:hover .room-overlay {
+.room-card:hover .room-overlay,
+.room-card:focus-within .room-overlay {
   opacity: 1;
+}
+
+.room-overlay .btn-ghost {
+  border-radius: 999px;
+  padding: 11px 18px;
+  color: var(--primary);
+  background: rgba(255, 255, 255, 0.94);
+  font-size: 0.82rem;
+}
+
+.room-overlay .btn-ghost:hover {
+  background: var(--secondary-light);
 }
 
 .room-badge {
@@ -2271,7 +2345,7 @@ button {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 2000;
+  z-index: 10001;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -2645,6 +2719,19 @@ button {
   background-size: cover;
   background-position: center;
   opacity: 0.35;
+}
+
+.rooms-page-hero .page-hero-bg {
+  opacity: 0.72;
+  background-position: center 48%;
+}
+
+.rooms-page-hero .page-hero-overlay {
+  background: linear-gradient(
+    90deg,
+    rgba(11, 19, 43, 0.76),
+    rgba(11, 19, 43, 0.42)
+  );
 }
 
 .page-hero-overlay {
@@ -3164,7 +3251,7 @@ button {
     font-size: clamp(2rem, 8vw, 3rem);
   }
   .hero-wrapper {
-    padding: 0 24px 120px 24px;
+    padding: 110px 24px 120px;
   }
   .hero-rule {
     display: none;
@@ -3249,10 +3336,12 @@ button {
     margin-bottom: 50px;
   }
   .hero {
+    height: max(800px, 100svh);
     min-height: 650px;
   }
   .hero-wrapper {
-    padding: 0 20px 110px 20px;
+    justify-content: center;
+    padding: 110px 20px 110px;
   }
   .title-line-1 {
     font-size: clamp(3.5rem, 18vw, 5.5rem);
@@ -3308,12 +3397,12 @@ button {
   .nav-links {
     display: flex !important;
     position: fixed !important;
-    top: 76px !important;
+    top: 82px !important;
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
     width: 100% !important;
-    height: calc(100vh - 76px) !important;
+    height: calc(100vh - 82px) !important;
     background: #070b1a !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -3396,7 +3485,7 @@ button {
 }
 .page-hero {
   height: clamp(280px, 40vw, 460px) !important;
-  padding-top: 70px !important;
+  padding-top: 82px !important;
 }
 .section {
   padding: clamp(60px, 8vw, 120px) clamp(16px, 4vw, 40px);
@@ -3432,12 +3521,24 @@ button {
     padding: 24px 20px;
   }
   .room-image-wrapper {
-    height: 240px;
+    height: 270px;
   }
   .about-images {
     height: 300px !important;
   }
+
 }
+
+@media (hover: none) {
+  .room-overlay {
+    opacity: 1;
+  }
+
+  .room-card:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 768px) {
   .modal-content {
     grid-template-columns: 1fr;
@@ -3708,4 +3809,281 @@ button {
 .scroll-top.visible {
   opacity: 1;
   visibility: visible;
+}
+
+/* ==========================================================================
+   HERO FIXES — responsive images, content spacing, improved overlays
+   (index.html .hero  +  inner pages .page-hero e.g. catering)
+   Placed last so it overrides the earlier hero rules.
+   ========================================================================== */
+
+:root {
+  --nav-h: 82px; /* fixed navbar height – content is pushed below it */
+  /* Hero header images – paths are relative to this stylesheet.
+     Change the file names here if your images are named differently. */
+  --hero-hotel-img: url("img/room1.jpeg");
+  --hero-catering-img: url("img/yet6.jpeg"); /* ← change this file to swap the catering hero image */
+  --hero-catering-pos: center center; /* focus point, e.g. center 30% to show more of the top */
+}
+
+/* ---------- INDEX HERO ---------- */
+.hero {
+  height: auto;
+  min-height: clamp(640px, 100svh, 1000px);
+  /* Hotel header image from the external file. The carousel slides sit on
+     top of it, so it also shows if a slide is missing or still loading. */
+  background:
+    linear-gradient(
+      100deg,
+      rgba(7, 11, 26, 0.85) 0%,
+      rgba(7, 11, 26, 0.55) 50%,
+      rgba(7, 11, 26, 0.25) 100%
+    ),
+    var(--hero-hotel-img) center center / cover no-repeat,
+    #070b1a;
+}
+
+/* Images always cover the full hero on every screen size */
+.hero-carousel,
+.carousel-slide,
+.slide-ken {
+  width: 100%;
+  height: 100%;
+}
+.carousel-slide {
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.carousel-slide img,
+.slide-ken img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Content: clear the navbar + breathing room above the eyebrow */
+.hero-wrapper {
+  flex: 1;
+  margin: 0 auto;
+  justify-content: flex-end;
+  padding:
+    calc(var(--nav-h) + clamp(32px, 8vh, 96px))
+    clamp(20px, 5vw, 64px)
+    clamp(130px, 18vh, 170px)
+    clamp(20px, 8vw, 120px);
+}
+
+/* ---------- IMPROVED OVERLAYS ---------- */
+/* Left → right fade (text side) + top fade so the navbar stays readable */
+.hero-overlay-left {
+  background:
+    linear-gradient(180deg, rgba(4, 6, 15, 0.7) 0%, rgba(4, 6, 15, 0) 24%),
+    linear-gradient(
+      100deg,
+      rgba(4, 6, 15, 0.86) 0%,
+      rgba(4, 6, 15, 0.66) 34%,
+      rgba(4, 6, 15, 0.3) 62%,
+      rgba(4, 6, 15, 0.1) 100%
+    );
+}
+
+/* Softer vignette with a subtle navy brand tint */
+.hero-overlay-vignette {
+  background:
+    radial-gradient(
+      ellipse at 35% 50%,
+      rgba(4, 6, 15, 0) 0%,
+      rgba(4, 6, 15, 0.28) 70%,
+      rgba(4, 6, 15, 0.55) 100%
+    ),
+    rgba(11, 19, 43, 0.12);
+}
+
+/* Smooth multi-stop fade into the stats bar */
+.hero-overlay-bottom {
+  height: clamp(200px, 34%, 340px);
+  background: linear-gradient(
+    to top,
+    rgba(4, 6, 15, 0.95) 0%,
+    rgba(4, 6, 15, 0.75) 30%,
+    rgba(4, 6, 15, 0.3) 65%,
+    transparent 100%
+  );
+}
+
+/* Better text contrast over photos */
+.hero-tagline {
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+}
+.title-line-2 {
+  color: rgba(255, 255, 255, 0.88);
+}
+.title-location {
+  color: rgba(255, 255, 255, 0.65);
+}
+.title-line-3 {
+  color: rgba(212, 175, 55, 0.9);
+}
+
+@media (max-width: 1024px) {
+  .hero-wrapper {
+    padding:
+      calc(var(--nav-h) + clamp(28px, 7vh, 80px)) 40px 150px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 76px;
+  }
+  .hero::before,
+  .hero::after {
+    display: none; /* decorative frame/circle crowd small screens */
+  }
+  .hero-wrapper {
+    padding: calc(var(--nav-h) + 32px) 24px 150px 24px;
+  }
+  /* Text spans full width on mobile → use an even top-to-bottom overlay */
+  .hero-overlay-left {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 6, 15, 0.72) 0%,
+      rgba(4, 6, 15, 0.5) 35%,
+      rgba(4, 6, 15, 0.62) 70%,
+      rgba(4, 6, 15, 0.88) 100%
+    );
+  }
+  .hero-overlay-bottom {
+    height: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: auto;
+    min-height: max(680px, 100svh);
+  }
+  .hero-wrapper {
+    justify-content: flex-end;
+    padding: calc(var(--nav-h) + 28px) 20px 150px 20px;
+  }
+}
+
+/* Short landscape screens (phones on their side) */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero {
+    min-height: 560px;
+  }
+  .hero-wrapper {
+    padding-top: calc(var(--nav-h) + 20px);
+  }
+}
+
+/* ---------- INNER PAGE HERO (catering, rooms, gallery, …) ---------- */
+.page-hero {
+  height: auto !important;
+  min-height: clamp(340px, 52vh, 560px) !important;
+  padding: calc(var(--nav-h) + clamp(24px, 5vh, 56px)) 0
+    clamp(40px, 6vh, 72px) !important;
+  background: var(--dark);
+}
+
+.page-hero-bg,
+.rooms-page-hero .page-hero-bg {
+  width: 100%;
+  height: 100%;
+  opacity: 1; /* darkening is handled by the overlay, not by fading the photo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.page-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.page-hero-overlay,
+.rooms-page-hero .page-hero-overlay {
+  background:
+    linear-gradient(180deg, rgba(4, 6, 15, 0.7) 0%, rgba(4, 6, 15, 0) 30%),
+    linear-gradient(
+      180deg,
+      rgba(7, 11, 26, 0.55) 0%,
+      rgba(7, 11, 26, 0.62) 50%,
+      rgba(7, 11, 26, 0.88) 100%
+    ),
+    linear-gradient(135deg, rgba(11, 19, 43, 0.45), rgba(28, 37, 65, 0.2));
+}
+
+.page-hero-content {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 32px);
+}
+.page-hero-content h1 {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+}
+.page-hero-content p {
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+.page-hero-content .breadcrumb {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .page-hero {
+    min-height: clamp(320px, 60svh, 460px) !important;
+  }
+  .page-hero-content p {
+    font-size: 1rem;
+  }
+}
+
+/* ---------- CATERING HERO (.ct-hero in catering.html) ----------
+   Uses "section.ct-hero" so it wins over the page's inline <style>. */
+section.ct-hero {
+  min-height: clamp(640px, 100svh, 1000px);
+  margin-top: 0;
+  background:
+    linear-gradient(180deg, rgba(4, 6, 15, 0.7) 0%, rgba(4, 6, 15, 0) 26%),
+    linear-gradient(
+      100deg,
+      rgba(7, 11, 26, 0.88) 0%,
+      rgba(7, 11, 26, 0.65) 45%,
+      rgba(7, 11, 26, 0.3) 100%
+    ),
+    var(--hero-catering-img) var(--hero-catering-pos) / cover no-repeat,
+    #070b1a;
+}
+
+@media (max-width: 768px) {
+  /* content spans full width on small screens → even overlay */
+  section.ct-hero {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(4, 6, 15, 0.72) 0%,
+        rgba(4, 6, 15, 0.55) 40%,
+        rgba(4, 6, 15, 0.85) 100%
+      ),
+      var(--hero-catering-img) var(--hero-catering-pos) / cover no-repeat,
+      #070b1a;
+  }
+}
+
+@media (max-width: 600px) {
+  section.ct-hero {
+    min-height: max(760px, 100svh);
+  }
 }

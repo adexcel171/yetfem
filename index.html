@@ -34,7 +34,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav id="navbar" class="navbar" style="background: transparent">
+    <nav id="navbar" class="navbar">
       <div class="nav-container">
         <a href="index.html" class="logo">
           <div class="logo-icon"><i class="fas fa-gem"></i></div>
@@ -44,96 +44,26 @@
           </div>
         </a>
         <ul class="nav-links" id="navLinks">
-          <li><a href="index.html" class="nav-link active">Home</a></li>
           <li><a href="catering.html" class="nav-link">Catering</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="rooms.html" class="nav-link">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
           <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
 
-    <!-- ===== HERO — Carousel ===== -->
+    <!-- ===== HERO ===== -->
     <section id="home" class="hero">
-      <!-- ── Carousel slides ── -->
-      <div class="hero-carousel" id="heroCarousel">
-        <div
-          class="carousel-slide active"
-          style="background-image: url(/img/room1.jpeg)"
-        >
-          <div class="slide-ken"></div>
-        </div>
-        <div
-          class="carousel-slide"
-          style="background-image: url(/img/room1.jpeg)"
-        >
-          <div class="slide-ken"></div>
-        </div>
-        <div
-          class="carousel-slide"
-          style="background-image: url(/img/room2.jpeg)"
-        >
-          <div class="slide-ken"></div>
-        </div>
-        <div class="carousel-slide" style="background-image: url(/img/hpm.jpg)">
-          <div class="slide-ken"></div>
-        </div>
-        <div
-          class="carousel-slide"
-          style="background-image: url(/img/cat2.jpeg)"
-        >
-          <div class="slide-ken"></div>
-        </div>
-
-        <!-- Layered overlays -->
-        <div class="hero-overlay-vignette"></div>
-        <div class="hero-overlay-bottom"></div>
-        <div class="hero-overlay-left"></div>
-
-        <!-- ── Carousel prev / next arrows ── -->
-        <button
-          class="carousel-arrow carousel-prev"
-          id="carouselPrev"
-          aria-label="Previous slide"
-        >
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button
-          class="carousel-arrow carousel-next"
-          id="carouselNext"
-          aria-label="Next slide"
-        >
-          <i class="fas fa-chevron-right"></i>
-        </button>
-
-        <!-- ── Dot indicators ── -->
-        <div class="carousel-dots" id="carouselDots">
-          <button
-            class="cdot active"
-            data-index="0"
-            aria-label="Slide 1"
-          ></button>
-          <button class="cdot" data-index="1" aria-label="Slide 2"></button>
-          <button class="cdot" data-index="2" aria-label="Slide 3"></button>
-          <button class="cdot" data-index="3" aria-label="Slide 4"></button>
-          <button class="cdot" data-index="4" aria-label="Slide 5"></button>
-        </div>
-
-        <!-- ── Progress bar ── -->
-        <div class="carousel-progress-bar" id="carouselProgress"></div>
-      </div>
-      <!-- /hero-carousel -->
-
-      <!-- Floating gold particles -->
-      <div class="hero-particles">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-
       <!-- Main Content -->
       <div class="hero-wrapper">
         <!-- Left vertical rule decoration -->
@@ -178,7 +108,7 @@
               <i class="fas fa-chevron-right"></i>
             </a>
           </div>
-          <div class="" style="margin-top: 20px">
+          <div class="hero-cta-secondary">
             <a href="rooms.html" class="hero-btn hero-btn-primary">
               <span>Explore Rooms</span>
               <span class="btn-icon-box"
@@ -278,13 +208,21 @@
           </div>
           <div class="about-images" data-aos="fade-left">
             <div class="about-image about-image-main">
-              <img src="/img/ro.jpg" alt="Yetfem Hotel Lobby" />
+              <img
+                src="img/ro.jpg"
+                alt="Hotel room with a bright, airy interior"
+                loading="lazy"
+              />
               <div class="image-badge">
                 <i class="fas fa-award"></i><span>Premium Quality</span>
               </div>
             </div>
             <div class="about-image about-image-secondary">
-              <img src="/img/hpm.jpg" alt="Luxury Room Interior" />
+              <img
+                src="img/hpm.jpg"
+                alt="Yetfem Hotel exterior"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
@@ -340,9 +278,10 @@
           <div class="room-card" data-room="standard" data-aos="fade-up">
             <div class="room-image-wrapper">
               <img
-                src="/img/room1.jpeg"
+                src="img/room.jpg"
                 alt="Standard Room"
                 class="room-image"
+                loading="lazy"
               />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
@@ -387,12 +326,17 @@
           <!-- Deluxe -->
           <div
             class="room-card"
-            data-room=""
+            data-room="deluxe"
             data-aos="fade-up"
             data-aos-delay="100"
           >
             <div class="room-image-wrapper">
-              <img src="/img/room2.jpeg" alt="Deluxe Room" class="room-image" />
+              <img
+                src="img/room1.jpeg"
+                alt="Deluxe Room"
+                class="room-image"
+                loading="lazy"
+              />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
                   <i class="fas fa-eye"></i><span>View Details</span>
@@ -439,9 +383,10 @@
           >
             <div class="room-image-wrapper">
               <img
-                src="/img/room.jpg"
+                src="img/room2.jpeg"
                 alt="Executive Suite"
                 class="room-image"
+                loading="lazy"
               />
               <div class="room-overlay">
                 <button class="btn btn-ghost">
@@ -492,7 +437,7 @@
           >
             <div class="room-image-wrapper">
               <video class="room-image" autoplay muted loop playsinline>
-                <source src="/img/vid2.mp4" type="video/mp4" />
+                <source src="img/vid2.mp4" type="video/mp4" />
               </video>
 
               <div class="room-overlay">
@@ -555,21 +500,21 @@
         </div>
         <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
           <div class="gallery-item gallery-large">
-            <img src="/img/room.jpg" alt="Standard Room" />
+            <img src="img/room.jpg" alt="Standard Room" loading="lazy" />
             <div class="gallery-overlay">
               <h4>Standard Room</h4>
               <p>Comfortable &amp; Modern</p>
             </div>
           </div>
           <div class="gallery-item">
-            <img src="/img/room1.jpeg" alt="Deluxe Room" />
+            <img src="img/room1.jpeg" alt="Deluxe Room" loading="lazy" />
             <div class="gallery-overlay">
               <h4>Deluxe Room</h4>
               <p>Premium Luxury</p>
             </div>
           </div>
           <div class="gallery-item">
-            <img src="/img/ro.jpg" alt="Executive Suite" />
+            <img src="img/ro.jpg" alt="Executive Suite" loading="lazy" />
             <div class="gallery-overlay">
               <h4>Executive Suite</h4>
               <p>Ultimate Elegance</p>
@@ -578,7 +523,7 @@
           <div class="gallery-item gallery-wide">
             <video autoplay muted loop playsinline>
               <source
-                src="/img//WhatsApp Video 2026-02-17 at 6.02.48 PM.mp4"
+                src="img/WhatsApp Video 2026-02-17 at 6.02.48 PM.mp4"
                 type="video/mp4"
               />
               Your browser does not support the video tag.
@@ -591,7 +536,7 @@
           </div>
           <div class="gallery-item">
             <video autoplay muted loop playsinline>
-              <source src="/img/vid1.mp4" type="video/mp4" />
+              <source src="img/vid1.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <div class="gallery-overlay">
@@ -1031,108 +976,6 @@
         window.addEventListener("load", function () {
           setTimeout(revealHero, 600); // after preloader fades
         });
-      })();
-    </script>
-    <!-- ===== HERO CAROUSEL SCRIPT ===== -->
-    <script>
-      (function () {
-        const slides = document.querySelectorAll(".carousel-slide");
-        const dots = document.querySelectorAll(".cdot");
-        const progress = document.getElementById("carouselProgress");
-        const ccur = document.getElementById("counterCurrent");
-        const ctot = document.getElementById("counterTotal");
-        const prevBtn = document.getElementById("carouselPrev");
-        const nextBtn = document.getElementById("carouselNext");
-
-        let current = 0;
-        let timer = null;
-        let progTimer = null;
-        const INTERVAL = 5500; // ms per slide
-
-        if (ctot) ctot.textContent = String(slides.length).padStart(2, "0");
-
-        function goTo(idx) {
-          slides[current].classList.remove("active");
-          dots[current].classList.remove("active");
-
-          current = (idx + slides.length) % slides.length;
-
-          slides[current].classList.add("active");
-          dots[current].classList.add("active");
-          if (ccur) ccur.textContent = String(current + 1).padStart(2, "0");
-
-          resetProgress();
-        }
-
-        function next() {
-          goTo(current + 1);
-        }
-        function prev() {
-          goTo(current - 1);
-        }
-
-        function startAuto() {
-          clearInterval(timer);
-          timer = setInterval(next, INTERVAL);
-        }
-
-        function resetProgress() {
-          if (progress) {
-            progress.style.transition = "none";
-            progress.style.width = "0%";
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => {
-                progress.style.transition = "width " + INTERVAL + "ms linear";
-                progress.style.width = "100%";
-              });
-            });
-          }
-        }
-
-        prevBtn.addEventListener("click", () => {
-          prev();
-          startAuto();
-        });
-        nextBtn.addEventListener("click", () => {
-          next();
-          startAuto();
-        });
-
-        dots.forEach((dot) => {
-          dot.addEventListener("click", () => {
-            goTo(parseInt(dot.dataset.index, 10));
-            startAuto();
-          });
-        });
-
-        // Pause on hover
-        const carousel = document.getElementById("heroCarousel");
-        carousel.addEventListener("mouseenter", () => clearInterval(timer));
-        carousel.addEventListener("mouseleave", startAuto);
-
-        // Touch / swipe support
-        let touchStartX = 0;
-        carousel.addEventListener(
-          "touchstart",
-          (e) => {
-            touchStartX = e.changedTouches[0].clientX;
-          },
-          { passive: true },
-        );
-        carousel.addEventListener(
-          "touchend",
-          (e) => {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 40) {
-              dx < 0 ? next() : prev();
-              startAuto();
-            }
-          },
-          { passive: true },
-        );
-
-        startAuto();
-        resetProgress();
       })();
     </script>
   </body>

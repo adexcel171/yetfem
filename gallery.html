@@ -100,26 +100,29 @@
       </div>
       <div class="preloader-bar"></div>
     </div>
-    <!-- NAVBAR — matches styles.css #navbar / .nav-container / .nav-links -->
+    <!-- Navigation -->
     <nav id="navbar" class="navbar scrolled">
       <div class="nav-container">
         <a href="index.html" class="logo">
-          <span class="logo-text">YETFEM</span>
+          <div class="logo-icon"><i class="fas fa-gem"></i></div>
+          <div class="logo-words">
+            <span class="logo-name">YETFEM</span>
+            <span class="logo-tagline">Hotel &amp; Suites</span>
+          </div>
         </a>
         <ul class="nav-links" id="navLinks">
-          <li><a href="index.html" class="nav-link">Home</a></li>
           <li><a href="catering.html" class="nav-link">Catering</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="rooms.html" class="nav-link">Rooms</a></li>
           <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
-          <li><a href="contact.html" class="nav-link">Book Now</a></li>
+          <li><a href="contact.html" class="btn btn-nav">Book Now</a></li>
         </ul>
         <button
           class="hamburger"
           id="hamburger"
-          aria-labebtn
-          btn-navl="Toggle menu"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
         >
           <span></span><span></span><span></span>
         </button>
@@ -127,7 +130,7 @@
     </nav>
 
     <!-- PAGE HERO — .page-hero / .page-hero-bg / .page-hero-overlay / .page-hero-content from styles.css -->
-    <div class="page-hero" style="padding-top: 76px">
+    <div class="page-hero">
       <div
         class="page-hero-bg"
         style="
